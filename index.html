@@ -1136,7 +1136,19 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 <sc-if value="{{ show.mk }}" hint-placeholder-val="{{ false }}">
 <div style="padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 12px">
 <span class="en" style="font-size: 13px; color: #A3A19B">{{ mk.code }}</span>
-<div class="card" style="overflow: hidden; height: 520px"><div class="tv" ref="{{ mk.bigRef }}" style="height: 100%"></div></div>
+<div class="card" style="overflow: hidden; height: 420px"><div class="tv" ref="{{ mk.bigRef }}" style="height: 100%"></div></div>
+<sc-if value="{{ mk.hasInfo }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 18px; padding-top: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 class="h2">何の数字か</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #E9E6DF">{{ mk.what }}</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 class="h2">起業との関係</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #E9E6DF">{{ mk.why }}</p>
+</div>
+</div>
+</sc-if>
 </div>
 </sc-if>
 
@@ -1470,9 +1482,23 @@ var MK_DEFAULT = [
   { s: 'FOREXCOM:SPXUSD', d: 'S&P 500' },
   { s: 'FOREXCOM:NSXUSD', d: 'NASDAQ 100' },
   { s: 'FX:USDJPY', d: 'ドル/円' },
-  { s: 'TVC:US10Y', d: '米10年債利回り' },
   { s: 'TVC:GOLD', d: '金' }
 ];
+// Shown under the big chart: what the number is, and why it matters when starting a business.
+var MK_INFO = {
+  'FOREXCOM:JP225': ['日本を代表する大企業225社の株価の平均（日経平均）に連動する値です。日本経済の調子を表す代表的な数字です。', '株価が高い時期は投資家にお金の余裕があり、スタートアップへの出資や上場が活発になりやすいです。'],
+  'OANDA:JP225USD': ['日経平均に連動する値を、ドル建てで表したものです。', '株価が高い時期は投資家にお金の余裕があり、スタートアップへの出資や上場が活発になりやすいです。'],
+  'FOREXCOM:SPXUSD': ['アメリカの大企業500社の株価の平均です。世界経済の調子を見る基準になります。', '日本の株価もこれにつられて動くことが多く、世界の投資家の気分を読む手がかりになります。'],
+  'FOREXCOM:NSXUSD': ['アメリカのIT企業を中心とした100社（Apple、NVIDIAなど）の株価の平均です。', 'テック系の景気そのものです。大きく下がると、スタートアップへの出資が渋くなり、評価額も下がりがちです。'],
+  'FX:USDJPY': ['1ドルを買うのに何円かかるかです。数字が大きいほど円安（円の価値が低い）です。', 'サーバー代やAI・海外のSaaSの利用料はドル建てが多く、円安だと同じサービスでも高くなります。海外向けや訪日客向けの事業には追い風です。'],
+  'TVC:GOLD': ['金（ゴールド）の値段です。1オンス（約31グラム）あたりのドルで表します。', '先行きが不安なときに買われやすく、上がっていると警戒している人が多いサインです。'],
+  'FX:EURJPY': ['1ユーロを買うのに何円かかるかです。', 'ヨーロッパの顧客に売るときや、ヨーロッパのサービスを使うときのコストに関係します。'],
+  'TVC:DXY': ['主要な通貨に対するドルの強さを1つにまとめた数字です。', '上がるとドルが強く、円安が進みやすくなります。ドル建てのコストを見通す目安です。'],
+  'BITSTAMP:BTCUSD': ['代表的な暗号資産（ビットコイン）のドル建ての価格です。', '値動きが大きく、投資家がリスクを取りたい気分かどうかを映しやすい指標です。'],
+  'NASDAQ:AAPL': ['Appleの株価です。', 'iPhoneやApp Storeの動向は、アプリで事業をする側の環境に直結します。'],
+  'NASDAQ:NVDA': ['NVIDIAの株価です。AIの計算に使う半導体の最大手です。', 'AIブームの勢いを映す代表的な銘柄で、AI関連の事業や出資の熱気を読む手がかりになります。'],
+  'NASDAQ:MSFT': ['Microsoftの株価です。', 'クラウドやAIへの大手の投資の動きを読む手がかりになります。']
+};
 var MK_PRESETS = [
   { s: 'FX:EURJPY', d: 'ユーロ/円' },
   { s: 'TVC:DXY', d: 'ドル指数' },
@@ -1489,7 +1515,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { tab: 'home', sub: null, seg: 'recruit', post: 'r1', emp: {}, joined: { e4: true }, day: 21, lens: 'すべて', course: 'S', cnode: null, lseg: 'study', libf: 'all', reviewed: {}, bfilter: 'all', accBase: false, exf: 'all', enType: 'ビジコン', accRole: true, np: 'idea', npFrame: '実プロジェクト枠', npRoles: { Engineer: true }, npEnd: 0, src: '聞き取り', sev: 2, anon: true, nf: 'すべて', news: 'n1', fo: null, ps: '共感順', accPrac: true, likes: {} };
-    try { const sv = JSON.parse(localStorage.getItem('slope-mk-v1')); if (Array.isArray(sv) && sv.length) this.state.mkSyms = sv; } catch (e) {}
+    try { const sv = JSON.parse(localStorage.getItem('slope-mk-v1')); if (Array.isArray(sv)) { const ok = sv.filter((x) => x && x.s !== 'TVC:US10Y'); if (ok.length) this.state.mkSyms = ok; } } catch (e) {}
     if (!this.state.mkSyms) this.state.mkSyms = MK_DEFAULT.slice();
     try {
       const q = new URLSearchParams(location.search).get('tvwidgetsymbol');
@@ -2024,6 +2050,7 @@ class Component extends DCLogic {
         autosize: true, hide_side_toolbar: true, allow_symbol_change: false, save_image: false, calendar: false,
         backgroundColor: 'rgba(19,19,19,1)', gridColor: 'rgba(37,37,36,1)' }); },
       code: s.mkSym || '',
+      hasInfo: !!MK_INFO[s.mkSym], what: (MK_INFO[s.mkSym] || [])[0] || '', why: (MK_INFO[s.mkSym] || [])[1] || '',
       rows: mkList.map((x, i, arr) => ({ name: x.d, code: x.s, upDis: i === 0, dnDis: i === arr.length - 1, rmDis: arr.length === 1,
         sep: i < arr.length - 1 ? '1px solid #252524' : '0',
         up: () => mkMove(i, -1), dn: () => mkMove(i, 1), rm: () => mkSave(mkList.filter((_, j) => j !== i)) })),
