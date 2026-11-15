@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#070707">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="SLOPE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>SLOPE</title>
+<style>
+:root{
+  /* black base. white = selected / done, red = act now, grey = inactive. one phone-width column. */
+  --bg:#0A0A0A; --surface:#161616; --line:#2B2B2B; --text:#F5F5F5; --muted:#A6A6A6;
+  --red:#E60023; --red-text:#FF4D5E;
+  --latin:'Barlow','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--text)}
+html:has(body.desk),body.desk{background:#050505}
+*{-webkit-tap-highlight-color:transparent}
+#stage{position:fixed;left:50%;top:50%;width:390px;height:var(--h);transform-origin:center center}
+body.desk #stage{border-radius:44px;overflow:hidden;box-shadow:0 0 0 8px #0A0A0A,0 0 0 9px #3A3A3A,0 30px 80px rgba(0,0,0,.6)}
+#stage .app{height:var(--h) !important}
+.scroll{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.app *{box-sizing:border-box}
+.app button{font:inherit;cursor:pointer;transition:opacity .12s}
+.app button:not(:disabled):active{opacity:.7}
+.app button:disabled{cursor:default}
+.app button:focus-visible,.app input:focus-visible,.app textarea:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.app input,.app textarea{font:inherit}
+.app input::placeholder,.app textarea::placeholder{color:#7A7A7A}
+.app h1,.app h2{word-break:auto-phrase}
+.app button.chip{font-size:13px;font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.lbl{font-size:12px;letter-spacing:0.06em;color:#BDBDBD;font-family:var(--latin);text-transform:uppercase;font-weight:600}
+.chip{display:inline-flex;align-items:center;height:28px;padding:0 11px;border-radius:6px;font-size:13px;font-weight:500;border:1px solid #3A3A3A;color:#D0D0D0;white-space:nowrap}
+.h2{font-size:18px;font-weight:700;margin:0;color:var(--text)}
+.ibtn{width:44px;height:44px;border-radius:12px;border:0;background:transparent;color:var(--text);display:flex;align-items:center;justify-content:center}
+.en{font-family:var(--latin);font-variant-numeric:tabular-nums}
+.grid{background-color:#101010;background-size:18px 18px}
+.mark{display:inline-block;flex:none;background:url(data:image/png;base64,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) center/contain no-repeat}
+.wordmark{display:block;width:95px;height:14px;background:url(data:image/png;base64,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) center/contain no-repeat}
+a{color:var(--text)}a:hover{color:var(--red-text)}
+@media (prefers-reduced-motion:reduce){.app *{transition:none !important}}
+
+/* trial theme: warm black, off-white, amber as the only accent */
+:root{--bg:#070707;--surface:#131313;--line:#222221;--text:#F3F1EC;--muted:#A3A19B;--red-text:#F2A93B;--accent:#F2A93B}
+html:has(body.desk),body.desk{background:#020202}
+body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba(0,0,0,.7)}
+.app{background:#070707 !important}
+.card{border-radius:10px}
+.h2{display:flex;align-items:center;gap:9px}
+.h2::before{content:"";flex:none;width:3px;height:15px;border-radius:2px;background:var(--accent)}
+.lbl{letter-spacing:.1em;color:#A3A19B}
+.chip{border-color:#383836;color:#D2CFC8}
+.big{font-family:'Barlow Condensed','Barlow','Helvetica Neue',Arial,sans-serif;font-variant-numeric:tabular-nums}
+.app h1{letter-spacing:-0.01em}
+.app input::placeholder,.app textarea::placeholder{color:#7D7B76}
+.grid{background-color:#0C0C0C}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<template id="tpl">
+<div class="app" style="width: 390px; height: 844px; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #070707; color: #F3F1EC; font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo', sans-serif; font-size: 16px; line-height: 1.6">
+
+<sc-if value="{{ show.main }}" hint-placeholder-val="{{ true }}">
+<header style="height: 64px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 6px 12px 0 20px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span class="mark" role="img" aria-label="F-LAB" style="width: 32px; height: 32px"></span>
+<span class="en" style="font-weight: 700; font-size: 18px; letter-spacing: 0.16em">SLOPE</span>
+</div>
+<div style="display: flex; align-items: center">
+<button class="ibtn" aria-label="通知" style="position: relative">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+<span style="position: absolute; top: 11px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: #F2A93B"></span>
+</button>
+<button onClick="{{ goMe }}" aria-label="マイページ" style="width: 44px; height: 44px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center">
+<span class="en" style="width: 30px; height: 30px; border-radius: 50%; background: {{ meAv.bg }}; color: {{ meAv.fg }}; border: 1.5px solid {{ meAv.bd }}; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">YT</span>
+</button>
+</div>
+</header>
+</sc-if>
+
+<sc-if value="{{ show.subbar }}" hint-placeholder-val="{{ false }}">
+<header style="height: 60px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; border-bottom: 1px solid #1C1C1B">
+<button class="ibtn" onClick="{{ back }}" aria-label="戻る">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</button>
+<span style="font-size: 16px; font-weight: 700">{{ subTitle }}</span>
+<span style="width: 44px; height: 44px"></span>
+</header>
+</sc-if>
+
+<main class="scroll" style="flex: 1; min-height: 0; overflow-y: auto">
+
+
+<sc-if value="{{ show.home }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 2px 20px 48px; display: flex; flex-direction: column; gap: 20px">
+
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span class="lbl" style="padding-left: 2px">FRI · 11.13</span>
+<h1 style="margin: 0 0 0 -1px; font-size: 24px; font-weight: 700; line-height: 1.3">こんにちは、太郎さん</h1>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+
+<button onClick="{{ goCal }}" class="card" style="grid-column: span 2; width: 100%; padding: 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; color: #F3F1EC; background: #131313; border-color: #383836">
+<span style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+<span class="en" style="font-size: 12px; letter-spacing: 0.12em; font-weight: 700; color: #F2A93B">NEXT · 部内イベント</span>
+<span style="font-size: 21px; font-weight: 700; line-height: 1.3">LUNA エントリー締切</span>
+<span class="en" style="font-size: 14px; color: #BDBAB3">11.21 SAT · 23:59</span>
+</span>
+<span style="flex: none; display: flex; flex-direction: column; align-items: flex-end">
+<span class="big" style="font-size: 64px; font-weight: 700; color: #F2A93B; line-height: 0.85">8</span>
+<span class="en" style="font-size: 10px; letter-spacing: 0.14em; font-weight: 700; color: #BDBAB3; margin-top: 8px">DAYS LEFT</span>
+</span>
+</button>
+
+<button onClick="{{ goLearn }}" class="card" style="width: 100%; min-height: 148px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; text-align: left; color: #F3F1EC">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 13px; font-weight: 700; color: #A3A19B">学習</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg></span>
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="position: relative; flex: none; width: 52px; height: 52px">
+<svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="26" cy="26" r="22" fill="none" stroke="#2C2C2A" stroke-width="5"></circle><circle cx="26" cy="26" r="22" fill="none" stroke="#F3F1EC" stroke-width="5" stroke-linecap="round" stroke-dasharray="39.5 138.2"></circle></svg>
+<span class="en" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">2/7</span>
+</span>
+<span style="display: flex; flex-direction: column; min-width: 0"><span class="en" style="font-size: 12px; color: #A3A19B">Strategist</span><span style="font-size: 14px; font-weight: 700; line-height: 1.35">ST2<br>戦略理論</span></span>
+</span>
+</button>
+
+<button onClick="{{ goPractice }}" class="card" style="width: 100%; min-height: 148px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; text-align: left; color: #F3F1EC">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 13px; font-weight: 700; color: #A3A19B">未提出の課題</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: baseline; gap: 4px"><span class="big" style="font-size: 46px; font-weight: 700; line-height: 0.9; color: #F2A93B">2</span><span style="font-size: 14px; color: #A3A19B">件</span></span>
+<span style="font-size: 13px; color: #BDBAB3">次の締切 11.20</span>
+</span>
+</button>
+
+<button onClick="{{ goCal }}" class="card" style="width: 100%; min-height: 148px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; text-align: left; color: #F3F1EC">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 13px; font-weight: 700; color: #A3A19B">今週の予定</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 10px; width: 100%">
+<span style="display: flex; align-items: baseline; gap: 4px"><span class="big" style="font-size: 46px; font-weight: 700; line-height: 0.9">4</span><span style="font-size: 14px; color: #A3A19B">件</span></span>
+<span style="display: flex; width: 100%"><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #5F5E5A">日</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #2C2C2A"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #5F5E5A">月</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #2C2C2A"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #5F5E5A">火</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #2C2C2A"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #F3F1EC">水</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #F3F1EC"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #5F5E5A">木</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #2C2C2A"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #F3F1EC">金</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #F3F1EC"></span></span><span style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px"><span style="font-size: 10px; color: #F3F1EC">土</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #F3F1EC"></span></span></span>
+</span>
+</button>
+
+<button onClick="{{ goBoard }}" class="card" style="width: 100%; min-height: 148px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; text-align: left; color: #F3F1EC">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 13px; font-weight: 700; color: #A3A19B">掲示板の新着</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="display: flex; align-items: baseline; gap: 4px"><span class="big" style="font-size: 46px; font-weight: 700; line-height: 0.9">5</span><span style="font-size: 14px; color: #A3A19B">件</span></span><span style="display: flex"><span class="en" style="width: 26px; height: 26px; border-radius: 50%; margin-left: 0; background: #3A3936; border: 2px solid #131313; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #F3F1EC">KT</span><span class="en" style="width: 26px; height: 26px; border-radius: 50%; margin-left: -8px; background: #2F2E2C; border: 2px solid #131313; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #F3F1EC">YH</span><span class="en" style="width: 26px; height: 26px; border-radius: 50%; margin-left: -8px; background: #454440; border: 2px solid #131313; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #F3F1EC">MS</span></span></span>
+<span style="font-size: 13px; color: #BDBAB3">募集 3 · ペイン 2</span>
+</span>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 4px 4px 0">
+<button onClick="{{ goNews }}" style="display: flex; gap: 20px; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid #252524; background: transparent; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0"><span style="font-size: 13px; color: #A3A19B; white-space: nowrap">{{ markets.0.name }}</span><span class="en" style="font-size: 13px; font-weight: 700; color: {{ markets.0.c }}; white-space: nowrap">{{ markets.0.chgText }}</span></span><span style="flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0"><span style="font-size: 13px; color: #A3A19B; white-space: nowrap">{{ markets.2.name }}</span><span class="en" style="font-size: 13px; font-weight: 700; color: {{ markets.2.c }}; white-space: nowrap">{{ markets.2.chgText }}</span></span>
+</button>
+<button onClick="{{ newsHome.open }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 0; border: 0; background: transparent; color: #F3F1EC; text-align: left">
+<span style="flex: none; font-size: 11px; font-weight: 700; color: #A3A19B; border: 1px solid #383836; border-radius: 6px; padding: 2px 7px">NEWS</span>
+<span style="flex: 1; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ newsHome.title }}</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg>
+</button>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 class="h2">新着の募集</h2>
+<button onClick="{{ goBoard }}" style="border: 0; background: transparent; color: #A3A19B; font-size: 13px; height: 44px; padding: 0">すべて見る</button>
+</div>
+<div class="card" style="padding: 0 18px">
+<sc-for list="{{ recruitsTop }}" as="r" hint-placeholder-count="2">
+<button onClick="{{ r.open }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 18px 0; border: 0; border-bottom: {{ r.sep }}; background: transparent; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-weight: 700; font-size: 15px; line-height: 1.45; word-break: auto-phrase">{{ r.title }}</span>
+<span class="en" style="font-size: 13px; color: #A3A19B">{{ r.openRoles }}</span>
+</span>
+<span style="flex: none; font-size: 12px; font-weight: 700; color: #F2A93B; border: 1px solid rgba(242,169,59,0.5); border-radius: 6px; padding: 2px 10px">空き {{ r.openCount }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 class="h2">ペインのトレンド</h2>
+<button onClick="{{ goBoardPain }}" style="border: 0; background: transparent; color: #A3A19B; font-size: 13px; height: 44px; padding: 0">すべて見る</button>
+</div>
+<div class="card" style="padding: 0 18px">
+<sc-for list="{{ painTop }}" as="p" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 14px; padding: 16px 0; border-bottom: {{ p.sep }}">
+<span class="big" style="flex: none; width: 18px; font-size: 22px; font-weight: 700; color: #5F5E5A">{{ p.rank }}</span>
+<span style="flex: 1; font-size: 14px; line-height: 1.5; word-break: auto-phrase">{{ p.text }}</span>
+<span class="en" style="flex: none; font-size: 13px; font-weight: 700; color: #BDBAB3">+{{ p.count }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+</div>
+</sc-if>
+
+
+
+<sc-if value="{{ show.learn }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 20px 32px; display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700">学ぶ</h1>
+<div style="position: sticky; top: 0; z-index: 10; background: #070707; margin: -6px -20px 0; padding: 6px 20px 8px; border-bottom: 1px solid #171716">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #131313; border: 1px solid #252524; border-radius: 8px">
+<button onClick="{{ lsStudy }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ lseg.sBg }}; color: {{ lseg.sFg }}">学習</button>
+<button onClick="{{ lsPractice }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ lseg.pBg }}; color: {{ lseg.pFg }}">演習<span class="en" style="margin-left: 6px; font-size: 13px; padding: 1px 6px; border-radius: 6px; background: #F2A93B; color: #070707">2</span></button>
+<button onClick="{{ lsLib }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ lseg.lBg }}; color: {{ lseg.lFg }}">教材</button>
+</div>
+</div>
+
+<sc-if value="{{ show.study }}" hint-placeholder-val="{{ true }}">
+<div class="card" style="padding: 18px; display: flex; align-items: center; gap: 18px">
+<div style="width: 76px; height: 76px; border-radius: 12px; border: 1.5px solid #F3F1EC; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span class="en" style="font-size: 13px; letter-spacing: 0.12em; color: #BDBAB3">LEVEL</span>
+<span class="en" style="font-size: 30px; font-weight: 700; line-height: 1; color: #F3F1EC">02</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+<div style="font-weight: 700">Strategist 受講中</div>
+<div style="font-size: 13px; color: #BDBAB3">マイルストーン 6 / 14 達成</div>
+<div style="height: 6px; border-radius: 3px; background: #2C2C2A; overflow: hidden"><div style="width: 43%; height: 100%; background: #F3F1EC"></div></div>
+</div>
+</div>
+
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<button onClick="{{ tgBase }}" aria-label="基礎教育を開閉" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px; background: transparent; border: 0; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span class="lbl">全員共通</span>
+<span style="font-size: 18px; font-weight: 700">基礎教育</span>
+<span style="font-size: 13px; color: #BDBAB3">8 / 8 修了 · MIRA 修了</span>
+</span>
+<span class="en" style="font-size: 16px; font-weight: 700; color: #F3F1EC">100%</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: rotate({{ acc.baseRot }}); transition: transform 0.2s"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<div style="height: 3px; background: #222221"><div style="width: 100%; height: 100%; background: #F3F1EC"></div></div>
+<sc-if value="{{ acc.base }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 18px 16px 0">
+<sc-for list="{{ baseUnits }}" as="u" hint-placeholder-count="5">
+<button onClick="{{ openUnit }}" style="display: flex; gap: 14px; width: 100%; background: transparent; border: 0; padding: 0; color: #F3F1EC; text-align: left">
+<span style="display: flex; flex-direction: column; align-items: center; width: 32px; flex: none">
+<span style="width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: {{ u.nodeBg }}; border: 1.5px solid {{ u.nodeBd }}; color: {{ u.nodeFg }}">
+<sc-if value="{{ u.done }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+<sc-if value="{{ u.doing }}" hint-placeholder-val="{{ false }}"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F2A93B"></span></sc-if>
+<sc-if value="{{ u.locked }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if>
+</span>
+<span style="width: 1.5px; flex: 1; min-height: 22px; background: {{ u.lineColor }}"></span>
+</span>
+<span style="flex: 1; padding: 4px 0 22px; display: flex; flex-direction: column; gap: 2px">
+<span class="en" style="font-size: 13px; color: #A3A19B; letter-spacing: 0.08em">UNIT {{ u.no }} · {{ u.status }}</span>
+<span style="font-weight: 700; font-size: 16px; color: {{ u.titleColor }}">{{ u.title }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ u.meta }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<button onClick="{{ tgRole }}" aria-label="ロールトラックを開閉" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px; background: transparent; border: 0; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span class="lbl">受講中：Strategist</span>
+<span style="font-size: 18px; font-weight: 700">ロールトラック</span>
+</span>
+<span class="en" style="font-size: 16px; font-weight: 700; color: #F3F1EC">29%</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: rotate({{ acc.roleRot }}); transition: transform 0.2s"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<sc-if value="{{ acc.role }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 0 16px 16px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ courses }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.open }}" class="card" style="background: #191918; padding: 14px; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 128px; border-color: {{ c.bd }}; color: #F3F1EC; text-align: left; width: 100%">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+<span style="font-size: 13px; color: {{ c.tagColor }}">{{ c.tag }}</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</span>
+<span class="en" style="font-weight: 700; font-size: 17px">{{ c.name }}</span>
+<span style="font-size: 13px; color: #BDBAB3; line-height: 1.5">{{ c.jp }}</span>
+<span style="font-size: 13px; color: #A3A19B; margin-top: auto">{{ c.count }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<button onClick="{{ tgPrac }}" aria-label="実務教育を開閉" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px; background: transparent; border: 0; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span class="lbl">必要になったら受講</span>
+<span style="font-size: 18px; font-weight: 700">実務教育</span>
+<span style="font-size: 13px; color: #BDBAB3">{{ pracNote }}</span>
+</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: rotate({{ acc.pracRot }}); transition: transform 0.2s"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<sc-if value="{{ acc.prac }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<sc-for list="{{ pracGroups }}" as="g" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; font-weight: 700; color: #BDBAB3">{{ g.name }}</span>
+<div style="border: 1px solid #252524; border-radius: 8px; overflow: hidden; background: #191918">
+<sc-for list="{{ g.items }}" as="u" hint-placeholder-count="5">
+<button onClick="{{ openUnit }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 14px; background: transparent; border: 0; border-bottom: {{ u.sep }}; color: #F3F1EC; text-align: left">
+<span class="en" style="flex: none; width: 24px; font-size: 13px; color: #A3A19B; font-weight: 500">{{ u.code }}</span>
+<span style="flex: 1; min-width: 0; font-size: 15px; font-weight: 500; line-height: 1.45">{{ u.title }}</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<button onClick="{{ openAll }}" class="card" style="display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 10px; color: #F3F1EC; text-align: left; width: 100%">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"></path><circle cx="4.5" cy="6" r="1"></circle><circle cx="4.5" cy="12" r="1"></circle><circle cx="4.5" cy="18" r="1"></circle></svg>
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-weight: 700">すべての単元を一覧で見る</span>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+
+
+</sc-if>
+
+<sc-if value="{{ show.lib }}" hint-placeholder-val="{{ false }}">
+<label style="position: relative; display: block">
+<input type="search" placeholder="教材を検索" aria-label="教材を検索" style="width: 100%; height: 44px; padding: 0 14px 0 40px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A19B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 14px; top: 14px"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+</label>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.lib.tg }}" aria-expanded="{{ dd.lib.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>範囲：<b style="color: #F3F1EC; font-weight: 700">{{ dd.lib.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.lib.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.lib.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.lib.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<sc-for list="{{ libItems }}" as="m" hint-placeholder-count="8">
+<button onClick="{{ openUnit }}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: transparent; border: 0; border-bottom: {{ m.sep }}; color: #F3F1EC; text-align: left">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span style="font-weight: 500; font-size: 15px">{{ m.title }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ m.kind }} · {{ m.min }} · <span class="en">{{ m.unit }}</span></span>
+</span>
+<span class="chip" style="flex: none; border-color: {{ m.color }}; color: {{ m.color }}">{{ m.src }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.practice }}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ pStats }}" as="k" hint-placeholder-count="3">
+<div class="card" style="padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 2px">
+<span class="en" style="font-size: 24px; font-weight: 700; line-height: 1.1; color: {{ k.color }}">{{ k.n }}</span>
+<span style="font-size: 13px; color: #BDBAB3">{{ k.label }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h2">締切が近い</h2>
+<sc-for list="{{ pDue }}" as="t" hint-placeholder-count="2">
+<div class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="chip" style="border-color: {{ t.kindColor }}; color: {{ t.kindColor }}">{{ t.kind }}</span>
+<span class="en" style="font-size: 13px; font-weight: 700; color: {{ t.dueColor }}">{{ t.due }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">{{ t.title }}</div>
+<div style="font-size: 13px; color: #BDBAB3">{{ t.link }}</div>
+<button onClick="{{ t.go }}" style="height: 46px; border: 0; border-radius: 8px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 15px">{{ t.cta }}</button>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 class="h2">匿名レビュー</h2>
+
+</div>
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<sc-for list="{{ pReviews }}" as="r" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: {{ r.sep }}">
+<span class="en" style="width: 40px; height: 40px; flex: none; border-radius: 8px; background: #1C1C1B; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #BDBAB3">{{ r.code }}</span>
+<span style="flex: 1; display: flex; flex-direction: column; min-width: 0">
+<span style="font-weight: 500; font-size: 15px">{{ r.title }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ r.meta }}</span>
+</span>
+<button onClick="{{ r.toggle }}" style="height: 40px; padding: 0 12px; border-radius: 6px; border: 1px solid {{ r.bd }}; background: {{ r.bg }}; color: {{ r.fg }}; font-weight: 700; font-size: 13px; flex: none">{{ r.label }}</button>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h2">提出済み</h2>
+<sc-for list="{{ pDone }}" as="d" hint-placeholder-count="2">
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #F3F1EC; color: #070707; display: flex; align-items: center; justify-content: center">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+</span>
+<span style="flex: 1; display: flex; flex-direction: column; min-width: 0">
+<span style="font-weight: 500; font-size: 15px">{{ d.title }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ d.meta }}</span>
+</span>
+<span style="font-size: 13px; color: #F3F1EC; flex: none">FB {{ d.fb }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.allUnits }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A3A19B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+<input type="search" aria-label="単元を検索" placeholder="単元を検索" style="flex: 1; min-width: 0; height: 100%; background: transparent; border: 0; outline: none; color: #F3F1EC; font-size: 15px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.u.tg }}" aria-expanded="{{ dd.u.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>状態：<b style="color: #F3F1EC; font-weight: 700">{{ dd.u.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.u.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.u.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.u.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-for list="{{ unitGroups }}" as="g" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span class="en" style="font-size: 14px; font-weight: 700; letter-spacing: 0.04em">{{ g.name }}</span>
+</div>
+<div class="card" style="border-radius: 10px; overflow: hidden">
+<sc-for list="{{ g.items }}" as="u" hint-placeholder-count="3">
+<button onClick="{{ openUnit }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 14px; background: transparent; border: 0; border-bottom: {{ u.sep }}; color: #F3F1EC; text-align: left">
+<span style="flex: none; box-sizing: border-box; width: 10px; height: 10px; border-radius: 50%; background: {{ u.dotBg }}; border: 2px solid {{ u.dotBd }}"></span>
+<span class="en" style="flex: none; width: 54px; font-size: 13px; color: #A3A19B; font-weight: 500">{{ u.code }}</span>
+<span style="flex: 1; min-width: 0; font-size: 15px; font-weight: 500; color: {{ u.fg }}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ u.title }}</span>
+<sc-if value="{{ u.practice }}" hint-placeholder-val="{{ false }}"><span class="chip" style="flex: none; height: 22px; padding: 0 8px; font-size: 12px; border-color: #8C8C8C; color: #D0D0D0">実習</span></sc-if>
+<sc-if value="{{ u.shared }}" hint-placeholder-val="{{ false }}"><span class="chip" style="flex: none; height: 22px; padding: 0 8px; font-size: 12px; border-color: #F3F1EC; color: #F3F1EC">共通</span></sc-if>
+<span style="flex: none; font-size: 13px; color: {{ u.stColor }}">{{ u.status }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ noUnits }}" hint-placeholder-val="{{ false }}">
+<div class="card" style="padding: 18px; font-size: 14px; color: #A3A19B; text-align: center">該当する単元はありません</div>
+</sc-if>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.unit }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">Strategist · ST2</span>
+<h1 style="margin: 0; font-size: 28px; font-weight: 700">戦略理論</h1>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<span class="chip">前提：ST1 社会情勢と業界 ✓</span><span class="chip">対面の演習会あり</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px"><span class="en" style="font-size: 13px; font-weight: 700; color: #070707; background: #F3F1EC; padding: 2px 8px; border-radius: 6px">INPUT</span><span style="font-size: 14px; color: #BDBAB3">教材</span></div>
+<sc-for list="{{ materials }}" as="m" hint-placeholder-count="3">
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 500">{{ m.title }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ m.kind }} · {{ m.min }}</span>
+</span>
+<span class="chip" style="border-color: {{ m.color }}; color: {{ m.color }}">{{ m.src }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px"><span class="en" style="font-size: 13px; font-weight: 700; color: #F2A93B; background: transparent; border: 1px solid #F2A93B; padding: 1px 7px; border-radius: 6px">OUTPUT</span><span style="font-size: 14px; color: #BDBAB3">実習</span></div>
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">MIRAの事業でポジショニングを描く</div>
+<div style="font-size: 14px; color: #D2CFC8; line-height: 1.7">MIRAで扱った事業の競合を洗い出し、ポジショニングマップと競争優位の仮説を1枚にまとめる。演習会でグループ講評したうえで提出し、匿名で他の受講者のレビューに回る。</div>
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #BDBAB3">
+<span>締切 11.20 FRI 23:59</span><span>提出 9 / 14</span>
+</div>
+<button style="height: 48px; border: 0; border-radius: 8px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 16px">提出する</button>
+</div>
+</div>
+
+<div class="card" style="padding: 16px; display: flex; align-items: center; gap: 14px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h11l-2 4 2 4H5"></path></svg>
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-size: 13px; color: #A3A19B">達成するマイルストーン</span>
+<span style="font-weight: 500">ST-02 競争優位の源泉を説明できる</span>
+</span>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.course }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">{{ crs.kind }}</span>
+<h1 class="en" style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.1">{{ crs.name }}</h1>
+<div style="font-size: 14px; color: #D2CFC8">{{ crs.jp }}</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px">
+<span class="chip">{{ crs.count }}</span>
+<span class="chip" style="border-color: {{ crs.lockColor }}; color: {{ crs.lockColor }}">{{ crs.lock }}</span>
+</div>
+</div>
+
+<div class="grid" style="position: relative; width: 350px; height: {{ crs.h }}; border-radius: 12px; border: 1px solid #1C1C1B; overflow: hidden">
+<svg width="350" height="{{ crs.hn }}" viewBox="0 0 350 {{ crs.hn }}" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<path d="{{ crs.edges }}" fill="none" stroke="#474744" stroke-width="2" stroke-linecap="round"></path>
+<path d="{{ crs.edgesExt }}" fill="none" stroke="#686762" stroke-width="2" stroke-dasharray="3 5" stroke-linecap="round"></path>
+<path d="{{ crs.edgesGoal }}" fill="none" stroke="#F3F1EC" stroke-width="2" stroke-linecap="round" opacity="0.7"></path>
+<path d="{{ crs.edgesDone }}" fill="none" stroke="#F3F1EC" stroke-width="2.5" stroke-linecap="round"></path>
+</svg>
+<sc-for list="{{ crs.nodes }}" as="n" hint-placeholder-count="5">
+<button onClick="{{ n.pick }}" style="position: absolute; left: {{ n.x }}; top: {{ n.y }}; width: {{ n.w }}; height: 56px; padding: 0 8px; border: 0; border-radius: 8px; background: {{ n.btnBg }}; color: {{ n.fg }}; display: flex; align-items: center; gap: 14px; text-align: left">
+<span style="flex: none; box-sizing: border-box; width: {{ n.size }}; height: {{ n.size }}; border-radius: 50%; background: {{ n.dotBg }}; border: 2px {{ n.dotBs }} {{ n.dotBd }}; box-shadow: {{ n.glow }}"></span>
+<span style="display: flex; flex-direction: column; min-width: 0">
+<span class="en" style="font-size: 11px; letter-spacing: 0.04em; font-weight: 500; color: {{ n.subColor }}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ n.sub }}</span>
+<span style="font-size: {{ n.fs }}; font-weight: 700; line-height: 1.25; white-space: {{ n.ws }}; overflow: hidden; text-overflow: ellipsis; color: {{ n.labelColor }}">{{ n.label }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+
+<div style="display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px; color: #BDBAB3">
+<span style="display: flex; align-items: center; gap: 6px"><span style="box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%; background: #F3F1EC"></span>修了</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #F2A93B; background: rgba(242,169,59,0.25)"></span>受講中</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #BDBAB3"></span>受講可</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #474744"></span>未解放</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%; border: 2px dashed #7D7B76"></span>他トラック・外部</span>
+</div>
+
+<div class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="lbl">{{ cSel.sub }}</span>
+<span class="chip">{{ cSel.status }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px">{{ cSel.label }}</div>
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr); row-gap: 6px; font-size: 13px; line-height: 1.5">
+<span style="color: #A3A19B">前提</span><span style="color: #E9E6DF">{{ cSel.deps }}</span>
+<span style="color: #A3A19B">後続</span><span style="color: #E9E6DF">{{ cSel.next }}</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.news }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 20px 48px; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700">ニュース</h1>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 class="h2">マーケット</h2>
+<span style="font-size: 13px; color: #A3A19B">11.13 終値</span>
+</div>
+<div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+<sc-for list="{{ markets }}" as="m" hint-placeholder-count="6">
+<div class="card" style="flex: none; width: 126px; padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; color: #BDBAB3">{{ m.name }}</span>
+<span class="en" style="font-size: 19px; font-weight: 700; line-height: 1.2">{{ m.val }}</span>
+<span class="en" style="font-size: 13px; font-weight: 700; color: {{ m.c }}">{{ m.chgText }}</span>
+<svg width="100" height="24" viewBox="0 0 100 24" aria-hidden="true" style="margin-top: 2px"><polyline points="{{ m.pts }}" fill="none" stroke="{{ m.c }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 class="h2">グロース市場の値動き</h2>
+</div>
+<div class="card" style="padding: 4px 16px">
+<sc-for list="{{ movers }}" as="m" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 15px 0; border-bottom: {{ m.sep }}">
+<span style="flex: 1; display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 700; font-size: 15px">{{ m.name }}</span><span style="font-size: 13px; color: #A3A19B">{{ m.sec }}</span></span>
+<span class="en" style="font-size: 16px; font-weight: 700">{{ m.val }}</span>
+<span class="en" style="flex: none; width: 78px; text-align: right; font-size: 14px; font-weight: 700; color: {{ m.c }}">{{ m.chgText }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 class="h2">今日の記事</h2>
+<div class="scroll" style="display: flex; gap: 6px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+<sc-for list="{{ newsFilters }}" as="f" hint-placeholder-count="5">
+<button onClick="{{ f.pick }}" class="chip" style="flex: none; height: 44px; padding: 0 14px; background: {{ f.bg }}; color: {{ f.fg }}; border-color: {{ f.bd }}">{{ f.name }}</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0; border-top: 1px solid #252524; margin: 0 -20px; padding: 0 20px">
+
+<sc-for list="{{ newsItems }}" as="w" hint-placeholder-count="4">
+<button onClick="{{ w.open }}" style="display: flex; flex-direction: column; gap: 10px; width: 100%; text-align: left; padding: 20px; color: #F3F1EC; background: transparent; border: 0; border-bottom: 1px solid #252524; border-radius: 0; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); padding: 26px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+<span style="display: flex; align-items: center; gap: 8px"><span class="chip">{{ w.tag }}</span><span style="font-size: 13px; font-weight: 700; color: #F2A93B">{{ w.fitWhy }}</span></span>
+<span style="font-size: 13px; color: #A3A19B">{{ w.time }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">{{ w.title }}</div>
+<div style="font-size: 14px; color: #BDBAB3; line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ w.sum }}</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2px 12px; width: 100%; padding-top: 10px; border-top: 0; font-size: 13px; color: #A3A19B">
+<span style="white-space: nowrap">出典：{{ w.src }}</span>
+<span style="white-space: nowrap">コメント {{ w.cm }}件</span>
+</div>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.board }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 20px 120px; display: flex; flex-direction: column; gap: 18px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700">掲示板</h1>
+<div style="position: sticky; top: 0; z-index: 10; background: #070707; margin: -6px -20px 0; padding: 6px 20px 8px; border-bottom: 1px solid #171716">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #131313; border: 1px solid #252524; border-radius: 8px">
+<button onClick="{{ segRecruit }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ seg.rBg }}; color: {{ seg.rFg }}">アイデア</button>
+<button onClick="{{ segPain }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ seg.pBg }}; color: {{ seg.pFg }}">ペイン</button>
+<button onClick="{{ segEvent }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ seg.eBg }}; color: {{ seg.eFg }}">イベント</button>
+<button onClick="{{ segOther }}" style="height: 40px; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; background: {{ seg.oBg }}; color: {{ seg.oFg }}">その他</button>
+</div>
+</div>
+
+<sc-if value="{{ show.recruit }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 0">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.b.tg }}" aria-expanded="{{ dd.b.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>種類：<b style="color: #F3F1EC; font-weight: 700">{{ dd.b.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.b.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.b.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.b.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-for list="{{ feed }}" as="r" hint-placeholder-count="4">
+<sc-if value="{{ r.isRecruit }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ r.open }}" style="display: flex; flex-direction: column; gap: 10px; width: 100%; text-align: left; padding: 16px; color: #F3F1EC; background: transparent; border: 0; border-bottom: 1px solid #252524; border-radius: 0; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); padding: 26px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+<span class="chip" style="gap: 5px; background: transparent; border-color: rgba(242,169,59,0.6); color: #F2A93B"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M3 20c.8-3.2 3.2-5 6-5s5.2 1.8 6 5"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7"></path><path d="M18 15c1.6.6 2.6 2.2 3 5"></path></svg>メンバー募集</span>
+<span style="font-size: 13px; color: #A3A19B">{{ r.frame }} · {{ r.time }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">{{ r.title }}</div>
+<div style="font-size: 13px; color: #BDBAB3">{{ r.owner }}</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{ r.slots }}" as="s" hint-placeholder-count="3">
+<span class="chip en" style="border-color: {{ s.bd }}; color: {{ s.fg }}; background: {{ s.bg }}">{{ s.role }} · {{ s.label }}</span>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-top: 10px; border-top: 0; font-size: 13px; color: #A3A19B">
+<span>解散条件：{{ r.endShort }}</span>
+<span>FB {{ r.fb }}</span>
+</div>
+</button>
+</sc-if>
+<sc-if value="{{ r.isIdea }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ r.open }}" style="display: flex; flex-direction: column; gap: 10px; width: 100%; text-align: left; padding: 16px; color: #F3F1EC; background: transparent; border: 0; border-bottom: 1px solid #252524; border-radius: 0; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); padding: 26px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+<span class="chip" style="gap: 5px; border-color: #F3F1EC; color: #F3F1EC"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg>意見募集</span>
+<span style="font-size: 13px; color: #A3A19B">{{ r.time }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">{{ r.title }}</div>
+<div style="font-size: 14px; color: #D2CFC8; line-height: 1.6">{{ r.summary }}</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ r.asks }}" as="q" hint-placeholder-count="2">
+<span style="display: flex; gap: 8px; font-size: 13px; color: #E9E6DF"><span class="en" style="color: #7D7B76; font-weight: 700">Q</span>{{ q.text }}</span>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-top: 10px; border-top: 0; font-size: 13px; color: #A3A19B">
+<span>{{ r.owner }}</span>
+<span>意見 {{ r.fb }} · 回答 {{ r.votes }}</span>
+</div>
+</button>
+</sc-if>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.pain }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 0">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.ps.tg }}" aria-expanded="{{ dd.ps.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>並び順：<b style="color: #F3F1EC; font-weight: 700">{{ dd.ps.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.ps.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.ps.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.ps.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-for list="{{ pains }}" as="p" hint-placeholder-count="4">
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 10px; background: transparent; border: 0; border-bottom: 1px solid #252524; border-radius: 0; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); padding: 26px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="chip">{{ p.src }}</span>
+<span style="display: flex; align-items: center; gap: 4px; font-size: 13px; color: #A3A19B">深刻度
+<span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.d1 }}"></span>
+<span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.d2 }}"></span>
+<span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.d3 }}"></span>
+</span>
+</div>
+<div style="font-weight: 700; font-size: 16px; line-height: 1.45; word-break: auto-phrase">{{ p.text }}</div>
+<div style="font-size: 13px; color: #BDBAB3">困っている人：{{ p.who }}</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2"><span style="font-size: 13px; color: #BDBAB3">#{{ t.name }}</span></sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 0">
+<button onClick="{{ p.toggle }}" aria-label="共感する" style="height: 40px; padding: 0 14px; border-radius: 6px; border: 1px solid {{ p.empBd }}; background: {{ p.empBg }}; color: {{ p.empFg }}; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>
+<span>自分も {{ p.count }}</span>
+</button>
+<span style="font-size: 13px; color: {{ p.ideaColor }}">派生アイデア {{ p.ideas }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ show.event }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 0">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.ex.tg }}" aria-expanded="{{ dd.ex.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>種類：<b style="color: #F3F1EC; font-weight: 700">{{ dd.ex.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.ex.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.ex.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.ex.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-for list="{{ exItems }}" as="x" hint-placeholder-count="4">
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 10px; background: transparent; border: 0; border-bottom: 1px solid #252524; border-radius: 0; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); padding: 26px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="display: flex; align-items: center; gap: 8px">
+<span class="chip" style="border-color: {{ x.typeColor }}; color: {{ x.typeColor }}">{{ x.type }}</span>
+<sc-if value="{{ x.fit }}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; font-weight: 700; color: #F2A93B">あなた向け</span></sc-if>
+</span>
+<span class="en" style="font-size: 13px; font-weight: 700; color: #F3F1EC">{{ x.when }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">{{ x.title }}</div>
+<div style="font-size: 13px; color: #BDBAB3">{{ x.host }} · {{ x.detail }}</div>
+<sc-if value="{{ x.official }}" hint-placeholder-val="{{ true }}">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #F3F1EC"><span style="width: 16px; height: 16px; border-radius: 50%; background: #F3F1EC; color: #070707; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>公式 · 渉外局</span>
+</sc-if>
+<sc-if value="{{ x.member }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 8px; background: #0C0C0C; border: 1px solid #222221">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #BDBAB3"><span class="en" style="width: 18px; height: 18px; border-radius: 50%; background: #2C2C2A; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #F3F1EC">{{ x.initial }}</span>部員投稿 · {{ x.by }}</span>
+<span style="font-size: 13px; color: #E9E6DF; line-height: 1.6">{{ x.note }}</span>
+</div>
+</sc-if>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{ x.tags }}" as="t" hint-placeholder-count="2"><span class="en" style="font-size: 13px; color: #BDBAB3">#{{ t.name }}</span></sc-for>
+</div>
+<div style="display: flex; gap: 8px; padding-top: 10px; border-top: 0">
+<button onClick="{{ x.toggle }}" style="flex: 1; height: 44px; border-radius: 6px; border: 1px solid {{ x.addBd }}; background: {{ x.addBg }}; color: {{ x.addFg }}; font-weight: 700; font-size: 14px">{{ x.addLabel }}</button>
+<sc-if value="{{ x.team }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ findTeam }}" style="flex: 1; height: 44px; border-radius: 6px; border: 1px solid #383836; background: #1C1C1B; color: #F3F1EC; font-weight: 700; font-size: 14px">チームを探す</button>
+</sc-if>
+<sc-if value="{{ x.noTeam }}" hint-placeholder-val="{{ true }}">
+<button style="flex: 1; height: 44px; border-radius: 6px; border: 1px solid #383836; background: #1C1C1B; color: #F3F1EC; font-weight: 700; font-size: 14px">詳細を見る</button>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ show.other }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 0">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px">
+<button onClick="{{ dd.ot.tg }}" aria-expanded="{{ dd.ot.open }}" style="align-self: flex-start; height: 38px; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 1px solid #383836; border-radius: 8px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"></path></svg><span>種類：<b style="color: #F3F1EC; font-weight: 700">{{ dd.ot.cur }}</b></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ dd.ot.rot }}); transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{ dd.ot.open }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; min-width: 200px; padding: 4px 0; background: #191918; border: 1px solid #383836; border-radius: 8px">
+<sc-for list="{{ dd.ot.items }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="width: 100%; height: 42px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: transparent; border: 0; color: #F3F1EC; font-size: 14px; text-align: left">{{ o.name }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: {{ o.chk }}"><path d="M5 12l5 5 9-10"></path></svg></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<input type="text" aria-label="投稿を書く" placeholder="読んだ本でも、雑談でも" style="flex: 1; min-width: 0; height: 46px; padding: 0 16px; background: #131313; border: 1px solid #383836; border-radius: 6px; color: #F3F1EC; font-size: 15px">
+<button aria-label="投稿" style="flex: none; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 50%; background: #F3F1EC; color: #070707; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg></button>
+</div>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{ otPosts }}" as="p" hint-placeholder-count="4">
+<div style="display: flex; gap: 12px; padding: 14px 0; border-bottom: {{ p.sep }}">
+<span class="en" style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: #2C2C2A; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700">{{ p.ini }}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; color: #A3A19B">{{ p.who }} · {{ p.time }} · {{ p.tag }}</span>
+<sc-if value="{{ p.hasBook }}" hint-placeholder-val="{{ false }}">
+<span style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #131313; border: 1px solid #252524">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M4 19V5a2 2 0 0 1 2-2h14v14H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14"></path></svg>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 700; font-size: 15px">{{ p.book }}</span><span style="font-size: 13px; color: #A3A19B">{{ p.author }}</span></span>
+</span>
+</sc-if>
+<span style="font-size: 15px; line-height: 1.65; color: #E9E6DF">{{ p.text }}</span>
+<div style="display: flex; align-items: center; gap: 14px">
+<button onClick="{{ p.toggle }}" aria-label="いいね" style="height: 40px; padding: 0 4px 0 0; border: 0; background: transparent; color: {{ p.likeFg }}; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ p.likeFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg><span class="en">{{ p.likeN }}</span></button>
+<button style="height: 40px; padding: 0 4px; border: 0; background: transparent; color: #A3A19B; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg><span class="en">{{ p.rep }}</span></button>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.post }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; gap: 6px"><span class="chip" style="gap: 5px; background: {{ cur.typeBg }}; border-color: {{ cur.typeBd }}; color: {{ cur.typeFg }}">{{ cur.typeLabel }}</span><span class="chip">{{ cur.time }}</span></div>
+<h1 style="margin: 0; font-size: 21px; font-weight: 700; line-height: 1.4; word-break: auto-phrase">{{ cur.title }}</h1>
+<div style="display: flex; align-items: center; gap: 10px">
+<span class="en" style="width: 32px; height: 32px; border-radius: 50%; background: #2C2C2A; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">{{ cur.initial }}</span>
+<span style="font-size: 14px; color: #D2CFC8">{{ cur.owner }}</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">{{ cur.purposeLabel }}</span>
+<div style="font-size: 15px; line-height: 1.75; color: #E9E6DF">{{ cur.purpose }}</div>
+</div>
+
+<sc-if value="{{ cur.isRecruit }}" hint-placeholder-val="{{ true }}">
+<div class="card" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; border-radius: 8px">
+<span class="lbl">解散条件</span>
+<span style="font-weight: 500">{{ cur.end }}</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="lbl">必要な職能</span>
+<sc-for list="{{ cur.slots }}" as="s" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 8px; border: 1px solid {{ s.bd }}; background: {{ s.bg }}">
+<span style="display: flex; flex-direction: column">
+<span class="en" style="font-weight: 700">{{ s.role }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ s.label }}</span>
+</span>
+<sc-if value="{{ s.open }}" hint-placeholder-val="{{ true }}">
+<button style="height: 40px; padding: 0 16px; border: 0; border-radius: 6px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 14px">応募する</button>
+</sc-if>
+<sc-if value="{{ s.notOpen }}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #A3A19B">埋まっています</span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ cur.isIdea }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="lbl">投稿者が聞きたいこと</span>
+<sc-for list="{{ cur.asks }}" as="q" hint-placeholder-count="2">
+<div style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1.5px dashed #474744; background: #0C0C0C; font-size: 15px; line-height: 1.5"><span class="en" style="color: #7D7B76; font-weight: 700">Q</span><span>{{ q.text }}</span></div>
+</sc-for>
+</div>
+<div class="card" style="padding: 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-top: 4px">
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-size: 13px; color: #A3A19B">投稿者向け</span>
+<span style="font-weight: 500">手応えがあればメンバー募集へ切り替え</span>
+</span>
+<button style="height: 40px; padding: 0 12px; border: 1px solid #F3F1EC; border-radius: 6px; background: transparent; color: #F3F1EC; font-weight: 700; font-size: 13px; flex: none">切り替える</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ cur.hasPain }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ goBoardPain }}" class="card" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 8px; color: #F3F1EC; text-align: left; width: 100%">
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-size: 13px; color: #A3A19B">元になったペイン</span>
+<span style="font-weight: 500">{{ cur.pain }}</span>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</sc-if>
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 class="h2">{{ cur.fbTitle }}</h2>
+
+</div>
+<div class="scroll" style="display: flex; gap: 6px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+<sc-for list="{{ lenses }}" as="l" hint-placeholder-count="6">
+<button onClick="{{ l.pick }}" class="en" style="flex: none; height: 44px; padding: 0 14px; border-radius: 6px; border: 1px solid {{ l.bd }}; background: {{ l.bg }}; color: {{ l.fg }}; font-size: 13px; font-weight: 500">{{ l.name }}</button>
+</sc-for>
+</div>
+<sc-for list="{{ comments }}" as="c" hint-placeholder-count="3">
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 6px; align-items: center">
+<span class="chip en">{{ c.lens }}</span>
+<span style="font-size: 13px; color: #F3F1EC; font-weight: 500">{{ c.op }}</span>
+</div>
+<div style="font-size: 14px; line-height: 1.7; color: #E9E6DF">{{ c.text }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ noComments }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 14px; color: #A3A19B; padding: 8px 0">この観点のフィードバックはまだありません。</div>
+</sc-if>
+</div>
+
+<sc-if value="{{ cur.hasSurvey }}" hint-placeholder-val="{{ true }}">
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between"><span class="lbl">アンケート</span><span style="font-size: 13px; color: #A3A19B">回答 {{ cur.surveyN }}</span></div>
+<div style="font-weight: 700">{{ cur.surveyQ }}</div>
+<sc-for list="{{ survey }}" as="o" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 13px"><span style="color: #D2CFC8">{{ o.label }}</span><span class="en" style="font-weight: 700">{{ o.pct }}%</span></div>
+<div style="height: 6px; border-radius: 3px; background: #2C2C2A; overflow: hidden"><div style="height: 100%; width: {{ o.w }}; background: {{ o.color }}"></div></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.painNew }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">何に困っているか</span>
+<textarea rows="3" placeholder="例：授業の空きコマに入れるバイトが見つからない" style="background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; padding: 14px; resize: none; font-size: 15px"></textarea>
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">困っている人</span>
+<input type="text" placeholder="例：学部1〜2年" style="height: 48px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; padding: 0 14px; font-size: 15px">
+</label>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">出所</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ srcOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="height: 44px; border-radius: 8px; border: 1px solid {{ o.bd }}; background: {{ o.bg }}; color: {{ o.fg }}; font-weight: 700; font-size: 14px">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">深刻度</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ sevOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="height: 44px; border-radius: 8px; border: 1px solid {{ o.bd }}; background: {{ o.bg }}; color: {{ o.fg }}; font-weight: 700; font-size: 14px">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">タグ</span>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<span class="chip" style="border-color: #F3F1EC; color: #F3F1EC">#学生生活</span>
+<span class="chip">#雇用</span><span class="chip">#地域</span><span class="chip">#住まい</span><span class="chip">+ 追加</span>
+</div>
+</div>
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column">
+<span style="font-weight: 500">匿名で公開</span>
+<span style="font-size: 13px; color: #A3A19B">記録者名は運営にのみ残ります</span>
+</span>
+<button onClick="{{ toggleAnon }}" aria-label="匿名で公開を切り替え" style="width: 48px; height: 28px; border-radius: 6px; border: 0; background: {{ anon.track }}; position: relative; padding: 0">
+<span style="position: absolute; top: 3px; left: {{ anon.x }}; width: 22px; height: 22px; border-radius: 50%; background: {{ anon.knob }}"></span>
+</button>
+</div>
+<button onClick="{{ submitPain }}" style="height: 52px; border: 0; border-radius: 8px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 16px">記録する</button>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.postNew }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">投稿の種類</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ npTypes }}" as="t" hint-placeholder-count="2">
+<button onClick="{{ t.pick }}" style="padding: 14px; border-radius: 10px; border: 1.5px {{ t.bs }} {{ t.bd }}; background: {{ t.bg }}; color: #F3F1EC; display: flex; flex-direction: column; gap: 6px; text-align: left; min-height: 96px">
+<span style="font-weight: 700; font-size: 16px; color: {{ t.titleColor }}">{{ t.name }}</span>
+<span style="font-size: 13px; color: #BDBAB3; line-height: 1.5">{{ t.desc }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">タイトル</span>
+<input type="text" placeholder="例：学内の落とし物を写真で共有するアプリ" style="height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px">
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">{{ npSummaryLabel }}</span>
+<textarea rows="3" placeholder="どんな課題を、どう解決するか" style="padding: 14px; resize: none; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></textarea>
+</label>
+
+<sc-if value="{{ show.npIdea }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">聞きたいこと</span>
+<input type="text" placeholder="例：自分なら使う？" style="height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px">
+<input type="text" placeholder="例：既存の窓口で十分では？" style="height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px">
+<span class="chip" style="align-self: flex-start">+ 質問を追加</span>
+</div>
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; margin-top: 12px">
+<span style="display: flex; flex-direction: column"><span style="font-weight: 500">アンケートを付ける</span></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.npRecruit }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">枠</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ npFrames }}" as="o" hint-placeholder-count="2">
+<button onClick="{{ o.pick }}" style="height: 44px; border-radius: 8px; border: 1px solid {{ o.bd }}; background: {{ o.bg }}; color: {{ o.fg }}; font-weight: 700; font-size: 14px">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">必要な職能</span>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{ npRoles }}" as="o" hint-placeholder-count="6">
+<button onClick="{{ o.pick }}" class="chip en" style="height: 40px; padding: 0 12px; border-color: {{ o.bd }}; color: {{ o.fg }}; background: {{ o.bg }}">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">解散条件（必須）</span>
+<sc-for list="{{ npEnds }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="height: 46px; border-radius: 8px; border: 1px solid {{ o.bd }}; background: {{ o.bg }}; color: {{ o.fg }}; font-weight: 500; font-size: 14px; text-align: left; padding: 0 14px">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div class="card" style="padding: 14px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between">
+<span style="display: flex; flex-direction: column"><span style="font-weight: 500">元になったペイン</span><span style="font-size: 13px; color: #A3A19B">任意</span></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</div>
+<button onClick="{{ submitPost }}" style="height: 52px; border: 0; border-radius: 8px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 16px">{{ npSubmit }}</button>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.eventNew }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">種類</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ enTypes }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" style="height: 44px; border-radius: 8px; border: 1px solid {{ o.bd }}; background: {{ o.bg }}; color: {{ o.fg }}; font-weight: 700; font-size: 13px; padding: 0">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">タイトル</span><input type="text" placeholder="例：学生起業家ミートアップ" style="height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></label>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<label style="display: flex; flex-direction: column; gap: 8px; min-width: 0"><span class="lbl">主催者</span><input type="text" placeholder="企業・団体名" style="width: 100%; height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; min-width: 0"><span class="lbl">締切・日時</span><input type="text" placeholder="例：12.05" style="width: 100%; height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">リンク</span><input type="url" placeholder="https://" style="height: 48px; padding: 0 14px; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></label>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">向いている職能</span>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{ npRoles }}" as="o" hint-placeholder-count="6">
+<button onClick="{{ o.pick }}" class="chip en" style="height: 40px; padding: 0 12px; border-color: {{ o.bd }}; color: {{ o.fg }}; background: {{ o.bg }}">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">ひとこと</span><textarea rows="3" placeholder="おすすめの理由、参加した感想など" style="padding: 14px; resize: none; background: #131313; border: 1px solid #383836; border-radius: 8px; color: #F3F1EC; font-size: 15px"></textarea></label>
+<div style="font-size: 13px; color: #A3A19B; line-height: 1.6">部員投稿として掲載されます。渉外局が確認すると「公式」になります。</div>
+<button onClick="{{ submitEvent }}" style="height: 52px; border: 0; border-radius: 8px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 16px">共有する</button>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.newsDetail }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; gap: 6px"><span class="chip">{{ curNews.tag }}</span><span class="chip">{{ curNews.time }}</span></div>
+<h1 style="margin: 0; font-size: 21px; font-weight: 700; line-height: 1.4; word-break: auto-phrase">{{ curNews.title }}</h1>
+</div>
+
+<div class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">AIによる要約</span>
+<div style="font-size: 15px; line-height: 1.75; color: #E9E6DF">{{ curNews.sum }}</div>
+<div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #252524; font-size: 13px; color: #A3A19B">
+<span>出典：{{ curNews.src }}</span>
+<span style="display: flex; align-items: center; gap: 2px; color: #F3F1EC; font-weight: 700">原文を読む<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></span>
+</div>
+</div>
+
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 class="h2">コメント</h2>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<input type="text" aria-label="コメントを書く" placeholder="思ったことを一言" style="flex: 1; min-width: 0; height: 46px; padding: 0 16px; background: #131313; border: 1px solid #383836; border-radius: 6px; color: #F3F1EC; font-size: 15px">
+<button aria-label="送信" style="flex: none; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 50%; background: #F3F1EC; color: #070707; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg></button>
+</div>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{ newsCm }}" as="c" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; padding: 14px 0; border-bottom: {{ c.sep }}">
+<span class="en" style="flex: none; width: 32px; height: 32px; border-radius: 50%; background: #2C2C2A; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700">{{ c.ini }}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; color: #A3A19B">{{ c.who }} · {{ c.time }}</span>
+<span style="font-size: 15px; line-height: 1.65; color: #E9E6DF">{{ c.text }}</span>
+<div style="display: flex; align-items: center; gap: 12px">
+<button onClick="{{ c.toggle }}" aria-label="いいね" style="height: 40px; padding: 0 4px 0 0; border: 0; background: transparent; color: {{ c.likeFg }}; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ c.likeFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg><span class="en">{{ c.likeN }}</span></button>
+<button style="height: 40px; padding: 0 4px; border: 0; background: transparent; color: #A3A19B; font-size: 13px; font-weight: 700">返信</button>
+</div>
+<sc-for list="{{ c.replies }}" as="r" hint-placeholder-count="1">
+<div style="display: flex; gap: 10px; padding-top: 8px">
+<span class="en" style="flex: none; width: 26px; height: 26px; border-radius: 50%; background: #2C2C2A; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700">{{ r.ini }}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; color: #A3A19B">{{ r.who }} · {{ r.time }}</span>
+<span style="font-size: 15px; line-height: 1.6; color: #E9E6DF">{{ r.text }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ noNewsCm }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 14px; color: #A3A19B; padding: 4px 0">まだコメントはありません。</div>
+</sc-if>
+</div>
+
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.cal }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 20px 32px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h1 class="en" style="margin: 0; font-size: 28px; font-weight: 700">2026.11</h1>
+<div style="display: flex">
+<button class="ibtn" aria-label="前の月"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button class="ibtn" aria-label="次の月"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+<div style="display: flex; gap: 14px; font-size: 13px; color: #BDBAB3">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2A93B"></span>部内</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #8C8C8C"></span>外部</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F3F1EC"></span>教育</span>
+</div>
+<div class="card" style="padding: 12px 8px">
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); text-align: center; font-size: 13px; color: #A3A19B; padding-bottom: 6px">
+<span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px">
+<sc-for list="{{ days }}" as="d" hint-placeholder-count="35">
+<button onClick="{{ d.pick }}" disabled="{{ d.disabled }}" style="height: 46px; border-radius: 8px; border: 1px solid {{ d.bd }}; background: {{ d.bg }}; color: {{ d.fg }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 0">
+<span class="en" style="font-size: 15px; font-weight: 500">{{ d.label }}</span>
+<span style="display: flex; gap: 3px; height: 5px">
+<span style="width: 5px; height: 5px; border-radius: 50%; background: {{ d.c1 }}"></span>
+<span style="width: 5px; height: 5px; border-radius: 50%; background: {{ d.c2 }}"></span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="lbl">{{ dayTitle }}</span>
+<sc-for list="{{ dayEvents }}" as="e" hint-placeholder-count="1">
+<div class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: {{ e.color }}"></span>
+<span style="font-size: 13px; color: #BDBAB3">{{ e.type }}</span>
+</div>
+<div style="font-weight: 700; font-size: 17px">{{ e.title }}</div>
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-size: 13px; color: #BDBAB3"><span class="en">{{ e.time }}</span> · {{ e.place }}</span>
+<button onClick="{{ e.toggle }}" style="height: 40px; padding: 0 14px; border-radius: 6px; border: 1px solid {{ e.joinBd }}; background: {{ e.joinBg }}; color: {{ e.joinFg }}; font-weight: 700; font-size: 13px">{{ e.joinLabel }}</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ noEvents }}" hint-placeholder-val="{{ false }}">
+<div class="card" style="padding: 18px; font-size: 14px; color: #A3A19B; text-align: center">この日の予定はありません</div>
+</sc-if>
+</div>
+
+<button class="card" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 8px; color: #F3F1EC; width: 100%; text-align: left">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5l2-2v6h-6l2.5-2.5A5 5 0 0 0 7 12"></path><path d="M20 12a8 8 0 0 1-14 5l-2 2v-6h6l-2.5 2.5A5 5 0 0 0 17 12"></path></svg>
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-weight: 500">Googleカレンダーと同期</span>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.me }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 20px 32px; display: flex; flex-direction: column; gap: 22px">
+<div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px">
+<span class="en" style="width: 60px; height: 60px; border-radius: 10px; background: #F3F1EC; color: #070707; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px">YT</span>
+<span style="display: flex; flex-direction: column">
+<span style="font-weight: 700; font-size: 18px">山田 太郎</span>
+<span style="font-size: 13px; color: #BDBAB3">経営学部 1年 · 横浜国立大学</span>
+</span>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<span class="chip en" style="border-color: #F3F1EC; color: #F3F1EC">Lv.02</span>
+<span class="chip en">Strategist 受講中</span>
+<span class="chip">ビジネスモデル設計</span>
+<span class="chip">戦略</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h2">参加中のプロジェクト</h2>
+<button onClick="{{ openR1 }}" class="card" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 8px; color: #F3F1EC; text-align: left; width: 100%">
+<span style="flex: 1; display: flex; flex-direction: column">
+<span style="font-size: 13px; color: #A3A19B">実プロジェクト枠 · Strategist</span>
+<span style="font-weight: 500">空きコマ×単発バイトのマッチング</span>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h2">外部出場の記録</h2>
+<div class="card" style="padding: 16px; border-radius: 8px; border-style: dashed; font-size: 14px; color: #A3A19B; line-height: 1.6">まだありません</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h2">運営</h2>
+<div class="card" style="border-radius: 8px; overflow: hidden">
+<button onClick="{{ openAdmin }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 16px; background: transparent; border: 0; border-bottom: 1px solid #252524; color: #F3F1EC; text-align: left">
+<span style="flex: 1; font-weight: 500">運営ダッシュボード</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+<button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 16px; background: transparent; border: 0; border-bottom: 1px solid #252524; color: #F3F1EC; text-align: left">
+<span style="flex: 1; font-weight: 500">部員アンケートを作成</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 16px">
+<span style="font-weight: 500">所属テナント</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #BDBAB3"><span class="mark" aria-hidden="true" style="width: 20px; height: 20px"></span>横浜国立大学 起業部</span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 0 4px; opacity: 0.55">
+<span class="mark" role="img" aria-label="F-LAB" style="width: 44px; height: 44px"></span>
+<span class="wordmark" aria-hidden="true"></span>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.admin }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+<div class="card" style="padding: 16px; border-radius: 10px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; color: #BDBAB3">{{ k.label }}</span>
+<span class="en" style="font-size: 30px; font-weight: 700; line-height: 1.1">{{ k.val }}</span>
+<span style="font-size: 13px; color: #A3A19B">{{ k.note }}</span>
+</div>
+</sc-for>
+</div>
+
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<span class="lbl">レベル分布</span>
+<sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+<div style="display: flex; align-items: center; gap: 10px">
+<span class="en" style="width: 40px; font-size: 13px; color: #D2CFC8">{{ l.name }}</span>
+<span style="flex: 1; height: 10px; border-radius: 5px; background: #222221; overflow: hidden"><span style="display: block; height: 100%; width: {{ l.w }}; background: #F3F1EC; border-radius: 5px"></span></span>
+<span class="en" style="width: 28px; text-align: right; font-size: 13px; font-weight: 700">{{ l.n }}</span>
+</div>
+</sc-for>
+</div>
+
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between"><span class="lbl">ペインのタグ別 共感数</span></div>
+<sc-for list="{{ painTags }}" as="t" hint-placeholder-count="5">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 72px; font-size: 13px; color: #D2CFC8">{{ t.name }}</span>
+<span style="flex: 1; height: 10px; border-radius: 5px; background: #222221; overflow: hidden"><span style="display: block; height: 100%; width: {{ t.w }}; background: #8C8C8C; border-radius: 5px"></span></span>
+<span class="en" style="width: 28px; text-align: right; font-size: 13px; font-weight: 700">{{ t.n }}</span>
+</div>
+</sc-for>
+</div>
+
+<div class="card" style="padding: 6px 18px">
+<sc-for list="{{ rates }}" as="r" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: {{ r.sep }}">
+<span style="display: flex; flex-direction: column"><span style="font-weight: 500">{{ r.name }}</span><span style="font-size: 13px; color: #A3A19B">参加率</span></span>
+<span class="en" style="font-size: 20px; font-weight: 700">{{ r.v }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</main>
+
+<sc-if value="{{ show.fab }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ fabGo }}" style="position: absolute; right: 20px; bottom: 100px; height: 52px; padding: 0 20px 0 16px; border: 0; border-radius: 6px; background: #F2A93B; color: #070707; font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5)">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+{{ fabLabel }}
+</button>
+</sc-if>
+
+<nav style="height: 82px; flex: none; border-top: 1px solid #1C1C1B; background: #070707; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 0 6px 16px">
+<button onClick="{{ goHome }}" style="background: transparent; border: 0; color: {{ tc.home }}; border-top: 2px solid {{ ti.home }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 500">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>
+<span>ホーム</span>
+</button>
+<button onClick="{{ goLearn }}" style="background: transparent; border: 0; color: {{ tc.learn }}; border-top: 2px solid {{ ti.learn }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 500">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5a2 2 0 0 1 2-2h14v14H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14"></path></svg>
+<span>学ぶ</span>
+</button>
+<button onClick="{{ goNews }}" style="background: transparent; border: 0; color: {{ tc.news }}; border-top: 2px solid {{ ti.news }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 500">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"></path><path d="M17 9h3v8a2 2 0 0 1-2 2H6"></path><path d="M8 9h5M8 13h5M8 16h3"></path></svg>
+<span>ニュース</span>
+</button>
+<button onClick="{{ goBoard }}" style="background: transparent; border: 0; color: {{ tc.board }}; border-top: 2px solid {{ ti.board }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 500">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg>
+<span>掲示板</span>
+</button>
+<button onClick="{{ goCal }}" style="background: transparent; border: 0; color: {{ tc.cal }}; border-top: 2px solid {{ ti.cal }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 500">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+<span>予定</span>
+</button>
+</nav>
+</div>
+</template>
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+  var HOLE=/\{\{\s*([^}]+?)\s*\}\}/g, WHOLE=/^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function look(path,sc){
+    if(path==='true')return true; if(path==='false')return false;
+    if(/^-?\d+(\.\d+)?$/.test(path))return Number(path);
+    var parts=path.split('.'),v=sc;
+    for(var i=0;i<parts.length;i++){ if(v==null)return undefined; v=v[parts[i]]; }
+    return v;
+  }
+  function raw(str,sc){ var m=WHOLE.exec(str); if(m)return look(m[1],sc); return interp(str,sc); }
+  function interp(str,sc){ return str.replace(HOLE,function(_,p){ var v=look(p,sc); return v==null?'':String(v); }); }
+  var refs=[];
+  function build(node,sc,parent){
+    if(node.nodeType===3){ parent.appendChild(document.createTextNode(interp(node.data,sc))); return; }
+    if(node.nodeType!==1)return;
+    var tag=node.localName;
+    if(tag==='sc-if'){ if(raw(node.getAttribute('value')||'',sc)){ kids(node,sc,parent);} return; }
+    if(tag==='sc-for'){
+      var list=raw(node.getAttribute('list')||'',sc)||[], as=node.getAttribute('as')||'item';
+      for(var i=0;i<list.length;i++){ var s2=Object.assign({},sc); s2[as]=list[i]; s2.$index=i; kids(node,s2,parent); }
+      return;
+    }
+    var el=node.namespaceURI===SVGNS?document.createElementNS(SVGNS,tag):document.createElement(tag);
+    for(var a=0;a<node.attributes.length;a++){
+      var at=node.attributes[a], n=at.name, v=at.value;
+      if(n.indexOf('hint-')===0)continue;
+      if(n==='onclick'){ var fn=raw(v,sc); if(typeof fn==='function')el.addEventListener('click',fn); continue; }
+      if(n==='ref'){ var rf=raw(v,sc); if(typeof rf==='function')refs.push([rf,el]); continue; }
+      if(n==='disabled'){ var dv=raw(v,sc); if(dv===true||dv==='')el.disabled=true; continue; }
+      var val=raw(v,sc);
+      if(val==null||val===false)continue;
+      el.setAttribute(n,String(val));
+    }
+    var src=tag==='template'?node.content:node;
+    kids(src,sc,el);
+    parent.appendChild(el);
+  }
+  function kids(node,sc,parent){ var c=node.childNodes; for(var i=0;i<c.length;i++)build(c[i],sc,parent); }
+
+  window.DCLogic=function(props){ this.props=props||{}; this.state={}; };
+  DCLogic.prototype.setState=function(p){ Object.assign(this.state,typeof p==='function'?p(this.state):p); schedule(); };
+  DCLogic.prototype.forceUpdate=function(){ schedule(); };
+
+  var stage, tpl, comp, pending=false, lastKey=null;
+  function schedule(){ if(pending)return; pending=true; Promise.resolve().then(function(){ pending=false; render(); }); }
+  function screenKey(v){ var s=v.show||{}, k=[]; for(var x in s){ if(s[x])k.push(x);} return k.join(','); }
+  function render(){
+    var vals=comp.renderVals(), key=screenKey(vals);
+    var scrolls=[].map.call(stage.querySelectorAll('.scroll'),function(e){return [e.scrollTop,e.scrollLeft];});
+    var inputs=[].map.call(stage.querySelectorAll('input,textarea'),function(e){return e.value;});
+    var frag=document.createDocumentFragment(); refs=[];
+    kids(tpl.content,vals,frag);
+    stage.replaceChildren(frag);
+    if(key===lastKey){
+      [].forEach.call(stage.querySelectorAll('.scroll'),function(e,i){ if(scrolls[i]){ e.scrollTop=scrolls[i][0]; e.scrollLeft=scrolls[i][1]; } });
+      var ins=stage.querySelectorAll('input,textarea'); if(ins.length===inputs.length)[].forEach.call(ins,function(e,i){ e.value=inputs[i]; });
+    }
+    lastKey=key;
+    refs.forEach(function(r){ try{ r[0](r[1]); }catch(e){} });
+  }
+  function fit(){
+    var W=window.innerWidth, H=window.innerHeight, phone=W<600, s, h;
+    if(phone){ s=W/390; h=H/s; } else { s=Math.min(1,(H-32)/844); h=844; }
+    document.documentElement.style.setProperty('--h',h+'px');
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+    document.body.classList.toggle('desk',!phone);
+  }
+  window.__boot=function(Component){
+    stage=document.getElementById('stage'); tpl=document.getElementById('tpl');
+    comp=new Component({}); fit(); render();
+    window.addEventListener('resize',fit);
+  };
+})();
+</script>
+<script>
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'home', sub: null, seg: 'recruit', post: 'r1', emp: {}, joined: { e4: true }, day: 21, lens: 'すべて', course: 'S', cnode: null, lseg: 'study', libf: 'all', reviewed: {}, bfilter: 'all', accBase: false, exf: 'all', enType: 'ビジコン', accRole: true, np: 'idea', npFrame: '実プロジェクト枠', npRoles: { Engineer: true }, npEnd: 0, src: '聞き取り', sev: 2, anon: true, nf: 'すべて', news: 'n1', fo: null, ps: '共感順', accPrac: true, likes: {} };
+  }
+  renderVals() {
+    const s = this.state;
+    const A = '#F3F1EC';
+    const R = '#F2A93B';
+    const RT = '#F2A93B';
+    const M = '#A3A19B';
+    const INK = '#070707';
+    const go = (tab) => () => this.setState({ tab: tab, sub: null });
+    const typeColor = { '部内': RT, '外部': '#8C8C8C', '教育': '#F3F1EC' };
+    const main = !s.sub;
+
+    const recruitsRaw = [
+      { id: 'r1', frame: '実プロジェクト枠', title: '空きコマ×単発バイトのマッチング', owner: '経営 1年 · K.T.', initial: 'KT', time: '2時間前', purpose: '授業の空きコマに入れる学内・大学周辺の単発バイトを、時間割から自動で提案する。探す手間と、入れる仕事がない機会損失をなくす。', end: '事業の存続が不可能と判断した時点で解散', endShort: '存続不能の判断時', fb: 12, pain: '授業の空きコマに入れるバイトが見つからない', slots: [{ role: 'Strategist', open: false }, { role: 'Engineer', open: true }, { role: 'Advertiser', open: true }] },
+      { id: 'r2', frame: '外部ビジコン枠', title: '外部の学生ビジコン 出場チーム', owner: '理工 1年 · M.S.', initial: 'MS', time: '昨日', purpose: '地域の事業承継をテーマに、横国起業部として外部ビジコンへ出場する。', end: 'ビジコン終了後に解散（入賞時は継続を協議）', endShort: 'ビジコン後', fb: 5, pain: '商店街の店主が後継者を見つけられない', slots: [{ role: 'Innovator', open: false }, { role: 'Negotiator', open: true }, { role: 'Strategist', open: true }] },
+      { id: 'r3', frame: '実プロジェクト枠', title: '学食の混雑をリアルタイムで可視化', owner: '経済 2年 · R.N.', initial: 'RN', time: '3日前', purpose: '昼休みの学食の混雑状況を可視化し、空いている時間帯へ利用を分散させる。', end: '事業の存続が不可能と判断した時点で解散', endShort: '存続不能の判断時', fb: 8, pain: '昼休みの学食が混みすぎて座れない', slots: [{ role: 'Engineer', open: false }, { role: 'Strategist', open: true }, { role: 'Negotiator', open: true }] }
+    ];
+    const recruits = recruitsRaw.map((r) => {
+      const slots = r.slots.map((x) => ({ role: x.role, open: x.open, notOpen: !x.open, label: x.open ? '募集中' : '参加済み', bd: x.open ? '#5F5E5A' : '#2C2C2A', fg: x.open ? '#F3F1EC' : M, bg: x.open ? 'transparent' : '#171716' }));
+      const openSlots = r.slots.filter((x) => x.open);
+      return Object.assign({}, r, { isRecruit: true, isIdea: false, typeLabel: 'メンバー募集 · ' + r.frame, typeBg: RT, typeBd: RT, typeFg: INK, purposeLabel: '目的', fbTitle: 'フィードバック', hasPain: true, asks: [], slots: slots, openCount: openSlots.length, openList: openSlots.map((x) => ({ role: x.role })), openRoles: openSlots.map((x) => x.role).join(' / '), open: () => this.setState({ sub: 'post', post: r.id }) });
+    });
+    const ideasRaw = [
+      { id: 'i1', title: '学内の落とし物を写真で共有するアプリ', owner: '教育 1年 · Y.H.', initial: 'YH', time: '30分前', summary: '拾った人が写真と場所を投稿し、落とした人が検索できる。まだ作るかは決めていない。', asks: [{ text: '自分なら使う？使わないなら理由は？' }, { text: '大学の遺失物窓口で十分では？' }], fb: 6, votes: 21, pain: '' },
+      { id: 'i2', title: 'サークル会計の引き継ぎテンプレート', owner: '経営 2年 · A.M.', initial: 'AM', time: '2日前', summary: '会計担当の引き継ぎ資料と帳簿のひな形をセットで配布する。有料化できるか知りたい。', asks: [{ text: '自分の団体で困ったことはある？' }, { text: 'いくらなら払う？' }], fb: 3, votes: 12, pain: 'サークルの会計引き継ぎが毎年崩れる' }
+    ];
+    const ideas = ideasRaw.map((r) => Object.assign({}, r, {
+      isIdea: true, isRecruit: false, typeLabel: '意見募集', typeBg: 'transparent', typeBd: '#F3F1EC', typeFg: '#F3F1EC',
+      purposeLabel: '概要', purpose: r.summary, fbTitle: '寄せられた意見', hasPain: !!r.pain, slots: [],
+      open: () => this.setState({ sub: 'post', post: r.id })
+    }));
+    const allPosts = [ideas[0], recruits[0], recruits[1], ideas[1], recruits[2]];
+    const feed = allPosts.filter((p) => s.bfilter === 'all' || (s.bfilter === 'recruit' ? p.isRecruit : p.isIdea));
+    const bFilters = [{ k: 'all', n: 'すべて' }, { k: 'recruit', n: 'メンバー募集' }, { k: 'idea', n: '意見募集' }].map((f) => {
+      const on = s.bfilter === f.k;
+      return { name: f.n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ bfilter: f.k }) };
+    });
+    const curBase = allPosts.find((r) => r.id === s.post) || recruits[0];
+
+    const painsRaw = [
+      { id: 'p1', text: '授業の空きコマに入れるバイトが見つからない', who: '学部1〜2年', src: '自分', sev: 3, tags: ['学生生活', '雇用'], base: 24, ideas: 1 },
+      { id: 'p2', text: '昼休みの学食が混みすぎて座れない', who: '学部生全般', src: '観察', sev: 2, tags: ['学生生活'], base: 18, ideas: 1 },
+      { id: 'p3', text: '商店街の店主が後継者を見つけられない', who: '地域の個人店', src: '聞き取り', sev: 3, tags: ['地域', '事業承継'], base: 11, ideas: 1 },
+      { id: 'p4', text: 'サークルの会計引き継ぎが毎年崩れる', who: '学生団体の運営者', src: '自分', sev: 2, tags: ['学生団体', '会計'], base: 9, ideas: 1 },
+      { id: 'p5', text: '留学生が保証人なしで部屋を借りにくい', who: '留学生', src: '聞き取り', sev: 3, tags: ['住まい', '留学生'], base: 7, ideas: 0 }
+    ];
+    const pains = painsRaw.map((p) => {
+      const on = !!s.emp[p.id];
+      return {
+        text: p.text, who: p.who, src: p.src, ideas: p.ideas,
+        tags: p.tags.map((t) => ({ name: t })),
+        count: p.base + (on ? 1 : 0),
+        d1: p.sev >= 1 ? RT : '#383836', d2: p.sev >= 2 ? RT : '#383836', d3: p.sev >= 3 ? RT : '#383836',
+        empBg: on ? RT : 'transparent', empFg: on ? INK : '#E9E6DF', empBd: on ? RT : '#383836',
+        ideaColor: p.ideas > 0 ? '#E9E6DF' : M,
+        toggle: () => { const emp = Object.assign({}, this.state.emp); emp[p.id] = !on; this.setState({ emp: emp }); }
+      };
+    });
+    const painTop = pains.slice().sort((a, b) => b.count - a.count).slice(0, 3).map((p, i) => ({ rank: i + 1, text: p.text, count: p.count, sep: i < 2 ? '1px solid #252524' : '0' }));
+
+    const units = [
+      { no: 'B1', title: '起業の地図', meta: 'スタートアップとスモビジの手順', st: 'done' },
+      { no: 'B2', title: '資金調達の基礎', meta: 'VC・エンジェル・融資・補助金', st: 'done' },
+      { no: 'B3', title: 'ロールと分業', meta: '5つのロールと適性の仮置き', st: 'done' },
+      { no: 'B4', title: '市場の分析', meta: '3C・5フォース', st: 'done' },
+      { no: 'B5', title: 'ビジネスモデルの分析', meta: '既存企業を分析 · 対面', st: 'done' },
+      { no: 'S1', title: 'ビジネスマナー', meta: 'メール・報連相・議事録', st: 'done' },
+      { no: 'S2', title: 'Officeの実用', meta: 'Word・Excel・PowerPoint', st: 'done' },
+      { no: 'S3', title: '企画書の書き方', meta: 'MIRAの準備', st: 'done' }
+    ];
+    const statusLabel = { done: '修了', doing: '受講中', locked: '未解放' };
+    const baseUnits = units.map((u, i) => ({
+      no: u.no, title: u.title, meta: u.meta, status: statusLabel[u.st],
+      done: u.st === 'done', doing: u.st === 'doing', locked: u.st === 'locked',
+      nodeBg: u.st === 'done' ? A : 'transparent',
+      nodeBd: u.st === 'locked' ? '#383836' : (u.st === 'doing' ? RT : A),
+      nodeFg: u.st === 'done' ? INK : M,
+      titleColor: u.st === 'locked' ? '#BDBAB3' : '#F3F1EC',
+      lineColor: i === units.length - 1 ? 'transparent' : (u.st === 'done' ? A : '#383836')
+    }));
+
+    const materials = [
+      { title: '競争戦略の基本', kind: '外部記事', min: '15分', src: '外部', color: '#D2CFC8' },
+      { title: '[FCE教材名]', kind: '動画', min: '20分', src: 'FCE', color: '#A6A6A6' },
+      { title: 'ポジショニングの考え方', kind: '部内スライド', min: '15分', src: '部内', color: A }
+    ];
+
+    const lensNames = ['すべて', 'Strategist', 'Negotiator', 'Advertiser', 'Engineer'];
+    const lenses = lensNames.map((n) => {
+      const on = s.lens === n;
+      return { name: n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ lens: n }) };
+    });
+    const allComments = [
+      { lens: 'Strategist', op: '前提を追加', text: '競合は求人アプリではなく「友人からの紹介」。紹介より速く見つかるかが論点。' },
+      { lens: 'Strategist', op: '要素を分解', text: '手数料を店側から取るなら、1件あたりの単価と月間件数の見積もりが必要。' },
+      { lens: 'Negotiator', op: '検証を提案', text: '最初の10店舗は大学周辺の飲食店に絞り、直接営業するのが早い。' },
+      { lens: 'Engineer', op: '制約を指摘', text: '時間割の取り込みは手入力から始めて、自動連携は後回しで十分。' }
+    ];
+    const commentsBy = {
+      r1: allComments,
+      i1: [
+        { lens: 'Strategist', op: '前提を確認', text: '窓口に届く前に失くした物を諦める人がどれだけいるかが需要の鍵。' },
+        { lens: 'Negotiator', op: '検証を提案', text: '学部の掲示板に紙で告知を出して、反応数を見るだけでも手応えが測れる。' },
+        { lens: 'Engineer', op: '制約を指摘', text: '写真に個人情報が写り込む前提で、公開前の確認フローが必要。' }
+      ],
+      i2: [{ lens: 'Strategist', op: '要素を分解', text: '会計テンプレと引き継ぎ資料は需要が別。どちらにお金を払うか分けて聞くべき。' }]
+    };
+    const postComments = commentsBy[curBase.id] || [];
+    const comments = s.lens === 'すべて' ? postComments : postComments.filter((c) => c.lens === s.lens);
+    const surveyBy = {
+      r1: { q: '空きコマに単発バイトを入れたいと思う？', n: 37, o: [{ label: '週1回以上入れたい', pct: 46 }, { label: 'たまに入れたい', pct: 38 }, { label: '入れたくない', pct: 16 }] },
+      i1: { q: '落とし物をしたとき、このアプリを使う？', n: 21, o: [{ label: '使う', pct: 57 }, { label: 'たぶん使う', pct: 29 }, { label: '使わない', pct: 14 }] }
+    };
+    const sv = surveyBy[curBase.id];
+    const svColors = [A, '#BDBAB3', '#5F5E5A'];
+    const survey = sv ? sv.o.map((o, i) => Object.assign({}, o, { w: o.pct + '%', color: svColors[i] })) : [];
+    const cur = Object.assign({}, curBase, { hasSurvey: !!sv, surveyQ: sv ? sv.q : '', surveyN: sv ? sv.n : 0 });
+
+    const npOn = (on) => ({ bg: on ? '#F3F1EC' : '#131313', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836' });
+    const npTypes = [
+      { k: 'idea', name: '意見募集', desc: 'アイデアだけ出して、まずは意見を聞く', bs: 'dashed' },
+      { k: 'recruit', name: 'メンバー募集', desc: '職能の枠と解散条件を決めてチームを組む', bs: 'solid' }
+    ].map((t) => {
+      const on = s.np === t.k;
+      return { name: t.name, desc: t.desc, bs: t.bs, bd: on ? A : '#383836', bg: on ? 'rgba(255,255,255,0.07)' : '#0C0C0C', titleColor: on ? A : '#F3F1EC', pick: () => this.setState({ np: t.k }) };
+    });
+    const npFrames = ['実プロジェクト枠', '外部ビジコン枠'].map((n) => Object.assign({ name: n, pick: () => this.setState({ npFrame: n }) }, npOn(s.npFrame === n)));
+    const npRoles = ['Strategist', 'Negotiator', 'Advertiser', 'Engineer', 'Innovator'].map((n) => {
+      const on = !!s.npRoles[n];
+      return { name: n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => { const r = Object.assign({}, this.state.npRoles); r[n] = !on; this.setState({ npRoles: r }); } };
+    });
+    const npEnds = ['ビジコン終了後に解散', 'ビジコン入賞時は継続', '事業の存続が不可能と判断した時点で解散'].map((n, i) => Object.assign({ name: n, pick: () => this.setState({ npEnd: i }) }, npOn(s.npEnd === i)));
+
+    const opt = (on) => ({ bg: on ? '#F3F1EC' : '#131313', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836' });
+    const srcOpts = ['自分', '聞き取り', '観察'].map((n) => Object.assign({ name: n, pick: () => this.setState({ src: n }) }, opt(s.src === n)));
+    const sevOpts = [{ v: 1, n: '低' }, { v: 2, n: '中' }, { v: 3, n: '高' }].map((o) => Object.assign({ name: o.n, pick: () => this.setState({ sev: o.v }) }, opt(s.sev === o.v)));
+    const anon = { track: s.anon ? A : '#383836', knob: s.anon ? INK : '#BDBAB3', x: s.anon ? '23px' : '3px' };
+
+    const events = [
+      { id: 'e1', day: 14, type: '部内', title: '定例会', time: '18:30–20:00', place: '[教室]' },
+      { id: 'e2', day: 18, type: '教育', title: '演習会：戦略理論', time: '18:30–20:00', place: '[教室] · 対面' },
+      { id: 'e3', day: 20, type: '外部', title: '外部の学生ビジコン 応募締切', time: '23:59', place: '[主催者名]' },
+      { id: 'e7', day: 20, type: '教育', title: 'ST2 戦略理論 実習締切', time: '23:59', place: 'アプリ内' },
+      { id: 'e4', day: 21, type: '部内', title: 'LUNA エントリー締切', time: '23:59', place: 'アプリ内' },
+      { id: 'e5', day: 25, type: '外部', title: 'スタートアップ インターン説明会', time: '19:00–20:00', place: 'オンライン' },
+      { id: 'e6', day: 28, type: '部内', title: 'LUNA 本選', time: '13:00–18:00', place: '[会場]' }
+    ];
+    const days = [];
+    for (let i = 0; i < 35; i++) {
+      const d = i + 1;
+      const inMonth = d <= 30;
+      const evs = inMonth ? events.filter((e) => e.day === d) : [];
+      const sel = inMonth && d === s.day;
+      const today = inMonth && d === 13;
+      const dot = (e) => (e ? (sel ? INK : typeColor[e.type]) : 'transparent');
+      days.push({
+        label: inMonth ? d : d - 30,
+        disabled: !inMonth,
+        bg: sel ? A : 'transparent',
+        fg: sel ? INK : (inMonth ? '#E9E6DF' : '#5F5E5A'),
+        bd: today && !sel ? RT : 'transparent',
+        c1: dot(evs[0]), c2: dot(evs[1]),
+        pick: () => { if (inMonth) this.setState({ day: d }); }
+      });
+    }
+    const WD = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const dayEvents = events.filter((e) => e.day === s.day).map((e) => {
+      const on = !!s.joined[e.id];
+      return Object.assign({}, e, {
+        color: typeColor[e.type],
+        joinLabel: on ? '登録済み' : '参加登録',
+        joinBg: on ? 'transparent' : A, joinFg: on ? A : INK, joinBd: A,
+        toggle: () => { const j = Object.assign({}, this.state.joined); j[e.id] = !on; this.setState({ joined: j }); }
+      });
+    });
+
+    const kpis = [
+      { label: '登録者', val: '150', note: '人' },
+      { label: '今月アクティブ', val: '52', note: '人' },
+      { label: '募集中', val: '3', note: '件' },
+      { label: 'ペイン', val: '5', note: '件 · 共感 69' }
+    ];
+    const levels = [{ name: 'Lv.1', n: 88 }, { name: 'Lv.2', n: 41 }, { name: 'Lv.3', n: 15 }, { name: 'Lv.4', n: 6 }].map((l) => Object.assign({}, l, { w: Math.round(l.n / 88 * 100) + '%' }));
+    const painTags = [{ name: '学生生活', n: 42 }, { name: '雇用', n: 24 }, { name: '地域', n: 11 }, { name: '学生団体', n: 9 }, { name: '住まい', n: 7 }].map((t) => Object.assign({}, t, { w: Math.round(t.n / 42 * 100) + '%' }));
+    const rates = [{ name: '定例会（10月）', v: '38%' }, { name: '演習会：経理の基礎', v: '61%' }, { name: 'MIRA 振り返り会', v: '27%' }].map((r, i, arr) => Object.assign({}, r, { sep: i < arr.length - 1 ? '1px solid #252524' : '0' }));
+
+    // ---- Per-track DAG ----
+    const START = { id: 'in', label: '基礎教育 修了', sub: 'START', L: 0, lane: 0, k: 'gate', st: 'done', deps: [] };
+    const GOAL = (L, d) => ({ id: 'out', label: 'LUNA', sub: 'GOAL · 学内ビジコン', L: L, lane: 0, k: 'gate', deps: d });
+    const COURSES = {
+      S: { name: 'Strategist', short: '戦略・財務・戦略監査', jp: '戦略理論・戦略立案・株式・社会情勢・資産配分・経理・資産管理・戦略監査', lanes: 3, nodes: [START,
+        { id: 'st1', label: '社会情勢と業界', sub: 'ST1', L: 1, lane: 0, st: 'done', deps: ['in'] },
+        { id: 'st3', label: '経理の基礎', sub: 'ST3', L: 1, lane: 1, st: 'done', deps: ['in'] },
+        { id: 'st2', label: '戦略理論', sub: 'ST2', L: 2, lane: 0, st: 'doing', deps: ['st1'] },
+        { id: 'st4', label: '資金と資産の管理', sub: 'ST4', L: 2, lane: 1, st: 'open', deps: ['st3'] },
+        { id: 'st5', label: '株式と資本政策', sub: 'ST5', L: 2, lane: 2, st: 'open', deps: ['st3'] },
+        { id: 'st6', label: '戦略立案', sub: 'ST6 · 実習', L: 3, lane: 0, deps: ['st2', 'st4', 'st5'] },
+        { id: 'x', label: 'アイデア立案演習', sub: 'I2 · 他トラック', L: 3, lane: 2, k: 'ext', deps: [] },
+        { id: 'st7', label: '戦略監査', sub: 'ST7 · 実習 · 対面', L: 4, lane: 0, deps: ['st6', 'x'] }, GOAL(5, ['st7'])] },
+      N: { name: 'Negotiator', short: '営業・交渉', jp: '営業理論・コミュニケーション理論・営業演習', lanes: 2, nodes: [START,
+        { id: 'n1', label: 'コミュニケーション理論', sub: 'N1', L: 1, lane: 0, st: 'open', deps: ['in'] },
+        { id: 'n2', label: '営業理論', sub: 'N2', L: 2, lane: 0, deps: ['n1'] },
+        { id: 'n3', label: '顧客ヒアリング', sub: 'N3', L: 2, lane: 1, deps: ['n1'] },
+        { id: 'n4', label: '交渉', sub: 'N4', L: 3, lane: 0, deps: ['n2'] },
+        { id: 'n5', label: '営業演習', sub: 'N5 · 実習 · 対面', L: 4, lane: 0, deps: ['n3', 'n4'] }, GOAL(5, ['n5'])] },
+      A: { name: 'Advertiser', short: '広告・デザイン・SNS', jp: '広告プラットフォーム・消費者心理・デザイン理論・制作ソフト・編集・SNS運用', lanes: 3, nodes: [START,
+        { id: 'a1', label: '消費者心理', sub: 'A1', L: 1, lane: 0, st: 'open', deps: ['in'] },
+        { id: 'tl', label: '制作ソフト', sub: 'T1 デザイン · T2 編集', L: 1, lane: 1, st: 'open', deps: ['in'], skip: true },
+        { id: 'a2', label: '広告PFの知識', sub: 'A2', L: 1, lane: 2, st: 'open', deps: ['in'] },
+        { id: 'a3', label: 'デザイン理論', sub: 'A3', L: 2, lane: 0, deps: ['a1'] },
+        { id: 'a4', label: '編集の技法', sub: 'A4', L: 2, lane: 1, deps: ['a1', 'tl'] },
+        { id: 'a5', label: 'クリエイティブ制作', sub: 'A5 · 実習 · 対面', L: 3, lane: 0, deps: ['a3', 'a4'] },
+        { id: 'a6', label: 'SNS運用演習', sub: 'A6 · 実習', L: 4, lane: 0, deps: ['a5', 'a2'] }, GOAL(5, ['a6'])] },
+      E: { name: 'Engineer', short: '開発（lumos連携）', jp: '開発・技術（lumosへ斡旋）', lanes: 1, nodes: [START,
+        { id: 'e1', label: 'lumosの講座', sub: 'E1 · 外部', L: 1, lane: 0, k: 'ext', deps: ['in'] },
+        { id: 'e2', label: 'MVPの範囲の切り方', sub: 'E2 · 任意', L: 2, lane: 0, st: 'open', deps: ['e1'] }, GOAL(3, ['e2'])] },
+      I: { name: 'Innovator', short: 'アイデア立案・メンタリティ', jp: 'ビジネスアイデア立案演習・メンタリティ講習', opt: true, lanes: 3, nodes: [START,
+        { id: 'i1', label: 'メンタリティ講習', sub: 'I1', L: 1, lane: 0, st: 'open', deps: ['in'] },
+        { id: 'i2', label: 'アイデア立案演習', sub: 'I2', L: 1, lane: 1, st: 'open', deps: ['in'] },
+        { id: 'x', label: '戦略監査', sub: 'ST7 · 他トラック', L: 1, lane: 2, k: 'ext', deps: [] },
+        { id: 'i3', label: '相互評価', sub: 'I3 · 対面', L: 2, lane: 1, deps: ['i2', 'x'] },
+        { id: 'i4', label: '自己選別', sub: 'I4', L: 3, lane: 0, deps: ['i1', 'i3'] },
+        { id: 'out', label: '掲示板へ投稿', sub: 'GOAL', L: 4, lane: 0, k: 'gate', deps: ['i4'] }] }
+    };
+    const courseKeys = ['S', 'N', 'A', 'E', 'I'];
+    Object.keys(COURSES).forEach((k) => COURSES[k].nodes.forEach((n) => { if (!n.st) n.st = n.k === 'ext' ? 'ext' : 'locked'; }));
+    const isUnit = (n) => !n.k;
+    const unitCount = (c) => c.nodes.filter(isUnit).length;
+    const doneCount = (c) => c.nodes.filter((n) => isUnit(n) && n.st === 'done').length;
+    const courses = courseKeys.map((key) => {
+      const c = COURSES[key];
+      const active = key === 'S';
+      return {
+        name: c.name, jp: c.short,
+        tag: active ? '受講中' : (c.opt ? '任意・併受講推奨' : (key === 'E' ? 'lumos連携' : 'ROLE')),
+        tagColor: active ? RT : (c.opt ? '#D0D0D0' : M),
+        bd: active ? A : (c.opt ? 'rgba(255,255,255,0.35)' : '#252524'),
+        count: active ? doneCount(c) + ' / ' + unitCount(c) + ' 修了' : unitCount(c) + ' 単元 · 受講可',
+        open: () => this.setState({ sub: 'course', course: key, cnode: null })
+      };
+    });
+    const ck = COURSES[s.course] ? s.course : 'S';
+    const cc = COURSES[ck];
+    const TOP = 24, RY = 92, BH = 56;
+    const laneX = cc.lanes === 1 ? [28] : (cc.lanes === 2 ? [28, 190] : [28, 136, 244]);
+    const laneW = cc.lanes === 2 ? 158 : 106;
+    const perL = {};
+    cc.nodes.forEach((n) => { perL[n.L] = (perL[n.L] || 0) + 1; });
+    const cById = {};
+    let maxL = 0;
+    cc.nodes.forEach((n) => {
+      maxL = Math.max(maxL, n.L);
+      cById[n.id] = { n: n, solo: perL[n.L] === 1, dx: laneX[n.lane || 0], cy: TOP + n.L * RY + BH / 2, top: TOP + n.L * RY };
+    });
+    const seg = (x1, y1, x2, y2) => {
+      if (x1 === x2) return 'M' + x1 + ' ' + y1 + ' V' + y2 + ' ';
+      const ym = y2 - RY / 2, r = 14, dir = x2 > x1 ? 1 : -1;
+      return 'M' + x1 + ' ' + y1 + ' V' + (ym - r) + ' Q' + x1 + ' ' + ym + ' ' + (x1 + dir * r) + ' ' + ym + ' H' + (x2 - dir * r) + ' Q' + x2 + ' ' + ym + ' ' + x2 + ' ' + (ym + r) + ' V' + y2 + ' ';
+    };
+    let cEdges = '', cEdgesExt = '', cEdgesGoal = '', cEdgesDone = '';
+    cc.nodes.forEach((n) => n.deps.forEach((d) => {
+      const p = cById[d], q = cById[n.id];
+      const path = seg(p.dx, p.cy, q.dx, q.cy);
+      if (p.n.k === 'ext' || n.k === 'ext') cEdgesExt += path;
+      else if (p.n.st === 'done' && (n.st === 'done' || n.st === 'doing')) cEdgesDone += path;
+      else if (n.id === 'out') cEdgesGoal += path;
+      else cEdges += path;
+    }));
+    const firstPick = cc.nodes.find((n) => n.st === 'doing') || cc.nodes.find(isUnit);
+    const cSelId = s.cnode && cById[s.cnode] ? s.cnode : firstPick.id;
+    const crsNodes = cc.nodes.map((n) => {
+      const pos = cById[n.id];
+      const start = n.id === 'in', goal = n.id === 'out', ext = n.k === 'ext', sel = n.id === cSelId;
+      const size = start || goal ? 22 : 14;
+      const narrow = !pos.solo && cc.lanes === 3;
+      const st = n.st;
+      return {
+        label: n.label, sub: n.sub,
+        x: (pos.dx - 8 - size / 2) + 'px', y: pos.top + 'px',
+        w: pos.solo ? '310px' : laneW + 'px',
+        fs: pos.solo ? '16px' : (narrow ? '12px' : '14px'),
+        ws: narrow ? 'normal' : 'nowrap',
+        size: size + 'px',
+        dotBg: goal || st === 'done' ? A : (st === 'doing' ? 'rgba(242,169,59,0.25)' : INK),
+        dotBd: start ? '#F3F1EC' : (st === 'doing' ? RT : (goal || st === 'done' ? A : (ext ? '#7D7B76' : (st === 'open' ? '#BDBAB3' : '#474744')))),
+        dotBs: ext ? 'dashed' : 'solid',
+        glow: sel ? '0 0 0 6px rgba(244,244,245,0.16)' : 'none',
+        btnBg: sel ? 'rgba(255,255,255,0.05)' : 'transparent',
+        labelColor: sel ? '#FFFFFF' : (st === 'locked' || ext ? '#A3A19B' : '#E9E6DF'),
+        fg: '#E9E6DF',
+        subColor: st === 'doing' ? RT : (goal || st === 'done' ? '#D0D0D0' : M),
+        pick: () => this.setState({ cnode: n.id })
+      };
+    });
+    const hn = TOP * 2 + maxL * RY + BH;
+    const crs = {
+      name: cc.name, jp: cc.jp, kind: cc.opt ? '任意トラック' : 'ロールトラック',
+      count: ck === 'S' ? doneCount(cc) + ' / ' + unitCount(cc) + ' 修了' : unitCount(cc) + ' 単元',
+      lock: ck === 'S' ? '受講中' : (cc.opt ? '他トラックと併受講推奨' : '受講可'),
+      lockColor: ck === 'S' ? RT : '#BDBAB3',
+      nodes: crsNodes, edges: cEdges, edgesExt: cEdgesExt, edgesGoal: cEdgesGoal, edgesDone: cEdgesDone, h: hn + 'px', hn: hn
+    };
+    const csn = cById[cSelId].n;
+    const cKids = cc.nodes.filter((n) => n.deps.indexOf(cSelId) >= 0).map((n) => n.label);
+    const SL = { done: '修了', doing: '受講中', open: '受講可', locked: '未解放', ext: '他トラック・外部' };
+    const cSel = {
+      label: csn.label, sub: csn.sub,
+      status: csn.id === 'in' ? 'START' : (csn.id === 'out' ? 'GOAL' : SL[csn.st]) + (csn.skip ? ' · 作品提出で省略可' : ''),
+      deps: csn.deps.length ? csn.deps.map((d) => cById[d].n.label).join(' ＋ ') : (csn.k === 'ext' ? '（他トラック・外部）' : 'なし（トラックの起点）'),
+      next: cKids.length ? cKids.join(' / ') : 'なし（トラックの終点）'
+    };
+
+// ---- Practical education (taken when needed, no prerequisites) ----
+    const pracRaw = [
+      { name: '法務', items: [['L1', '会社設立と法人形態の選び方'], ['L2', '契約の基本（業務委託・NDA・利用規約）'], ['L3', '知的財産（商標・著作権・特許）'], ['L4', '個人情報の扱いとプライバシーポリシー'], ['L5', '創業者間契約と株式の分け方'], ['L6', '販売と広告のルール（特商法・景表法）']] },
+      { name: 'スタートアップ支援制度', items: [['F1', '補助金・助成金の探し方と申請'], ['F2', '創業融資の仕組み'], ['F3', '自治体・大学の創業支援とインキュベーション施設'], ['F4', 'アクセラレーターとビジコンの使い分け'], ['F5', '創業時に使える税制優遇']] }
+    ];
+    const pracGroups = pracRaw.map((g) => ({ name: g.name + ' · ' + g.items.length + ' 単元', items: g.items.map((u, i) => ({ code: u[0], title: u[1], sep: i < g.items.length - 1 ? '1px solid #252524' : '0' })) }));
+    const pracNote = pracRaw.map((g) => g.name + ' ' + g.items.length).join(' · ');
+
+    // ---- All units ----
+    const STL = { done: '修了', doing: '受講中', open: '受講可', locked: '未解放' };
+    const rawGroups = [{ name: '基礎教育', items: units.map((u) => ({ code: u.no, title: u.title, st: u.st, practice: false, shared: false })) }]
+      .concat(courseKeys.map((k) => ({
+        name: COURSES[k].name + (COURSES[k].opt ? ' · 任意' : ''),
+        items: COURSES[k].nodes.filter(isUnit).map((n) => ({ code: n.sub.split(' · ')[0], title: n.label, st: n.st, practice: n.sub.indexOf('実習') >= 0, shared: false }))
+      })))
+      .concat(pracRaw.map((g) => ({ name: '実務教育 · ' + g.name, items: g.items.map((u) => ({ code: u[0], title: u[1], st: 'open', practice: false, shared: false })) })));
+    const allCount = rawGroups.reduce((a, g) => a + g.items.length, 0);
+    const uf = s.uf || 'all';
+    const unitGroups = rawGroups.map((g) => {
+      const items = g.items.filter((u) => uf === 'all' || (uf === 'practice' ? u.practice : u.st === uf));
+      return {
+        name: g.name, n: items.length,
+        items: items.map((u, i) => Object.assign({}, u, {
+          status: STL[u.st],
+          stColor: u.st === 'doing' ? RT : (u.st === 'done' ? '#D0D0D0' : M),
+          dotBg: u.st === 'done' ? A : 'transparent',
+          dotBd: u.st === 'locked' ? '#5F5E5A' : (u.st === 'open' ? '#BDBAB3' : (u.st === 'doing' ? RT : A)),
+          fg: u.st === 'locked' ? '#D2CFC8' : '#F3F1EC',
+          sep: i < items.length - 1 ? '1px solid #252524' : '0'
+        }))
+      };
+    }).filter((g) => g.items.length > 0);
+    const uFilters = [{ k: 'all', n: 'すべて' }, { k: 'doing', n: '受講中' }, { k: 'locked', n: '未解放' }, { k: 'done', n: '修了' }, { k: 'practice', n: '実習のみ' }].map((f) => {
+      const on = uf === f.k;
+      return { name: f.n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ uf: f.k }) };
+    });
+
+    // ---- External events (board) ----
+    const myRoles = ['Strategist'];
+    const exRaw = [
+      { id: 'e3', type: 'ビジコン', title: '外部の学生ビジコン', host: '[主催者名]', detail: 'チーム3〜5人 · テーマ：地域課題', when: '11.20 締切', tags: ['全職能'], team: true },
+      { id: 'e5', type: '説明会', title: 'スタートアップ インターン説明会', host: '[企業名]', detail: 'オンライン · 19:00–20:00', when: '11.25 WED', tags: ['Strategist', 'Engineer'], team: false },
+      { id: 'x3', type: 'インターン', title: '事業開発インターン', host: '[企業名]', detail: '長期 · 週2日〜', when: '12.05 締切', tags: ['Strategist', 'Negotiator'], team: false },
+      { id: 'x6', type: '説明会', title: '学生起業家ミートアップ', host: '[団体名]', detail: '渋谷 · 参加無料', when: '11.29 SUN', tags: ['全職能'], team: false, by: '経営 1年 · K.T.', initial: 'KT', note: '去年参加した。起業経験者と直接話せて、共同創業者探しにも使える。' },
+      { id: 'x4', type: 'インターン', title: 'マーケティングインターン', host: '[企業名]', detail: '短期 · 5日間', when: '12.12 締切', tags: ['Advertiser'], team: false, by: '理工 2年 · S.O.', initial: 'SO', note: '先輩が参加してSNS運用を実務で任されたらしい。Advertiser志望の人に。' },
+      { id: 'x5', type: 'ビジコン', title: '[ビジコン名] 学生部門', host: '[主催者名]', detail: '個人・チーム可 · 書類審査あり', when: '1.15 締切', tags: ['全職能'], team: true }
+    ];
+    const exTypeColor = { 'ビジコン': '#F3F1EC', 'インターン': '#A6A6A6', '説明会': '#BDBDBD' };
+    const exSel = exRaw.filter((x) => s.exf === 'all' || x.type === s.exf);
+    const exItems = exSel.map((x) => {
+      const on = !!s.joined[x.id];
+      return Object.assign({}, x, {
+        typeColor: exTypeColor[x.type], noTeam: !x.team, member: !!x.by, official: !x.by,
+        fit: x.tags.indexOf('全職能') >= 0 || x.tags.some((t) => myRoles.indexOf(t) >= 0),
+        tags: x.tags.map((t) => ({ name: t })),
+        addLabel: on ? '予定に追加済み' : '予定に追加', addBg: on ? 'transparent' : A, addFg: on ? A : INK, addBd: A,
+        toggle: () => { const j = Object.assign({}, this.state.joined); j[x.id] = !on; this.setState({ joined: j }); }
+      });
+    });
+    const exFilters = [{ k: 'all', n: 'すべて' }, { k: 'ビジコン', n: 'ビジコン' }, { k: 'インターン', n: 'インターン' }, { k: '説明会', n: '説明会' }].map((f) => {
+      const on = s.exf === f.k;
+      return { name: f.n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ exf: f.k }) };
+    });
+
+// ---- Board: その他 (books, small talk) ----
+    const otRaw = [
+      { id: 'o1', tag: '本', who: '経営 1年 · K.T.', ini: 'KT', time: '1時間前', book: 'リーン・スタートアップ', author: 'エリック・リース', text: '「作る前に売ってみる」が刺さった。MIRAの前に読みたかった。', like: 8, rep: 3 },
+      { id: 'o2', tag: '雑談', who: '理工 2年 · S.O.', ini: 'SO', time: '3時間前', text: '定例会のあと、ご飯行く人いる？', like: 4, rep: 5 },
+      { id: 'o3', tag: '本', who: '経済 2年 · R.N.', ini: 'RN', time: '昨日', book: 'ゼロ・トゥ・ワン', author: 'ピーター・ティール', text: '競争を避けて独占を狙えという話。戦略理論の単元と合わせて読むと面白い。', like: 6, rep: 1 },
+      { id: 'o4', tag: '雑談', who: '教育 1年 · Y.H.', ini: 'YH', time: '昨日', text: '期末とLUNAの準備がかぶってて普通にしんどい。みんなどうしてる？', like: 11, rep: 7 },
+      { id: 'o5', tag: '雑談', who: '経営 2年 · A.M.', ini: 'AM', time: '2日前', text: '図書館3階の窓側、作業するのにちょうどいい。', like: 3, rep: 0 }
+    ];
+    const otf = s.otf || 'すべて';
+    const otSel = otRaw.filter((p) => otf === 'すべて' || p.tag === otf);
+    const otPosts = otSel.map((p, i) => {
+      const key = 'ot:' + p.id, on = !!s.likes[key];
+      return Object.assign({}, p, {
+        hasBook: !!p.book, likeN: p.like + (on ? 1 : 0), likeFg: on ? RT : '#A3A19B', likeFill: on ? RT : 'none',
+        sep: i < otSel.length - 1 ? '1px solid #252524' : '0',
+        toggle: () => { const l = Object.assign({}, this.state.likes); l[key] = !on; this.setState({ likes: l }); }
+      });
+    });
+    const otFilters = ['すべて', '本', '雑談'].map((n) => {
+      const on = otf === n;
+      return { name: n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ otf: n }) };
+    });
+
+    // ---- Library tab ----
+    const srcColor = { '部内': A, 'FCE': '#A6A6A6', '外部': '#D2CFC8' };
+    const libRaw = [
+      { title: 'スタートアップとスモビジの一般的な手順', kind: '外部記事', min: '20分', src: '外部', unit: 'B1', g: 'base' },
+      { title: '資金調達の全体像', kind: '動画', min: '20分', src: 'FCE', unit: 'B2', g: 'base' },
+      { title: '5つのロールと分業', kind: '部内スライド', min: '15分', src: '部内', unit: 'B3', g: 'base' },
+      { title: '3C・5フォースの使い方', kind: '外部記事', min: '15分', src: '外部', unit: 'B4', g: 'base' },
+      { title: 'ビジネスモデルキャンバス入門', kind: '外部記事', min: '15分', src: '外部', unit: 'B5', g: 'base' },
+      { title: 'ビジネスメールと議事録の型', kind: '部内スライド', min: '10分', src: '部内', unit: 'S1', g: 'base' },
+      { title: 'Excel・PowerPointの実用', kind: '動画', min: '30分', src: 'FCE', unit: 'S2', g: 'base' },
+      { title: '業界レポートの読み方', kind: '外部記事', min: '15分', src: '外部', unit: 'ST1', g: 'role' },
+      { title: '競争戦略の基本', kind: '外部記事', min: '15分', src: '外部', unit: 'ST2', g: 'role' },
+      { title: '簿記と財務三表', kind: '動画', min: '30分', src: 'FCE', unit: 'ST3', g: 'role' },
+      { title: '資本政策の基礎', kind: '外部記事', min: '15分', src: '外部', unit: 'ST5', g: 'role' },
+      { title: '営業プロセスの全体像', kind: '部内スライド', min: '20分', src: '部内', unit: 'N2', g: 'role' },
+      { title: '消費者心理入門', kind: '外部記事', min: '10分', src: '外部', unit: 'A1', g: 'role' },
+      { title: 'Canva・CapCutの基本操作', kind: '動画', min: '25分', src: '外部', unit: 'T1/T2', g: 'role' }
+    ];
+    const libSel = libRaw.filter((m) => s.libf === 'all' || m.g === s.libf);
+    const libItems = libSel.map((m, i) => Object.assign({}, m, { color: srcColor[m.src], sep: i < libSel.length - 1 ? '1px solid #252524' : '0' }));
+    const libFilters = [{ k: 'all', n: 'すべて' }, { k: 'base', n: '基礎教育' }, { k: 'role', n: 'ロールトラック' }].map((f) => {
+      const on = s.libf === f.k;
+      return { name: f.n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ libf: f.k }) };
+    });
+
+    // ---- Practice tab ----
+    const reviewsRaw = [
+      { id: 'v1', code: 'S-04', title: '業界レポートの要約と論点整理', meta: 'ST1 実習 · Strategistの観点' },
+      { id: 'v2', code: 'A-07', title: '既存企業のビジネスモデル分析', meta: '基礎 B5 実習 · Negotiatorの観点' },
+      { id: 'v3', code: 'I-03', title: 'アイデア：学内の落とし物共有', meta: 'Innovator並行実習 · 問題点探し' }
+    ];
+    const pReviews = reviewsRaw.map((r, i) => {
+      const on = !!s.reviewed[r.id];
+      return Object.assign({}, r, {
+        label: on ? '完了' : 'レビュー', bg: on ? 'transparent' : '#F3F1EC', fg: on ? M : INK, bd: on ? '#383836' : '#F3F1EC',
+        sep: i < reviewsRaw.length - 1 ? '1px solid #252524' : '0',
+        toggle: () => { const v = Object.assign({}, this.state.reviewed); v[r.id] = !on; this.setState({ reviewed: v }); }
+      });
+    });
+    const leftReviews = pReviews.filter((r) => r.label === 'レビュー').length;
+    const pStats = [
+      { n: 2, label: '未提出', color: RT },
+      { n: leftReviews, label: 'レビュー待ち', color: '#F3F1EC' },
+      { n: 2, label: '提出済み', color: '#BDBAB3' }
+    ];
+    const pDue = [
+      { kind: '実習', kindColor: '#BDBDBD', due: '11.20 FRI', dueColor: RT, title: 'MIRAの事業でポジショニングを描く', link: '教材：ST2 戦略理論', cta: '取り組む', go: () => this.setState({ sub: 'unit' }) },
+      { kind: '学内ビジコン', kindColor: '#F3F1EC', due: '11.21 SAT', dueColor: RT, title: 'LUNA チームエントリー', link: 'チーム未確定 · 掲示板で募集できます', cta: '掲示板で探す', go: () => this.setState({ tab: 'board', sub: null, seg: 'recruit' }) }
+    ];
+    const pDone = [
+      { title: '業界レポートの要約と論点整理', meta: 'ST1 社会情勢と業界 · レビュー済み', fb: 3 },
+      { title: 'MIRAの事業の簡易損益計算', meta: 'ST3 経理の基礎 · レビュー済み', fb: 4 }
+    ];
+
+    // ---- News (sample articles) ----
+    const newsRaw = [
+      { id: 'n1', tag: '雇用', time: '今日 7:00', title: '学生アルバイトの平均時給、都市部で上昇が続く', sum: '都市部の学生アルバイトの平均時給が前年を上回った。飲食と小売で人手不足が続き、短時間・単発の募集も増えている。', src: '[官公庁の統計]', fitWhy: '参加中のプロジェクトに関連', cm: 3 },
+      { id: 'n2', tag: '金融', time: '今日 7:00', title: '政策金利、今回の会合では据え置き', sum: '金融政策の会合で政策金利の据え置きが決まった。次回以降は物価と賃金の動きを見て判断するとしている。', src: '[中央銀行の公表資料]', fitWhy: '', cm: 0 },
+      { id: 'n3', tag: '政策', time: '昨日', title: '創業者向け補助金、申請要件の緩和を検討', sum: '創業初期の事業者向け補助金について、申請に必要な書類を減らす方向で検討が始まった。学生による申請も想定されている。', src: '[官公庁のプレスリリース]', fitWhy: 'Strategist 向け', cm: 0 },
+      { id: 'n4', tag: 'テック', time: '昨日', title: '生成AIの業務利用、中小企業で導入が進む', sum: '中小企業を対象にした調査で、生成AIを業務に使う企業の割合が前回より増えた。用途は文書作成と問い合わせ対応が中心。', src: '[業界団体の調査]', fitWhy: '', cm: 0 }
+    ];
+    const newsCmBy = {
+      n1: [
+        { who: '経営 1年 · K.T.', ini: 'KT', time: '2時間前', text: 'うちのバイト先も先月から時給が上がった。体感と合う。', like: 5, replies: [{ who: '経済 2年 · R.N.', ini: 'RN', time: '1時間前', text: 'うちは据え置きだった。業種によるのかも。' }] },
+        { who: '理工 2年 · S.O.', ini: 'SO', time: '1時間前', text: '求人は単発バイトのアプリに集まるだけで、総数は変わらない気がする。', like: 3 },
+        { who: '教育 1年 · Y.H.', ini: 'YH', time: '50分前', text: '地方だとどうなんだろう。都市部だけの話な気がする。', like: 2 },
+        { who: '経済 2年 · R.N.', ini: 'RN', time: '20分前', text: '時給が上がると店は営業時間を短くしそう。単発の枠から先に削られるかも。', like: 4 }
+      ],
+      n2: [{ who: '経営 2年 · A.M.', ini: 'AM', time: '3時間前', text: '金利が上がると創業融資の条件も変わるのか気になる。', like: 1 }],
+      n3: [
+        { who: '理工 1年 · M.S.', ini: 'MS', time: '昨日', text: '学生でも通るなら、LUNAのあとに出してみたい。', like: 6 },
+        { who: '経営 1年 · K.T.', ini: 'KT', time: '昨日', text: '書類が減るなら、まず出す人は確実に増えそう。', like: 2 }
+      ]
+    };
+    const newsAll = newsRaw.map((w) => Object.assign({}, w, { cm: (newsCmBy[w.id] || []).length, open: () => this.setState({ sub: 'news', news: w.id }) }));
+    const nf = s.nf || 'すべて';
+    const newsItems = newsAll.filter((w) => nf === 'すべて' || w.tag === nf);
+    const newsFilters = ['すべて', '雇用', '金融', '政策', 'テック'].map((n) => {
+      const on = nf === n;
+      return { name: n, bg: on ? '#F3F1EC' : 'transparent', fg: on ? INK : '#D2CFC8', bd: on ? '#F3F1EC' : '#383836', pick: () => this.setState({ nf: n }) };
+    });
+    const newsHome = newsAll.find((w) => w.fitWhy);
+    const curNews = newsAll.find((w) => w.id === s.news) || newsAll[0];
+    const newsCm = (newsCmBy[curNews.id] || []).map((c, i, arr) => {
+      const key = curNews.id + ':' + i, on = !!s.likes[key];
+      return Object.assign({}, c, {
+        replies: c.replies || [], likeN: c.like + (on ? 1 : 0),
+        likeFg: on ? RT : '#A3A19B', likeFill: on ? RT : 'none',
+        sep: i < arr.length - 1 ? '1px solid #252524' : '0',
+        toggle: () => { const l = Object.assign({}, this.state.likes); l[key] = !on; this.setState({ likes: l }); }
+      });
+    });
+    const meAv = main && s.tab === 'me' ? { bg: '#F3F1EC', fg: INK, bd: '#F3F1EC' } : { bg: '#2C2C2A', fg: '#F3F1EC', bd: '#474744' };
+
+    // ---- Markets (sample figures) ----
+    const UP = '#34C77B', DN = '#FF5C66';
+    const chgOf = (v) => ({ c: v >= 0 ? UP : DN, chgText: (v >= 0 ? '▲ +' : '▼ ') + v.toFixed(2) + '%' });
+    const markets = [
+      { name: '日経平均', val: '51,240', chg: 0.82, s: [0.30, 0.36, 0.31, 0.45, 0.50, 0.47, 0.60, 0.70, 0.66, 0.82] },
+      { name: 'TOPIX', val: '3,412', chg: 0.41, s: [0.40, 0.44, 0.38, 0.42, 0.52, 0.55, 0.50, 0.58, 0.62, 0.66] },
+      { name: 'グロース250', val: '742', chg: -1.26, s: [0.80, 0.74, 0.78, 0.66, 0.60, 0.64, 0.50, 0.42, 0.46, 0.30] },
+      { name: 'S&P 500', val: '6,905', chg: 0.18, s: [0.50, 0.46, 0.52, 0.55, 0.50, 0.58, 0.54, 0.60, 0.57, 0.62] },
+      { name: 'NASDAQ', val: '23,410', chg: -0.35, s: [0.62, 0.66, 0.58, 0.60, 0.52, 0.56, 0.48, 0.50, 0.44, 0.42] },
+      { name: 'ドル/円', val: '152.40', chg: -0.22, s: [0.55, 0.60, 0.56, 0.50, 0.54, 0.46, 0.50, 0.44, 0.47, 0.42] }
+    ].map((m) => Object.assign({}, m, chgOf(m.chg), { pts: m.s.map((v, i) => (i * 100 / 9).toFixed(1) + ',' + (22 - v * 20).toFixed(1)).join(' ') }));
+    const movers = [
+      { name: '[銘柄A]', sec: 'SaaS', val: '2,418', chg: 6.4 },
+      { name: '[銘柄B]', sec: 'AI・データ', val: '1,072', chg: 4.1 },
+      { name: '[銘柄C]', sec: 'フィンテック', val: '865', chg: -3.8 }
+    ].map((m, i, arr) => Object.assign({}, m, chgOf(m.chg), { sep: i < arr.length - 1 ? '1px solid #252524' : '0' }));
+
+    const titles = { news: 'ニュース', unit: '単元', post: '募集の詳細', painNew: 'ペインを記録', admin: '運営ダッシュボード' };
+
+    const ddOf = (key, list) => {
+      const cur = list.find((f) => f.fg === INK);
+      return {
+        cur: cur ? cur.name : '', open: s.fo === key, rot: s.fo === key ? '180deg' : '0deg',
+        tg: () => this.setState({ fo: this.state.fo === key ? null : key }),
+        items: list.map((f) => ({ name: f.name, chk: f.fg === INK ? '1' : '0', pick: () => { f.pick(); this.setState({ fo: null }); } }))
+      };
+    };
+    const painSorts = ['共感順', '新着'].map((n) => ({ name: n, fg: s.ps === n ? INK : '', pick: () => this.setState({ ps: n }) }));
+    const dd = { b: ddOf('b', bFilters), ex: ddOf('ex', exFilters), ot: ddOf('ot', otFilters), lib: ddOf('lib', libFilters), u: ddOf('u', uFilters), ps: ddOf('ps', painSorts) };
+
+    return {
+      dd: dd,
+      accent: A,
+      show: {
+        main: main, subbar: !main,
+        home: main && s.tab === 'home', learn: main && s.tab === 'learn', board: main && s.tab === 'board', cal: main && s.tab === 'cal', me: main && s.tab === 'me', news: main && s.tab === 'news', newsDetail: s.sub === 'news',
+        lib: s.lseg === 'lib', study: s.lseg === 'study', practice: s.lseg === 'practice',
+        unit: s.sub === 'unit', allUnits: s.sub === 'allUnits', course: s.sub === 'course', postNew: s.sub === 'postNew', eventNew: s.sub === 'eventNew', npIdea: s.np === 'idea', npRecruit: s.np === 'recruit', post: s.sub === 'post', painNew: s.sub === 'painNew', admin: s.sub === 'admin',
+        recruit: s.seg === 'recruit', pain: s.seg === 'pain', event: s.seg === 'event', other: s.seg === 'other',
+        fab: main && s.tab === 'board' && s.seg !== 'other'
+      },
+      subTitle: s.sub === 'course' ? 'ロールトラック' : (s.sub === 'post' ? (cur.isIdea ? 'アイデアの詳細' : '募集の詳細') : (s.sub === 'postNew' ? '投稿する' : s.sub === 'eventNew' ? 'イベントを共有' : s.sub === 'allUnits' ? 'すべての単元' : (titles[s.sub] || ''))),
+      ti: { home: s.tab === 'home' ? RT : 'transparent', learn: s.tab === 'learn' ? RT : 'transparent', board: s.tab === 'board' ? RT : 'transparent', cal: s.tab === 'cal' ? RT : 'transparent', news: s.tab === 'news' ? RT : 'transparent' },
+      tc: { home: s.tab === 'home' ? A : M, learn: s.tab === 'learn' ? A : M, board: s.tab === 'board' ? A : M, cal: s.tab === 'cal' ? A : M, news: s.tab === 'news' ? A : M },
+      seg: { oBg: s.seg === 'other' ? '#F3F1EC' : 'transparent', oFg: s.seg === 'other' ? INK : '#BDBAB3', rBg: s.seg === 'recruit' ? '#F3F1EC' : 'transparent', rFg: s.seg === 'recruit' ? INK : '#BDBAB3', pBg: s.seg === 'pain' ? '#F3F1EC' : 'transparent', pFg: s.seg === 'pain' ? INK : '#BDBAB3', eBg: s.seg === 'event' ? '#F3F1EC' : 'transparent', eFg: s.seg === 'event' ? INK : '#BDBAB3' },
+      goHome: go('home'), goLearn: go('learn'), goBoard: () => this.setState({ tab: 'board', sub: null, seg: 'recruit' }), goCal: go('cal'), goMe: go('me'), goNews: go('news'), goPractice: () => this.setState({ tab: 'learn', sub: null, lseg: 'practice' }),
+      goBoardPain: () => this.setState({ tab: 'board', sub: null, seg: 'pain' }),
+      back: () => this.setState({ sub: null }),
+      openUnit: () => this.setState({ sub: 'unit' }),
+      openAdmin: () => this.setState({ sub: 'admin' }),
+      openPainNew: () => this.setState({ sub: 'painNew' }),
+      openR1: () => this.setState({ sub: 'post', post: 'r1' }),
+      submitPain: () => this.setState({ sub: null, tab: 'board', seg: 'pain' }),
+      segRecruit: () => this.setState({ fo: null, seg: 'recruit' }),
+      segPain: () => this.setState({ fo: null, seg: 'pain' }),
+      segEvent: () => this.setState({ fo: null, seg: 'event' }), segOther: () => this.setState({ fo: null, seg: 'other' }),
+      otPosts: otPosts, otFilters: otFilters,
+      exItems: exItems, exFilters: exFilters,
+      findTeam: () => this.setState({ seg: 'recruit', bfilter: 'recruit' }),
+      toggleAnon: () => this.setState({ anon: !this.state.anon }),
+      recruits: recruits, recruitsTop: recruits.slice(0, 2).map((r, i) => Object.assign({}, r, { sep: i < 1 ? '1px solid #252524' : '0' })), cur: cur,
+      pains: pains, painTop: painTop,
+      baseUnits: baseUnits, courses: courses, materials: materials,
+      crs: crs, cSel: cSel,
+      unitGroups: unitGroups, uFilters: uFilters, allCount: allCount, noUnits: unitGroups.length === 0,
+      openAll: () => this.setState({ sub: 'allUnits' }),
+      acc: { prac: s.accPrac, pracRot: s.accPrac ? '180deg' : '0deg', base: s.accBase, role: s.accRole, baseRot: s.accBase ? '180deg' : '0deg', roleRot: s.accRole ? '180deg' : '0deg' },
+      tgBase: () => this.setState({ accBase: !this.state.accBase }), tgRole: () => this.setState({ accRole: !this.state.accRole }),
+      feed: feed, bFilters: bFilters,
+      npTypes: npTypes, npFrames: npFrames, npRoles: npRoles, npEnds: npEnds,
+      npSummaryLabel: s.np === 'idea' ? 'アイデアの概要' : '目的',
+      npSubmit: s.np === 'idea' ? '意見を募集する' : 'メンバーを募集する',
+      submitPost: () => this.setState({ sub: null, tab: 'board', seg: 'recruit', bfilter: 'all' }),
+      fabLabel: s.seg === 'pain' ? 'ペインを記録' : (s.seg === 'event' ? 'イベントを共有' : '投稿する'),
+      fabGo: () => this.setState({ sub: s.seg === 'pain' ? 'painNew' : (s.seg === 'event' ? 'eventNew' : 'postNew') }),
+      enTypes: ['ビジコン', 'インターン', '説明会', 'その他'].map((n) => ({ name: n, bg: s.enType === n ? '#F3F1EC' : '#131313', fg: s.enType === n ? INK : '#D2CFC8', bd: s.enType === n ? '#F3F1EC' : '#383836', pick: () => this.setState({ enType: n }) })),
+      submitEvent: () => this.setState({ sub: null, tab: 'board', seg: 'event' }),
+      pStats: pStats, pDue: pDue, pReviews: pReviews, pDone: pDone,
+      lseg: (() => { const st = (k) => [s.lseg === k ? '#F3F1EC' : 'transparent', s.lseg === k ? INK : '#BDBAB3']; const l = st('lib'), t = st('study'), p = st('practice'); return { lBg: l[0], lFg: l[1], sBg: t[0], sFg: t[1], pBg: p[0], pFg: p[1] }; })(),
+      lsLib: () => this.setState({ fo: null, lseg: 'lib' }), lsStudy: () => this.setState({ fo: null, lseg: 'study' }), lsPractice: () => this.setState({ fo: null, lseg: 'practice' }),
+      libItems: libItems, libFilters: libFilters, libCount: libItems.length,
+      lenses: lenses, comments: comments, noComments: comments.length === 0, survey: survey,
+      srcOpts: srcOpts, sevOpts: sevOpts, anon: anon,
+      days: days, dayEvents: dayEvents, noEvents: dayEvents.length === 0,
+      dayTitle: '11.' + s.day + ' ' + WD[(s.day - 1) % 7],
+      newsItems: newsItems, newsFilters: newsFilters, newsHome: newsHome, curNews: curNews,
+      newsCm: newsCm, newsCmN: newsCm.length, noNewsCm: newsCm.length === 0, meAv: meAv,
+      markets: markets, movers: movers, pracGroups: pracGroups, pracNote: pracNote, tgPrac: () => this.setState({ accPrac: !this.state.accPrac }),
+      kpis: kpis, levels: levels, painTags: painTags, rates: rates
+    };
+  }
+}
+
+window.__boot(Component);
+</script>
+</body>
+</html>
