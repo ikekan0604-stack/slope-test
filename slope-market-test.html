@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<title>SLOPE マーケット表示テスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  /* SLOPE tokens: warm black, off-white text, amber as the only accent. one phone-width column. */
+  --bg:#070707; --surface:#131313; --line:#252524; --line2:#383836;
+  --text:#F3F1EC; --muted:#A3A19B; --accent:#F2A93B;
+  --jp:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;
+  --latin:'Barlow','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.6}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:440px;margin:0 auto;padding:16px 20px 64px;display:flex;flex-direction:column;gap:32px}
+h1{margin:0;font-size:26px;font-weight:700}
+h2{margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:9px}
+h2::before{content:"";width:3px;height:15px;border-radius:2px;background:var(--accent)}
+.head{display:flex;justify-content:space-between;align-items:center}
+.note{font-size:13px;color:var(--muted);margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+button{font:inherit;cursor:pointer;color:var(--text)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.btn{height:38px;padding:0 14px;border:1px solid var(--line2);border-radius:8px;background:transparent;font-size:13px;font-weight:700}
+.btn.primary{background:var(--text);color:#070707;border-color:var(--text)}
+.tv{min-height:60px}
+.tile{padding:6px 6px 0;overflow:hidden}
+.tile .label{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0;font-size:13px;color:var(--muted)}
+.tile .code{font-family:var(--latin);font-size:12px;color:#5F5E5A}
+.list{display:flex;flex-direction:column;gap:12px}
+.editor{padding:16px;display:flex;flex-direction:column;gap:14px}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .name{flex:1;min-width:0;display:flex;flex-direction:column}
+.row .name b{font-size:14px}
+.row .name span{font-family:var(--latin);font-size:12px;color:var(--muted)}
+.ico{width:36px;height:36px;border:1px solid var(--line2);border-radius:8px;background:transparent;display:flex;align-items:center;justify-content:center;padding:0}
+.ico:disabled{opacity:.3;cursor:default}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form input{width:100%;height:42px;padding:0 12px;background:#0C0C0C;border:1px solid var(--line2);border-radius:8px;color:var(--text);font:inherit;font-size:14px}
+.form input::placeholder{color:#7D7B76}
+.form .full{grid-column:span 2}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.chip{height:32px;padding:0 10px;border:1px solid var(--line2);border-radius:6px;background:transparent;font-size:12px}
+.msg{font-size:13px;color:var(--accent);min-height:1em;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="head">
+<h1>マーケット</h1>
+<button class="btn" id="editBtn" aria-expanded="false">編集</button>
+</div>
+
+<div class="sec">
+<h2>ティッカー（ホームの1行の候補）</h2>
+<div class="card" style="padding:4px 0;overflow:hidden"><div class="tv" id="tape"></div></div>
+</div>
+
+<div class="sec" id="editor" hidden>
+<h2>表示する銘柄</h2>
+<div class="card editor">
+<div id="rows"></div>
+<div class="form">
+<input id="sym" class="full" placeholder="銘柄コード（例：FX:USDJPY）" aria-label="銘柄コード" autocapitalize="characters" autocomplete="off">
+<input id="disp" placeholder="表示名（例：ドル/円）" aria-label="表示名" autocomplete="off">
+<button class="btn primary" id="addBtn">追加</button>
+</div>
+<p class="msg" id="msg"></p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<span class="note">試しに追加（日本の銘柄が出るかの確認用）</span>
+<div class="presets" id="presets"></div>
+</div>
+<button class="btn" id="resetBtn" style="align-self:flex-start">初期の銘柄に戻す</button>
+<p class="note">銘柄は「取引所:コード」で指定します。TradingViewのサイトで銘柄を開き、URLや画面の表記を写すのが確実です。設定はこのブラウザに保存されます。</p>
+</div>
+</div>
+
+<div class="sec">
+<h2>銘柄ごとのチャート</h2>
+<div class="list" id="tiles"></div>
+<p class="note">表示されない、または「シンボルが無効」と出る銘柄は、ウィジェットでは提供されていない可能性があります。</p>
+</div>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'slope-market-symbols-v1';
+  var DEFAULTS = [
+    { s: 'TVC:NI225', d: '日経平均' },
+    { s: 'FOREXCOM:SPXUSD', d: 'S&P 500' },
+    { s: 'FOREXCOM:NSXUSD', d: 'NASDAQ 100' },
+    { s: 'FX:USDJPY', d: 'ドル/円' }
+  ];
+  var PRESETS = [
+    { s: 'TSE:7203', d: 'トヨタ' },
+    { s: 'TSE:9984', d: 'ソフトバンクG' },
+    { s: 'TSE:TOPIX', d: 'TOPIX' },
+    { s: 'TSE:2516', d: 'グロース250 ETF' },
+    { s: 'NASDAQ:AAPL', d: 'Apple' },
+    { s: 'BITSTAMP:BTCUSD', d: 'ビットコイン' }
+  ];
+
+  function load() {
+    try { var v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v) && v.length) return v; } catch (e) {}
+    return DEFAULTS.slice();
+  }
+  function save(list) { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
+  var symbols = load();
+
+  // Inserts an official TradingView embed: a container plus their script with the JSON config as its body.
+  function embed(target, widget, config) {
+    target.innerHTML = '';
+    var box = document.createElement('div'); box.className = 'tradingview-widget-container';
+    var inner = document.createElement('div'); inner.className = 'tradingview-widget-container__widget';
+    box.appendChild(inner);
+    var sc = document.createElement('script');
+    sc.type = 'text/javascript'; sc.async = true;
+    sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-' + widget + '.js';
+    sc.text = JSON.stringify(config);
+    box.appendChild(sc);
+    target.appendChild(box);
+  }
+
+  function renderTape() {
+    embed(document.getElementById('tape'), 'ticker-tape', {
+      symbols: symbols.map(function (x) { return { proName: x.s, title: x.d }; }),
+      showSymbolLogo: false, isTransparent: true, displayMode: 'compact', colorTheme: 'dark', locale: 'ja'
+    });
+  }
+
+  function renderTiles() {
+    var wrap = document.getElementById('tiles'); wrap.innerHTML = '';
+    symbols.forEach(function (x) {
+      var card = document.createElement('div'); card.className = 'card tile';
+      var label = document.createElement('div'); label.className = 'label';
+      var a = document.createElement('span'); a.textContent = x.d;
+      var b = document.createElement('span'); b.className = 'code'; b.textContent = x.s;
+      label.appendChild(a); label.appendChild(b); card.appendChild(label);
+      var slot = document.createElement('div'); slot.className = 'tv'; card.appendChild(slot);
+      wrap.appendChild(card);
+      embed(slot, 'mini-symbol-overview', {
+        symbol: x.s, width: '100%', height: 170, locale: 'ja', dateRange: '1M',
+        colorTheme: 'dark', isTransparent: true, autosize: false, largeChartUrl: '',
+        chartOnly: false, noTimeScale: true
+      });
+    });
+  }
+
+  var arrowUp = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg>';
+  var arrowDn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
+  var cross = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>';
+
+  function renderRows() {
+    var rows = document.getElementById('rows'); rows.innerHTML = '';
+    symbols.forEach(function (x, i) {
+      var r = document.createElement('div'); r.className = 'row';
+      var n = document.createElement('div'); n.className = 'name';
+      var b = document.createElement('b'); b.textContent = x.d;
+      var c = document.createElement('span'); c.textContent = x.s;
+      n.appendChild(b); n.appendChild(c); r.appendChild(n);
+      [['上へ', arrowUp, i === 0, function () { move(i, -1); }],
+       ['下へ', arrowDn, i === symbols.length - 1, function () { move(i, 1); }],
+       ['削除', cross, symbols.length === 1, function () { remove(i); }]].forEach(function (d) {
+        var btn = document.createElement('button'); btn.className = 'ico';
+        btn.setAttribute('aria-label', x.d + 'を' + d[0]); btn.innerHTML = d[1]; btn.disabled = d[2];
+        btn.addEventListener('click', d[3]); r.appendChild(btn);
+      });
+      rows.appendChild(r);
+    });
+  }
+
+  function refresh() { save(symbols); renderRows(); renderTape(); renderTiles(); }
+  function move(i, d) { var t = symbols[i]; symbols[i] = symbols[i + d]; symbols[i + d] = t; refresh(); }
+  function remove(i) { symbols.splice(i, 1); refresh(); }
+  function add(s, d) {
+    var msg = document.getElementById('msg');
+    s = (s || '').trim().toUpperCase(); d = (d || '').trim();
+    if (!/^[A-Z0-9_]+:[A-Z0-9._!-]+$/.test(s)) { msg.textContent = '「取引所:コード」の形で入力してください（例：FX:USDJPY）'; return; }
+    if (symbols.some(function (x) { return x.s === s; })) { msg.textContent = 'すでに追加されています'; return; }
+    symbols.push({ s: s, d: d || s.split(':')[1] });
+    msg.textContent = '';
+    document.getElementById('sym').value = ''; document.getElementById('disp').value = '';
+    refresh();
+  }
+
+  document.getElementById('addBtn').addEventListener('click', function () {
+    add(document.getElementById('sym').value, document.getElementById('disp').value);
+  });
+  document.getElementById('sym').addEventListener('keydown', function (e) { if (e.key === 'Enter') document.getElementById('addBtn').click(); });
+  document.getElementById('resetBtn').addEventListener('click', function () { symbols = DEFAULTS.slice(); refresh(); });
+  document.getElementById('editBtn').addEventListener('click', function () {
+    var ed = document.getElementById('editor'), open = ed.hidden;
+    ed.hidden = !open; this.textContent = open ? '完了' : '編集'; this.setAttribute('aria-expanded', String(open));
+  });
+  var pr = document.getElementById('presets');
+  PRESETS.forEach(function (p) {
+    var b = document.createElement('button'); b.className = 'chip'; b.textContent = '+ ' + p.d;
+    b.addEventListener('click', function () { add(p.s, p.d); });
+    pr.appendChild(b);
+  });
+
+  renderRows(); renderTape(); renderTiles();
+})();
+</script>
+</body>
+</html>
