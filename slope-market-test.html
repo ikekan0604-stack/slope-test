@@ -18,6 +18,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.6}
 body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 .wrap{max-width:440px;margin:0 auto;padding:16px 20px 64px;display:flex;flex-direction:column;gap:32px}
@@ -56,7 +57,17 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-o
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="detail" hidden>
+<div class="head">
+<button class="btn" id="backBtn">← 戻る</button>
+<span class="note" id="detailCode"></span>
+</div>
+<h1 id="detailName"></h1>
+<div class="card" style="overflow:hidden;height:62vh;min-height:360px"><div class="tv" id="bigChart" style="height:100%"></div></div>
+<p class="note">指で左右になぞると過去にさかのぼれます。2本指で拡大・縮小できます。</p>
+</div>
+
+<div class="wrap" id="main">
 
 <div class="head">
 <h1>マーケット</h1>
@@ -105,6 +116,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-o
     { s: 'FX:USDJPY', d: 'ドル/円' }
   ];
   var PRESETS = [
+    { s: 'OANDA:JP225USD', d: '日経225 CFD（OANDA）' },
+    { s: 'FOREXCOM:JP225', d: '日経225 CFD（FOREX.com）' },
+    { s: 'CAPITALCOM:JP225', d: '日経225 CFD（Capital.com）' },
     { s: 'TSE:7203', d: 'トヨタ' },
     { s: 'TSE:9984', d: 'ソフトバンクG' },
     { s: 'TSE:TOPIX', d: 'TOPIX' },
@@ -134,10 +148,14 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-o
     target.appendChild(box);
   }
 
+  // Clicking a widget opens this page with ?tvwidgetsymbol=..., which we show as an in-page detail view.
+  var BASE = location.href.split('?')[0].split('#')[0];
+  function nameOf(sym) { var f = symbols.concat(PRESETS).filter(function (x) { return x.s === sym; })[0]; return f ? f.d : sym; }
+
   function renderTape() {
     embed(document.getElementById('tape'), 'ticker-tape', {
       symbols: symbols.map(function (x) { return { proName: x.s, title: x.d }; }),
-      showSymbolLogo: false, isTransparent: true, displayMode: 'compact', colorTheme: 'dark', locale: 'ja'
+      showSymbolLogo: false, isTransparent: true, displayMode: 'compact', colorTheme: 'dark', theme: 'dark', locale: 'ja', largeChartUrl: BASE
     });
   }
 
@@ -153,7 +171,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-o
       wrap.appendChild(card);
       embed(slot, 'mini-symbol-overview', {
         symbol: x.s, width: '100%', height: 170, locale: 'ja', dateRange: '1M',
-        colorTheme: 'dark', isTransparent: true, autosize: false, largeChartUrl: '',
+        colorTheme: 'dark', theme: 'dark', isTransparent: true, autosize: false, largeChartUrl: BASE,
         chartOnly: false, noTimeScale: true
       });
     });
@@ -212,7 +230,26 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--text);outline-o
     pr.appendChild(b);
   });
 
-  renderRows(); renderTape(); renderTiles();
+  function showDetail(sym) {
+    document.getElementById('main').hidden = true;
+    document.getElementById('detail').hidden = false;
+    document.getElementById('detailName').textContent = nameOf(sym);
+    document.getElementById('detailCode').textContent = sym;
+    embed(document.getElementById('bigChart'), 'advanced-chart', {
+      symbol: sym, interval: 'D', timezone: 'Asia/Tokyo', theme: 'dark', colorTheme: 'dark', style: '1',
+      locale: 'ja', autosize: true, hide_side_toolbar: true, hide_top_toolbar: false, allow_symbol_change: false,
+      backgroundColor: 'rgba(19,19,19,1)', gridColor: 'rgba(37,37,36,1)', save_image: false, calendar: false
+    });
+    window.scrollTo(0, 0);
+  }
+  document.getElementById('backBtn').addEventListener('click', function () {
+    if (history.length > 1 && document.referrer.indexOf(location.host) >= 0) { history.back(); }
+    else { location.href = BASE; }
+  });
+
+  var q = new URLSearchParams(location.search).get('tvwidgetsymbol');
+  if (q) { showDetail(q); }
+  else { renderRows(); renderTape(); renderTiles(); }
 })();
 </script>
 </body>
