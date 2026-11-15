@@ -120,7 +120,7 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 <button onClick="{{ goCal }}" class="card" style="grid-column: span 2; width: 100%; padding: 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; color: #F3F1EC; background: #131313; border-color: #383836">
 <span style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
 <span class="en" style="font-size: 12px; letter-spacing: 0.12em; font-weight: 700; color: #F2A93B">NEXT · 部内イベント</span>
-<span style="font-size: 21px; font-weight: 700; line-height: 1.3">LUNA エントリー締切</span>
+<span style="font-size: 21px; font-weight: 700; line-height: 1.3">MIRA エントリー締切</span>
 <span class="en" style="font-size: 14px; color: #BDBAB3">11.21 SAT · 23:59</span>
 </span>
 <span style="flex: none; display: flex; flex-direction: column; align-items: flex-end">
@@ -243,7 +243,7 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 <span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
 <span class="lbl">全員共通</span>
 <span style="font-size: 18px; font-weight: 700">基礎教育</span>
-<span style="font-size: 13px; color: #BDBAB3">8 / 8 修了 · MIRA 修了</span>
+<span style="font-size: 13px; color: #BDBAB3">8 / 8 修了 · LUNA 修了</span>
 </span>
 <span class="en" style="font-size: 16px; font-weight: 700; color: #F3F1EC">100%</span>
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: rotate({{ acc.baseRot }}); transition: transform 0.2s"><path d="M6 9l6 6 6-6"></path></svg>
@@ -500,8 +500,8 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 <div style="display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: center; gap: 8px"><span class="en" style="font-size: 13px; font-weight: 700; color: #F2A93B; background: transparent; border: 1px solid #F2A93B; padding: 1px 7px; border-radius: 6px">OUTPUT</span><span style="font-size: 14px; color: #BDBAB3">実習</span></div>
 <div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
-<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">MIRAの事業でポジショニングを描く</div>
-<div style="font-size: 14px; color: #D2CFC8; line-height: 1.7">MIRAで扱った事業の競合を洗い出し、ポジショニングマップと競争優位の仮説を1枚にまとめる。演習会でグループ講評したうえで提出し、匿名で他の受講者のレビューに回る。</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.4; word-break: auto-phrase">LUNAの事業でポジショニングを描く</div>
+<div style="font-size: 14px; color: #D2CFC8; line-height: 1.7">LUNAで扱った事業の競合を洗い出し、ポジショニングマップと競争優位の仮説を1枚にまとめる。演習会でグループ講評したうえで提出し、匿名で他の受講者のレビューに回る。</div>
 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #BDBAB3">
 <span>締切 11.20 FRI 23:59</span><span>提出 9 / 14</span>
 </div>
@@ -1589,7 +1589,7 @@ class Component extends DCLogic {
       { no: 'B5', title: 'ビジネスモデルの分析', meta: '既存企業を分析 · 対面', st: 'done' },
       { no: 'S1', title: 'ビジネスマナー', meta: 'メール・報連相・議事録', st: 'done' },
       { no: 'S2', title: 'Officeの実用', meta: 'Word・Excel・PowerPoint', st: 'done' },
-      { no: 'S3', title: '企画書の書き方', meta: 'MIRAの準備', st: 'done' }
+      { no: 'S3', title: '企画書の書き方', meta: 'LUNAの準備', st: 'done' }
     ];
     const statusLabel = { done: '修了', doing: '受講中', locked: '未解放' };
     const baseUnits = units.map((u, i) => ({
@@ -1664,9 +1664,9 @@ class Component extends DCLogic {
       { id: 'e2', day: 18, type: '教育', title: '演習会：戦略理論', time: '18:30–20:00', place: '[教室] · 対面' },
       { id: 'e3', day: 20, type: '外部', title: '外部の学生ビジコン 応募締切', time: '23:59', place: '[主催者名]' },
       { id: 'e7', day: 20, type: '教育', title: 'ST2 戦略理論 実習締切', time: '23:59', place: 'アプリ内' },
-      { id: 'e4', day: 21, type: '部内', title: 'LUNA エントリー締切', time: '23:59', place: 'アプリ内' },
+      { id: 'e4', day: 21, type: '部内', title: 'MIRA エントリー締切', time: '23:59', place: 'アプリ内' },
       { id: 'e5', day: 25, type: '外部', title: 'スタートアップ インターン説明会', time: '19:00–20:00', place: 'オンライン' },
-      { id: 'e6', day: 28, type: '部内', title: 'LUNA 本選', time: '13:00–18:00', place: '[会場]' }
+      { id: 'e6', day: 28, type: '部内', title: 'MIRA 本選', time: '13:00–18:00', place: '[会場]' }
     ];
     const days = [];
     for (let i = 0; i < 35; i++) {
@@ -1705,11 +1705,11 @@ class Component extends DCLogic {
     ];
     const levels = [{ name: 'Lv.1', n: 88 }, { name: 'Lv.2', n: 41 }, { name: 'Lv.3', n: 15 }, { name: 'Lv.4', n: 6 }].map((l) => Object.assign({}, l, { w: Math.round(l.n / 88 * 100) + '%' }));
     const painTags = [{ name: '学生生活', n: 42 }, { name: '雇用', n: 24 }, { name: '地域', n: 11 }, { name: '学生団体', n: 9 }, { name: '住まい', n: 7 }].map((t) => Object.assign({}, t, { w: Math.round(t.n / 42 * 100) + '%' }));
-    const rates = [{ name: '定例会（10月）', v: '38%' }, { name: '演習会：経理の基礎', v: '61%' }, { name: 'MIRA 振り返り会', v: '27%' }].map((r, i, arr) => Object.assign({}, r, { sep: i < arr.length - 1 ? '1px solid #252524' : '0' }));
+    const rates = [{ name: '定例会（10月）', v: '38%' }, { name: '演習会：経理の基礎', v: '61%' }, { name: 'LUNA 振り返り会', v: '27%' }].map((r, i, arr) => Object.assign({}, r, { sep: i < arr.length - 1 ? '1px solid #252524' : '0' }));
 
     // ---- Per-track DAG ----
     const START = { id: 'in', label: '基礎教育 修了', sub: 'START', L: 0, lane: 0, k: 'gate', st: 'done', deps: [] };
-    const GOAL = (L, d) => ({ id: 'out', label: 'LUNA', sub: 'GOAL · 学内ビジコン', L: L, lane: 0, k: 'gate', deps: d });
+    const GOAL = (L, d) => ({ id: 'out', label: 'MIRA', sub: 'GOAL · 学内ビジコン', L: L, lane: 0, k: 'gate', deps: d });
     const COURSES = {
       S: { name: 'Strategist', short: '戦略・財務・戦略監査', jp: '戦略理論・戦略立案・株式・社会情勢・資産配分・経理・資産管理・戦略監査', lanes: 3, nodes: [START,
         { id: 'st1', label: '社会情勢と業界', sub: 'ST1', L: 1, lane: 0, st: 'done', deps: ['in'] },
@@ -1899,10 +1899,10 @@ class Component extends DCLogic {
 
 // ---- Board: その他 (books, small talk) ----
     const otRaw = [
-      { id: 'o1', tag: '本', who: '経営 1年 · K.T.', ini: 'KT', time: '1時間前', book: 'リーン・スタートアップ', author: 'エリック・リース', text: '「作る前に売ってみる」が刺さった。MIRAの前に読みたかった。', like: 8, rep: 3 },
+      { id: 'o1', tag: '本', who: '経営 1年 · K.T.', ini: 'KT', time: '1時間前', book: 'リーン・スタートアップ', author: 'エリック・リース', text: '「作る前に売ってみる」が刺さった。LUNAの前に読みたかった。', like: 8, rep: 3 },
       { id: 'o2', tag: '雑談', who: '理工 2年 · S.O.', ini: 'SO', time: '3時間前', text: '定例会のあと、ご飯行く人いる？', like: 4, rep: 5 },
       { id: 'o3', tag: '本', who: '経済 2年 · R.N.', ini: 'RN', time: '昨日', book: 'ゼロ・トゥ・ワン', author: 'ピーター・ティール', text: '競争を避けて独占を狙えという話。戦略理論の単元と合わせて読むと面白い。', like: 6, rep: 1 },
-      { id: 'o4', tag: '雑談', who: '教育 1年 · Y.H.', ini: 'YH', time: '昨日', text: '期末とLUNAの準備がかぶってて普通にしんどい。みんなどうしてる？', like: 11, rep: 7 },
+      { id: 'o4', tag: '雑談', who: '教育 1年 · Y.H.', ini: 'YH', time: '昨日', text: '期末とMIRAの準備がかぶってて普通にしんどい。みんなどうしてる？', like: 11, rep: 7 },
       { id: 'o5', tag: '雑談', who: '経営 2年 · A.M.', ini: 'AM', time: '2日前', text: '図書館3階の窓側、作業するのにちょうどいい。', like: 3, rep: 0 }
     ];
     const otf = s.otf || 'すべて';
@@ -1966,12 +1966,12 @@ class Component extends DCLogic {
       { n: 2, label: '提出済み', color: '#BDBAB3' }
     ];
     const pDue = [
-      { kind: '実習', kindColor: '#BDBDBD', due: '11.20 FRI', dueColor: RT, title: 'MIRAの事業でポジショニングを描く', link: '教材：ST2 戦略理論', cta: '取り組む', go: () => this.setState({ sub: 'unit' }) },
-      { kind: '学内ビジコン', kindColor: '#F3F1EC', due: '11.21 SAT', dueColor: RT, title: 'LUNA チームエントリー', link: 'チーム未確定 · 掲示板で募集できます', cta: '掲示板で探す', go: () => this.setState({ tab: 'board', sub: null, seg: 'recruit' }) }
+      { kind: '実習', kindColor: '#BDBDBD', due: '11.20 FRI', dueColor: RT, title: 'LUNAの事業でポジショニングを描く', link: '教材：ST2 戦略理論', cta: '取り組む', go: () => this.setState({ sub: 'unit' }) },
+      { kind: '学内ビジコン', kindColor: '#F3F1EC', due: '11.21 SAT', dueColor: RT, title: 'MIRA チームエントリー', link: 'チーム未確定 · 掲示板で募集できます', cta: '掲示板で探す', go: () => this.setState({ tab: 'board', sub: null, seg: 'recruit' }) }
     ];
     const pDone = [
       { title: '業界レポートの要約と論点整理', meta: 'ST1 社会情勢と業界 · レビュー済み', fb: 3 },
-      { title: 'MIRAの事業の簡易損益計算', meta: 'ST3 経理の基礎 · レビュー済み', fb: 4 }
+      { title: 'LUNAの事業の簡易損益計算', meta: 'ST3 経理の基礎 · レビュー済み', fb: 4 }
     ];
 
     // ---- News (sample articles) ----
@@ -1990,7 +1990,7 @@ class Component extends DCLogic {
       ],
       n2: [{ who: '経営 2年 · A.M.', ini: 'AM', time: '3時間前', text: '金利が上がると創業融資の条件も変わるのか気になる。', like: 1 }],
       n3: [
-        { who: '理工 1年 · M.S.', ini: 'MS', time: '昨日', text: '学生でも通るなら、LUNAのあとに出してみたい。', like: 6 },
+        { who: '理工 1年 · M.S.', ini: 'MS', time: '昨日', text: '学生でも通るなら、MIRAのあとに出してみたい。', like: 6 },
         { who: '経営 1年 · K.T.', ini: 'KT', time: '昨日', text: '書類が減るなら、まず出す人は確実に増えそう。', like: 2 }
       ]
     };
