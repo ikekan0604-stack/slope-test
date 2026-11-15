@@ -66,6 +66,9 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 .app h1{letter-spacing:-0.01em}
 .app input::placeholder,.app textarea::placeholder{color:#7D7B76}
 .grid{background-color:#0C0C0C}
+.app button:disabled{opacity:.35}
+.tv,.tv *{color-scheme:normal}
+.tv iframe{background:transparent}
 </style>
 </head>
 <body>
@@ -164,9 +167,7 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 4px; padding: 4px 4px 0">
-<button onClick="{{ goNews }}" style="display: flex; gap: 20px; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid #252524; background: transparent; color: #F3F1EC; text-align: left">
-<span style="flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0"><span style="font-size: 13px; color: #A3A19B; white-space: nowrap">{{ markets.0.name }}</span><span class="en" style="font-size: 13px; font-weight: 700; color: {{ markets.0.c }}; white-space: nowrap">{{ markets.0.chgText }}</span></span><span style="flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0"><span style="font-size: 13px; color: #A3A19B; white-space: nowrap">{{ markets.2.name }}</span><span class="en" style="font-size: 13px; font-weight: 700; color: {{ markets.2.c }}; white-space: nowrap">{{ markets.2.chgText }}</span></span>
-</button>
+<div class="tv" ref="{{ mk.homeRef }}" style="min-height: 72px; border-bottom: 1px solid #252524"></div>
 <button onClick="{{ newsHome.open }}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 0; border: 0; background: transparent; color: #F3F1EC; text-align: left">
 <span style="flex: none; font-size: 11px; font-weight: 700; color: #A3A19B; border: 1px solid #383836; border-radius: 6px; padding: 2px 7px">NEWS</span>
 <span style="flex: 1; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ newsHome.title }}</span>
@@ -578,33 +579,16 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 <h1 style="margin: 0; font-size: 28px; font-weight: 700">ニュース</h1>
 </div>
 
-<div style="display: flex; flex-direction: column; gap: 10px">
-<div style="display: flex; justify-content: space-between; align-items: baseline">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center">
 <h2 class="h2">マーケット</h2>
-<span style="font-size: 13px; color: #A3A19B">11.13 終値</span>
+<button onClick="{{ mk.openEdit }}" style="height: 34px; padding: 0 12px; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 700">編集</button>
 </div>
-<div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
-<sc-for list="{{ markets }}" as="m" hint-placeholder-count="6">
-<div class="card" style="flex: none; width: 126px; padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px">
-<span style="font-size: 13px; color: #BDBAB3">{{ m.name }}</span>
-<span class="en" style="font-size: 19px; font-weight: 700; line-height: 1.2">{{ m.val }}</span>
-<span class="en" style="font-size: 13px; font-weight: 700; color: {{ m.c }}">{{ m.chgText }}</span>
-<svg width="100" height="24" viewBox="0 0 100 24" aria-hidden="true" style="margin-top: 2px"><polyline points="{{ m.pts }}" fill="none" stroke="{{ m.c }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
-</div>
-</sc-for>
-</div>
-</div>
-
-<div style="display: flex; flex-direction: column; gap: 10px">
-<div style="display: flex; justify-content: space-between; align-items: baseline">
-<h2 class="h2">グロース市場の値動き</h2>
-</div>
-<div class="card" style="padding: 4px 16px">
-<sc-for list="{{ movers }}" as="m" hint-placeholder-count="3">
-<div style="display: flex; align-items: center; gap: 12px; padding: 15px 0; border-bottom: {{ m.sep }}">
-<span style="flex: 1; display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 700; font-size: 15px">{{ m.name }}</span><span style="font-size: 13px; color: #A3A19B">{{ m.sec }}</span></span>
-<span class="en" style="font-size: 16px; font-weight: 700">{{ m.val }}</span>
-<span class="en" style="flex: none; width: 78px; text-align: right; font-size: 14px; font-weight: 700; color: {{ m.c }}">{{ m.chgText }}</span>
+<div class="scroll" style="display: flex; gap: 10px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+<sc-for list="{{ mk.tiles }}" as="m" hint-placeholder-count="4">
+<div class="card" style="flex: none; width: 184px; overflow: hidden">
+<div style="padding: 10px 12px 0; font-size: 12px; color: #A3A19B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ m.name }}</div>
+<div class="tv" ref="{{ m.ref }}" style="height: 150px; padding: 0 2px"></div>
 </div>
 </sc-for>
 </div>
@@ -1149,6 +1133,48 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 </sc-if>
 
 
+<sc-if value="{{ show.mk }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 12px">
+<span class="en" style="font-size: 13px; color: #A3A19B">{{ mk.code }}</span>
+<div class="card" style="overflow: hidden; height: 520px"><div class="tv" ref="{{ mk.bigRef }}" style="height: 100%"></div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.mkEdit }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 class="h2">表示する銘柄</h2>
+<div class="card" style="padding: 0 16px">
+<sc-for list="{{ mk.rows }}" as="r" hint-placeholder-count="4">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 0; border-bottom: {{ r.sep }}">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 700">{{ r.name }}</span><span class="en" style="font-size: 12px; color: #A3A19B">{{ r.code }}</span></span>
+<button onClick="{{ r.up }}" disabled="{{ r.upDis }}" aria-label="上へ" style="flex: none; width: 36px; height: 36px; padding: 0; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #F3F1EC; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button onClick="{{ r.dn }}" disabled="{{ r.dnDis }}" aria-label="下へ" style="flex: none; width: 36px; height: 36px; padding: 0; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #F3F1EC; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button onClick="{{ r.rm }}" disabled="{{ r.rmDis }}" aria-label="削除" style="flex: none; width: 36px; height: 36px; padding: 0; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #F3F1EC; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 class="h2">追加する</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{ mk.presets }}" as="p" hint-placeholder-count="6">
+<button onClick="{{ p.add }}" disabled="{{ p.dis }}" style="height: 36px; padding: 0 12px; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #D2CFC8; font-size: 13px">{{ p.label }}</button>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px">
+<input id="mkCode" type="text" aria-label="銘柄コード" placeholder="銘柄コード（例：FX:EURJPY）" autocapitalize="characters" autocomplete="off" style="grid-column: span 2; height: 44px; padding: 0 12px; background: #131313; border: 1px solid #383836; border-radius: 6px; color: #F3F1EC; font-size: 15px">
+<input id="mkName" type="text" aria-label="表示名" placeholder="表示名" autocomplete="off" style="height: 44px; padding: 0 12px; background: #131313; border: 1px solid #383836; border-radius: 6px; color: #F3F1EC; font-size: 15px; min-width: 0">
+<button onClick="{{ mk.addCustom }}" style="height: 44px; border: 0; border-radius: 6px; background: #F3F1EC; color: #070707; font-weight: 700; font-size: 15px">追加</button>
+</div>
+<span style="font-size: 13px; color: #F2A93B">{{ mk.msg }}</span>
+<span style="font-size: 13px; color: #A3A19B">日本の個別株と、日経平均の指数そのものは表示できません。</span>
+</div>
+<button onClick="{{ mk.reset }}" style="align-self: flex-start; height: 40px; padding: 0 14px; border: 1px solid #383836; border-radius: 6px; background: transparent; color: #D2CFC8; font-size: 13px; font-weight: 700">初期の銘柄に戻す</button>
+</div>
+</sc-if>
+
+
 <sc-if value="{{ show.cal }}" hint-placeholder-val="{{ false }}">
 <div style="padding: 6px 20px 32px; display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; justify-content: space-between; align-items: center">
@@ -1425,11 +1451,50 @@ body.desk #stage{box-shadow:0 0 0 8px #070707,0 0 0 9px #33322F,0 30px 80px rgba
 })();
 </script>
 <script>
+// Official TradingView embed: a container plus their script whose body is the JSON config.
+window.__tvEmbed = function (el, widget, config) {
+  if (!el) return;
+  el.innerHTML = '';
+  var box = document.createElement('div'); box.className = 'tradingview-widget-container'; box.style.height = '100%';
+  var inner = document.createElement('div'); inner.className = 'tradingview-widget-container__widget'; inner.style.height = '100%';
+  box.appendChild(inner);
+  var sc = document.createElement('script');
+  sc.type = 'text/javascript'; sc.async = true;
+  sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-' + widget + '.js';
+  sc.text = JSON.stringify(config);
+  box.appendChild(sc);
+  el.appendChild(box);
+};
+var MK_DEFAULT = [
+  { s: 'FOREXCOM:JP225', d: '日経225（CFD）' },
+  { s: 'FOREXCOM:SPXUSD', d: 'S&P 500' },
+  { s: 'FOREXCOM:NSXUSD', d: 'NASDAQ 100' },
+  { s: 'FX:USDJPY', d: 'ドル/円' },
+  { s: 'TVC:US10Y', d: '米10年債利回り' },
+  { s: 'TVC:GOLD', d: '金' }
+];
+var MK_PRESETS = [
+  { s: 'FX:EURJPY', d: 'ユーロ/円' },
+  { s: 'TVC:DXY', d: 'ドル指数' },
+  { s: 'BITSTAMP:BTCUSD', d: 'ビットコイン' },
+  { s: 'NASDAQ:AAPL', d: 'Apple' },
+  { s: 'NASDAQ:NVDA', d: 'NVIDIA' },
+  { s: 'NASDAQ:MSFT', d: 'Microsoft' },
+  { s: 'OANDA:JP225USD', d: '日経225 CFD（ドル建て）' }
+];
+</script>
+<script>
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { tab: 'home', sub: null, seg: 'recruit', post: 'r1', emp: {}, joined: { e4: true }, day: 21, lens: 'すべて', course: 'S', cnode: null, lseg: 'study', libf: 'all', reviewed: {}, bfilter: 'all', accBase: false, exf: 'all', enType: 'ビジコン', accRole: true, np: 'idea', npFrame: '実プロジェクト枠', npRoles: { Engineer: true }, npEnd: 0, src: '聞き取り', sev: 2, anon: true, nf: 'すべて', news: 'n1', fo: null, ps: '共感順', accPrac: true, likes: {} };
+    try { const sv = JSON.parse(localStorage.getItem('slope-mk-v1')); if (Array.isArray(sv) && sv.length) this.state.mkSyms = sv; } catch (e) {}
+    if (!this.state.mkSyms) this.state.mkSyms = MK_DEFAULT.slice();
+    try {
+      const q = new URLSearchParams(location.search).get('tvwidgetsymbol');
+      if (q) { this.state.tab = 'news'; this.state.sub = 'mk'; this.state.mkSym = q; history.replaceState(null, '', location.pathname); }
+    } catch (e) {}
   }
   renderVals() {
     const s = this.state;
@@ -1940,7 +2005,44 @@ class Component extends DCLogic {
       { name: '[銘柄C]', sec: 'フィンテック', val: '865', chg: -3.8 }
     ].map((m, i, arr) => Object.assign({}, m, chgOf(m.chg), { sep: i < arr.length - 1 ? '1px solid #252524' : '0' }));
 
-    const titles = { news: 'ニュース', unit: '単元', post: '募集の詳細', painNew: 'ペインを記録', admin: '運営ダッシュボード' };
+    // ---- Market (TradingView widgets) ----
+    const LCU = location.href.split('?')[0].split('#')[0];
+    const mkList = s.mkSyms;
+    const mkSave = (list) => { try { localStorage.setItem('slope-mk-v1', JSON.stringify(list)); } catch (e) {} this.setState({ mkSyms: list, mkMsg: '' }); };
+    const mkFind = (code) => mkList.concat(MK_PRESETS).find((x) => x.s === code);
+    const mkName = s.mkSym ? ((mkFind(s.mkSym) || {}).d || s.mkSym) : '';
+    const mkMove = (i, d) => { const l = mkList.slice(); const x = l[i]; l[i] = l[i + d]; l[i + d] = x; mkSave(l); };
+    const mk = {
+      tiles: mkList.map((x) => ({ name: x.d, ref: (el) => window.__tvEmbed(el, 'mini-symbol-overview', {
+        symbol: x.s, width: '100%', height: 150, locale: 'ja', dateRange: '1M', colorTheme: 'dark', theme: 'dark',
+        isTransparent: true, autosize: false, largeChartUrl: LCU, noTimeScale: true, chartOnly: false }) })),
+      homeRef: (el) => window.__tvEmbed(el, 'tickers', {
+        symbols: mkList.slice(0, 3).map((x) => ({ proName: x.s, title: x.d })),
+        colorTheme: 'dark', theme: 'dark', isTransparent: true, showSymbolLogo: false, locale: 'ja', largeChartUrl: LCU }),
+      bigRef: (el) => { if (s.mkSym) window.__tvEmbed(el, 'advanced-chart', {
+        symbol: s.mkSym, interval: 'D', timezone: 'Asia/Tokyo', theme: 'dark', colorTheme: 'dark', style: '1', locale: 'ja',
+        autosize: true, hide_side_toolbar: true, allow_symbol_change: false, save_image: false, calendar: false,
+        backgroundColor: 'rgba(19,19,19,1)', gridColor: 'rgba(37,37,36,1)' }); },
+      code: s.mkSym || '',
+      rows: mkList.map((x, i, arr) => ({ name: x.d, code: x.s, upDis: i === 0, dnDis: i === arr.length - 1, rmDis: arr.length === 1,
+        sep: i < arr.length - 1 ? '1px solid #252524' : '0',
+        up: () => mkMove(i, -1), dn: () => mkMove(i, 1), rm: () => mkSave(mkList.filter((_, j) => j !== i)) })),
+      presets: MK_PRESETS.map((p) => { const on = mkList.some((x) => x.s === p.s);
+        return { label: (on ? '✓ ' : '+ ') + p.d, dis: on, add: () => { if (!on) mkSave(mkList.concat([p])); } }; }),
+      addCustom: () => {
+        const ce = document.getElementById('mkCode'), ne = document.getElementById('mkName');
+        const c = ((ce && ce.value) || '').trim().toUpperCase(), n = ((ne && ne.value) || '').trim();
+        if (!/^[A-Z0-9_]+:[A-Z0-9._!-]+$/.test(c)) { this.setState({ mkMsg: '「取引所:コード」の形で入力してください（例：FX:EURJPY）' }); return; }
+        if (mkList.some((x) => x.s === c)) { this.setState({ mkMsg: 'すでに追加されています' }); return; }
+        if (ce) ce.value = ''; if (ne) ne.value = '';
+        mkSave(mkList.concat([{ s: c, d: n || c.split(':')[1] }]));
+      },
+      reset: () => mkSave(MK_DEFAULT.slice()),
+      msg: s.mkMsg || '',
+      openEdit: () => this.setState({ sub: 'mkEdit', mkMsg: '' })
+    };
+
+    const titles = { mk: mkName, mkEdit: 'マーケットの編集', news: 'ニュース', unit: '単元', post: '募集の詳細', painNew: 'ペインを記録', admin: '運営ダッシュボード' };
 
     const ddOf = (key, list) => {
       const cur = list.find((f) => f.fg === INK);
@@ -1958,7 +2060,7 @@ class Component extends DCLogic {
       accent: A,
       show: {
         main: main, subbar: !main,
-        home: main && s.tab === 'home', learn: main && s.tab === 'learn', board: main && s.tab === 'board', cal: main && s.tab === 'cal', me: main && s.tab === 'me', news: main && s.tab === 'news', newsDetail: s.sub === 'news',
+        home: main && s.tab === 'home', learn: main && s.tab === 'learn', board: main && s.tab === 'board', cal: main && s.tab === 'cal', me: main && s.tab === 'me', news: main && s.tab === 'news', newsDetail: s.sub === 'news', mk: s.sub === 'mk', mkEdit: s.sub === 'mkEdit',
         lib: s.lseg === 'lib', study: s.lseg === 'study', practice: s.lseg === 'practice',
         unit: s.sub === 'unit', allUnits: s.sub === 'allUnits', course: s.sub === 'course', postNew: s.sub === 'postNew', eventNew: s.sub === 'eventNew', npIdea: s.np === 'idea', npRecruit: s.np === 'recruit', post: s.sub === 'post', painNew: s.sub === 'painNew', admin: s.sub === 'admin',
         recruit: s.seg === 'recruit', pain: s.seg === 'pain', event: s.seg === 'event', other: s.seg === 'other',
@@ -2011,6 +2113,7 @@ class Component extends DCLogic {
       newsItems: newsItems, newsFilters: newsFilters, newsHome: newsHome, curNews: curNews,
       newsCm: newsCm, newsCmN: newsCm.length, noNewsCm: newsCm.length === 0, meAv: meAv,
       markets: markets, movers: movers, pracGroups: pracGroups, pracNote: pracNote, tgPrac: () => this.setState({ accPrac: !this.state.accPrac }),
+      mk: mk,
       kpis: kpis, levels: levels, painTags: painTags, rates: rates
     };
   }
