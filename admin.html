@@ -601,12 +601,15 @@ body.moving,body.moving *{cursor:grabbing !important;user-select:none}
 
 /* 段ごとの色分け（行の背景） */
 :root{--t0:#ECEDEF;--t1:#F3F4F5;--t2:#F8F9FA;--t3:#FFFFFF}
-.wcard .wr[data-d="0"],.wcard .wr.head{background:var(--t0)}
-.wcard .wr[data-d="1"]{background:var(--t1)}
-.wcard .wr[data-d="2"]{background:var(--t2)}
-.wcard .wr[data-d="3"]{background:var(--t3)}
-.wcard .wr[data-d]:hover{background-image:linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025))}
-.wcard .wr.ghost{background-image:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45))}
+.wcard .wr[data-d],.wcard .wr.head{background:#fff}
+.wcard .wr[data-d="0"] > .wn{background:var(--t0)}
+.wcard .wr[data-d="1"] > .wn{background:var(--t1)}
+.wcard .wr[data-d="2"] > .wn{background:var(--t2)}
+.wcard .wr[data-d="3"] > .wn{background:var(--t3)}
+.wcard .wr[data-d] > .wn{align-self:stretch}
+.wcard .wr[data-d]:hover{background:#FAFAFB}
+.wcard .wr[data-d]:hover > .wn{background-image:linear-gradient(rgba(0,0,0,.03),rgba(0,0,0,.03))}
+.wcard .wr.ghost > .wn{background-image:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45))}
 .wcard .wr[data-d]{border-bottom-color:rgba(17,24,39,.06)}
 .gr[data-d="0"] .gl,.gr.g0 .gl{background:var(--t0)}
 .gr[data-d="1"] .gl{background:var(--t1)}
@@ -614,9 +617,6 @@ body.moving,body.moving *{cursor:grabbing !important;user-select:none}
 .gr[data-d="3"] .gl{background:var(--t3)}
 .gr[data-d]:hover .gl{background-image:linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025))}
 .gghost .gl{background-image:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45))}
-.gr[data-d="0"] .gt{background:rgba(17,24,39,.045)}
-.gr[data-d="1"] .gt{background:rgba(17,24,39,.025)}
-.gr[data-d="2"] .gt{background:rgba(17,24,39,.01)}
 
 /* ガント：業務名の列幅をドラッグで変える */
 .lwh{position:absolute;top:0;bottom:0;right:-5px;width:9px;z-index:7;cursor:col-resize;touch-action:none}
