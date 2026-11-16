@@ -459,13 +459,35 @@ kbd{font-family:var(--font);font-size:10px;border:1px solid var(--line2);border-
 .gghost .gl{background:#fff}
 .gghost .ct::placeholder{color:var(--dim)}
 .gghost .ct:focus::placeholder{color:transparent}
-@media (max-width:760px){ .gl .gsel{display:none} .gl .ga{display:flex !important;opacity:1} }
+@media (max-width:760px){ .gl .gsel{display:none} .gl .ga{display:none !important} .gl .wck{display:none} .gl .cx{width:26px !important;height:32px !important;margin:0} .gl .lvb{margin:0 4px 0 0} .gl .ct{padding:0 4px} }
 
 /* bigger fold/expand buttons */
 .cx{width:32px !important;height:32px !important;border-radius:6px;color:var(--sub)}
 .cx svg.i{width:18px !important;height:18px !important;stroke-width:2.2}
 button.cx:hover{background:#E5E7EB;color:var(--text)}
 @media (max-width:760px){ .cx{width:36px !important;height:36px !important} .cx svg.i{width:20px !important;height:20px !important} }
+
+/* levels: color per tier */
+.lvd{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.seg button[aria-pressed="true"] .lvd{box-shadow:0 0 0 1.5px #fff}
+.lvb{flex:none;width:3px;height:18px;border-radius:2px;background:var(--lc,#9CA3AF);margin:0 6px 0 2px}
+.lvb.ghost{opacity:.35}
+.wr.head .lvb{height:24px}
+.bar{background:var(--lc,var(--accent))}
+.gr .bar.sum{background:var(--lc)}
+.gr.g0 .bar.sum{background:#111827}
+.gr .bar.none{background:#fff;box-shadow:inset 0 0 0 1.5px var(--lc)}
+.gr .bar.none .lb{color:var(--lc)}
+.gr .bar.done,.gr .bar.sum.done{background:#E5E7EB;box-shadow:none}
+.gr .bar.done .lb{color:var(--muted)}
+.zoom{display:inline-flex;gap:2px;margin-left:4px;border:1px solid var(--line2);border-radius:6px;overflow:hidden}
+.zoom .ib{width:30px;height:28px;border-radius:0;font-size:16px;color:var(--sub)}
+.gs{touch-action:pan-x pan-y}
+.gd.day{padding-left:0;text-align:center;top:22px;line-height:1.15;font-size:12px;color:var(--sub);font-weight:500}
+.gd.day small{display:block;font-size:10px;color:var(--muted);font-weight:400}
+.gd.day.sun,.gd.day.sun small{color:#DC2626}
+.gd.day.sat,.gd.day.sat small{color:#2563EB}
+.gwe{position:absolute;top:0;bottom:0;background:#F9FAFB}
 </style>
 </head>
 <body>
@@ -801,23 +823,26 @@ function ended(p) { return dayOf(p.end) < TODAY; }
 function pct(p) { return Math.round((p.reg || 0) / (S.club || 150) * 100); }
 function annCell(p) { return isEvent(p) ? '<span class="stat' + (p.announce === 'done' ? '' : ' off') + '"><i></i>' + (p.announce === 'done' ? '告知済み' : '告知前') + '</span>' : ''; }
 function regCell(p) { return isEvent(p) ? (p.announce === 'done' ? '<span class="num">' + (p.reg || 0) + '<span class="muted">/' + (S.club || 150) + '</span></span>' : '<span class="dim">受付前</span>') : ''; }
-var LEVELS = [['1', 'イベント'], ['2', '部'], ['3', 'チーム'], ['9', 'すべて']];
+var LEVELS = [['1', 'イベント'], ['2', '部'], ['3', 'チーム'], ['9', '個人']];
 function visibleRoots() { return S.projects.filter(function (r) { return (S.showEnded || !ended(r)) && (isAdmin() || involved(r, S.me)); }).sort(function (a, b) { return dayOf(a.start) - dayOf(b.start); }); }
 function isOpen(n, d) { if (S.fold && S.fold[n.id] != null) return !S.fold[n.id]; return d + 1 < (S.depth || 2); }
 function visNode(n) { return isAdmin() || chainHas(n, S.me) || nodesOf(n).some(function (x) { return x.who === S.me; }); }
-function rowsOf(all) {
+var MAXD = 3; // イベント(0) / 部(1) / チーム(2) / 個人(3)
+function rowsOf(all, ghosts) {
   var out = [];
   (function each(list, d) {
     list.forEach(function (n) {
       if (!visNode(n)) return;
-      var c = kids(n).filter(visNode);
+      var c = kids(n).filter(visNode), slot = ghosts && d < MAXD && canEdit(n);
       var open = all ? true : isOpen(n, d);
-      out.push({ n: n, d: d, has: c.length > 0, open: open, ctx: !canEdit(n) });
-      if (open) each(c, d + 1);
+      out.push({ n: n, d: d, has: c.length > 0 || slot, open: open, ctx: !canEdit(n) });
+      if (open) { each(c, d + 1); if (slot) out.push({ ghost: true, parent: n, d: d + 1 }); }
     });
   })(visibleRoots(), 0);
   return out;
 }
+var LVC = ['#111827', '#2563EB', '#0D9488', '#D97706'];
+function lv(d) { return Math.min(d, 3); }
 function caret(r) {
   return r.has ? '<button class="cx" data-act="fold" data-id="' + r.n.id + '" aria-expanded="' + r.open + '" aria-label="' + (r.open ? '折りたたむ' : '展開する') + '"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="' + (r.open ? 'M7 10l5 5 5-5' : 'M10 7l5 5-5 5') + '"/></svg></button>' : '<span class="cx"></span>';
 }
@@ -837,22 +862,23 @@ function viewWork() {
   var head = top('業務', right) + utabs('wtab', [['list', 'リスト'], ['gantt', 'ガント'], ['stats', '参加率']]);
   if (S.wtab === 'stats') return head + '<div class="body">' + projStats() + '</div>';
   var tbar = '<div class="tbar"><span class="muted" style="font-size:12px">表示</span><span class="seg" role="group" aria-label="表示する細かさ">' + LEVELS.map(function (l) {
-      return '<button data-act="depth" data-v="' + l[0] + '" aria-pressed="' + (String(S.depth || 2) === l[0] && !Object.keys(S.fold || {}).length) + '">' + l[1] + '</button>'; }).join('') + '</span>' +
+      return '<button data-act="depth" data-v="' + l[0] + '" aria-pressed="' + (String(S.depth || 2) === l[0] && !Object.keys(S.fold || {}).length) + '"><i class="lvd" style="background:' + LVC[LEVELS.indexOf(l)] + '"></i>' + l[1] + '</button>'; }).join('') + '</span>' + (S.wtab === 'gantt' ? '<span class="zoom"><button class="ib" data-act="zoom" data-v="-1" aria-label="縮小">−</button><button class="ib" data-act="zoom" data-v="1" aria-label="拡大">＋</button></span>' : '') +
     '<label class="chk"><input type="checkbox" class="check" data-act="showEnded"' + (S.showEnded ? ' checked' : '') + '>終了したイベント</label>' + (S.wtab === 'list' ? '<span class="keys hide-sm"><kbd>Enter</kbd> 追加　<kbd>Tab</kbd> 下げる　<kbd>Shift</kbd>+<kbd>Tab</kbd> 上げる</span>' : '') + '</div>';
-  var rows = rowsOf(false);
+  var rows = rowsOf(false, true);
   if (S.wtab === 'gantt') return head + tbar + '<div class="body flush">' + ganttOf(rows) + '</div>';
   var opts = function (sel) { return '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (sel === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join(''); };
   var row = function (r) {
+    if (r.ghost) return ghost(r.parent.id, r.d - 1, r.d === 1 ? '＋ 業務を追加' : '＋ 追加', r.d);
     var n = r.n, root = r.d === 0, parent = kids(n).length > 0 || !!n.tasks, g = parent ? progress(n) : null;
     var ed = canEdit(n) ? '' : ' disabled', as = canAssign(n) ? '' : ' disabled';
     var meta = root ? [esc(n.unit || '')].concat(isEvent(n) ? [n.announce === 'done' ? '告知済み・参加 ' + (n.reg || 0) + '/' + S.club : '告知前'] : []).join('<span class="dot">・</span>') : '';
     var st = g ? '<span class="prog"><span class="b"><i style="width:' + (g.n ? Math.round(g.d / g.n * 100) : 0) + '%"></i></span><span class="num">' + g.d + '/' + g.n + '</span>' + (g.late ? '<span class="bad num">遅れ ' + g.late + '</span>' : '') + '</span>'
       : n.done ? '<span class="ok2">完了</span>' : late(n) ? '<span class="bad">期限切れ</span>' : '';
     var w = member(n.who), sub = [w ? w.name : '担当未定', fmtDate(n.start) + '–' + fmtDate(n.end)].concat(g ? [g.d + '/' + g.n] : []).join('・');
-    return '<div class="wr' + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) && !root ? ' done' : '') + '" data-row="' + n.id + '" style="--d:' + Math.max(0, r.d - 1) + '">' +
+    return '<div class="wr lv' + lv(r.d) + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) && !root ? ' done' : '') + '" data-row="' + n.id + '" style="--d:' + Math.max(0, r.d - 1) + ';--lc:' + LVC[lv(r.d)] + '">' +
       '<div class="wn">' + caret(r) +
         (!parent && !root ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '') +
-        '<div class="wtx"><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' +
+        '<i class="lvb"></i><div class="wtx"><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' +
         (root ? '<div class="wm">' + meta + '</div>' : '<div class="ws">' + esc(sub) + '</div>') + '</div>' +
         (r.has && !r.open ? '<span class="k num">' + (nodesOf(n).length - 1) + '</span>' : '') + '</div>' +
       '<div class="ww"><select class="cell" data-c="w" data-id="' + n.id + '"' + as + ' aria-label="担当">' + opts(n.who) + '</select></div>' +
@@ -862,56 +888,59 @@ function viewWork() {
       '<div class="wa"><button class="ib medit" data-act="edit" data-id="' + n.id + '" aria-label="詳細">' + ic('more') + '</button>' +
         ((isAdmin() || (parentOf(n) && canEdit(parentOf(n)))) ? '<button class="ib wdel" data-act="rowDel" data-id="' + n.id + '" aria-label="' + esc(ttl(n)) + 'を削除"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg></button>' : '') + '</div></div>';
   };
-  var ghost = function (pid, d, ph) { return '<div class="wr ghost" style="--d:' + d + '"><div class="wn"><span class="cx"></span><div class="wtx"><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div></div></div>'; };
+  var ghost = function (pid, d, ph, L) { return '<div class="wr ghost" style="--d:' + d + ';--lc:' + LVC[lv(L || 0)] + '"><div class="wn"><span class="cx"></span><i class="lvb ghost"></i><div class="wtx"><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div></div></div>'; };
   var groups = [], cur = null;
   rows.forEach(function (r) { if (r.d === 0) { cur = []; groups.push(cur); } if (cur) cur.push(r); });
-  var cards = groups.map(function (gr) { var root = gr[0].n; return '<section class="wcard">' + gr.map(row).join('') + (canEdit(root) && isOpen(root, 0) ? ghost(root.id, 0, '＋ 業務を追加') : '') + '</section>'; }).join('');
+  var cards = groups.map(function (gr) { return '<section class="wcard">' + gr.map(row).join('') + '</section>'; }).join('');
   return head + tbar + '<div class="body"><div class="wcards"><div class="wh"><div>業務</div><div>担当</div><div>開始</div><div>期限</div><div>進捗</div><div></div></div>' +
     (cards || '<div class="empty">表示できる業務はありません</div>') +
-    (isAdmin() ? '<section class="wcard wnewc">' + ghost('', 0, '＋ イベントを追加') + '</section>' : '') + '</div></div>';
+    (isAdmin() ? '<section class="wcard wnewc">' + ghost('', 0, '＋ イベントを追加', 0) + '</section>' : '') + '</div></div>';
 }
 function ganttOf(rows) {
-  var narrow = window.innerWidth < 760, LW = narrow ? 170 : 380;
+  var narrow = window.innerWidth < 760, LW = narrow ? 180 : 380;
   var lo = Infinity, hi = -Infinity;
-  rows.forEach(function (r) { lo = Math.min(lo, dayOf(r.n.start)); hi = Math.max(hi, dayOf(r.n.end)); });
+  rows.forEach(function (r) { if (r.ghost) return; lo = Math.min(lo, dayOf(r.n.start)); hi = Math.max(hi, dayOf(r.n.end)); });
   if (!rows.length) { lo = TODAY; hi = TODAY; }
   var d1 = new Date(Math.min(lo, TODAY)); lo = Date.UTC(d1.getUTCFullYear(), d1.getUTCMonth(), 1);
   hi = Math.max(hi + 14 * DAY, Date.UTC(d1.getUTCFullYear() + 1, d1.getUTCMonth(), 1) - DAY);
   var days = Math.round((hi - lo) / DAY) + 1;
   var avail = Math.max(320, window.innerWidth - (narrow ? 0 : 220) - LW - 4);
-  var PX = narrow ? 8 : 12, TW = Math.max(days * PX, avail);
+  var PX = Math.max(2, Math.min(48, S.zoom || (narrow ? 8 : 12))), TW = Math.max(days * PX, avail), DAYS = PX >= 30, WK = ['日', '月', '火', '水', '木', '金', '土'];
   var x = function (iso) { return Math.round((dayOf(iso) - lo) / DAY) * PX; };
   var hd = '', ln = '';
   for (var i = 0; i < days; i++) {
     var d = new Date(lo + i * DAY);
     if (d.getUTCDate() === 1 || i === 0) { hd += '<div class="gm" style="left:' + (i * PX) + 'px">' + (d.getUTCMonth() === 0 || i === 0 ? d.getUTCFullYear() + '年' : '') + (d.getUTCMonth() + 1) + '月</div>'; if (i) ln += '<div class="gmo" style="left:' + (i * PX) + 'px"></div>'; }
-    if (d.getUTCDay() === 1) { if (PX * 7 >= 30) hd += '<div class="gd" style="left:' + (i * PX) + 'px">' + d.getUTCDate() + '</div>'; ln += '<div class="gw" style="left:' + (i * PX) + 'px"></div>'; }
+    if (DAYS) {
+      var wd = d.getUTCDay();
+      hd += '<div class="gd day' + (wd === 0 ? ' sun' : wd === 6 ? ' sat' : '') + '" style="left:' + (i * PX) + 'px;width:' + PX + 'px">' + d.getUTCDate() + '<small>' + WK[wd] + '</small></div>';
+      ln += (wd === 0 || wd === 6 ? '<div class="gwe" style="left:' + (i * PX) + 'px;width:' + PX + 'px"></div>' : '') + '<div class="gw" style="left:' + (i * PX) + 'px"></div>';
+    } else if (d.getUTCDay() === 1) { if (PX * 7 >= 30) hd += '<div class="gd" style="left:' + (i * PX) + 'px">' + d.getUTCDate() + '</div>'; ln += '<div class="gw" style="left:' + (i * PX) + 'px"></div>'; }
   }
   var tx = Math.round((TODAY - lo) / DAY) * PX;
   if (tx >= 0 && tx <= TW) ln += '<div class="gnow" style="left:' + tx + 'px"></div>';
   var cols = 'grid-template-columns:' + LW + 'px ' + TW + 'px';
   var wopts = function (sel) { return '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (sel === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join(''); };
-  var gghost = function (pid, d, ph) { return '<div class="gr gghost" style="' + cols + '"><div class="gl" style="padding-left:' + (8 + d * 18) + 'px"><span class="cx"></span><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
+  var gghost = function (pid, d, ph, L) { return '<div class="gr gghost" style="' + cols + ';--lc:' + LVC[lv(L || 0)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + d * 8 : 8 + d * 18) + 'px"><span class="cx"></span><i class="lvb ghost"></i><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
   var body = '';
   rows.forEach(function (r, idx) {
+    if (r.ghost) { body += gghost(r.parent.id, r.d, r.d === 1 ? '＋ 業務を追加' : '＋ 追加', r.d); return; }
     var n = r.n, parent = kids(n).length > 0 || !!n.tasks, w = member(n.who), dn = isDone(n);
     var cls = parent ? ' sum' + (r.d === 0 ? ' root' : '') + (dn ? ' done' : '') : (n.done ? ' done' : (!n.who ? ' none' : ''));
     var bar = '<div class="bar' + cls + (late(n) ? ' late' : '') + (canEdit(n) ? '' : ' lock') + '" data-bar="' + n.id + '" style="left:' + x(n.start) + 'px;width:' + Math.max(PX, x(n.end) - x(n.start) + PX) + 'px" title="' + esc(ttl(n) + '  ' + fmtDate(n.start) + '–' + fmtDate(n.end) + (w ? '  ' + w.name : '')) + '">' +
       (parent ? '' : '<span class="lb">' + esc(n.done ? '完了' : w ? w.name : '未定') + '</span>') + (canEdit(n) ? '<span class="hd" data-hd="1"></span>' : '') + '</div>';
     var ed = canEdit(n) ? '' : ' disabled';
-    body += '<div class="gr' + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + '"><div class="gl" style="padding-left:' + (8 + r.d * 18) + 'px">' + caret(r) +
+    body += '<div class="gr lv' + lv(r.d) + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + ';--lc:' + LVC[lv(r.d)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + r.d * 8 : 8 + r.d * 18) + 'px">' + caret(r) +
         (!parent && r.d > 0 ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '') +
-        '<input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') +
+        '<i class="lvb"></i><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') +
         '<select class="cell gsel" data-c="w" data-id="' + n.id + '"' + (canAssign(n) ? '' : ' disabled') + ' aria-label="担当">' + wopts(n.who) + '</select>' +
         '<button class="ib ga" data-act="edit" data-id="' + n.id + '" aria-label="詳細">' + ic('more') + '</button></div>' +
       '<div class="gt">' + bar + '</div></div>';
-    var next = rows[idx + 1];
-    if (r.d >= 0 && (!next || next.d === 0)) { var root = rootOf(n); if (canEdit(root) && isOpen(root, 0)) body += gghost(root.id, 1, '＋ 業務を追加'); }
   });
-  var addRow = isAdmin() ? gghost('', 0, '＋ イベントを追加') : '';
+  var addRow = isAdmin() ? gghost('', 0, '＋ イベントを追加', 0) : '';
   var n = Math.max(3, Math.ceil((window.innerHeight - 52 - 41 - 49 - 56 - (rows.length + 1) * 40) / 40) + 1), fill = '';
   for (var j = 0; j < n; j++) fill += '<div class="gr gfill" style="' + cols + '"><div class="gl"></div><div class="gt"></div></div>';
-  return '<div class="gs" id="gs"><div class="gg" data-px="' + PX + '" style="width:' + (LW + TW) + 'px">' +
+  return '<div class="gs" id="gs"><div class="gg" data-px="' + PX + '" data-lo="' + lo + '" data-lw="' + LW + '" style="width:' + (LW + TW) + 'px">' +
     '<div class="glines" style="left:' + LW + 'px;width:' + TW + 'px">' + ln + '</div>' +
     '<div class="gr ghead" style="' + cols + '"><div class="gl">業務</div><div class="gt">' + hd + '</div></div>' + body + addRow + fill + '</div></div>';
 }
@@ -1347,6 +1376,7 @@ document.addEventListener('click', function (e) {
     case 'pstats': S.view = 'projects'; S.wtab = 'stats'; save(); render(); break;
     case 'fold': reindex(); var fx = IX[b.dataset.id]; if (!S.fold) S.fold = {}; S.fold[b.dataset.id] = isOpen(fx.n, fx.d); save(); render(); break;
     case 'depth': S.depth = +b.dataset.v; S.fold = {}; save(); render(); break;
+    case 'zoom': var gz = document.querySelector('.gg'); zoomTo((gz ? +gz.dataset.px : 12) * (b.dataset.v === '1' ? 1.5 : 1 / 1.5)); break;
     case 'edit': M = { m: 'edit', id: b.dataset.id }; renderModal(); break;
     case 'addc': M = { m: 'add', pid: b.dataset.id }; renderModal(); var f1 = document.getElementById('wT'); if (f1) f1.focus(); break;
     case 'addev': M = { m: 'add' }; renderModal(); var f0 = document.getElementById('wT'); if (f0) f0.focus(); break;
@@ -1560,6 +1590,43 @@ document.addEventListener('click', function (e) {
   snap(); var cnt = nodesOf(n).length - 1; removeNode(n); rerender();
   toastUndo('「' + ttl(n) + '」' + (cnt ? 'と下の ' + cnt + ' 件' : '') + 'を削除しました');
 }, true);
+
+
+// ---------------- gantt zoom: pinch (touch / trackpad / Safari gesture) and ctrl+wheel ----------------
+function zoomTo(px, cx) {
+  var gs = document.getElementById('gs'), gg = document.querySelector('.gg'); if (!gs || !gg) return;
+  px = Math.max(2, Math.min(48, px)); var old = +gg.dataset.px, LW = +gg.dataset.lw, lo = +gg.dataset.lo;
+  if (Math.abs(px - old) < 0.05) return;
+  var r = gs.getBoundingClientRect(), xr = cx == null ? (r.width + LW) / 2 : Math.max(LW, cx - r.left);
+  var at = lo + ((gs.scrollLeft + xr - LW) / old) * DAY;
+  S.zoom = px; save(); render();
+  gs = document.getElementById('gs'); gg = document.querySelector('.gg'); if (!gs || !gg) return;
+  gs.scrollLeft = LW + ((at - +gg.dataset.lo) / DAY) * px - xr; UI.sl = gs.scrollLeft;
+}
+var ZQ = null;
+function zoomSoon(px, cx) { var first = !ZQ; ZQ = { px: px, cx: cx }; if (first) requestAnimationFrame(function () { var q = ZQ; ZQ = null; zoomTo(q.px, q.cx); }); }
+function inGantt(t) { return t && t.closest && t.closest('#gs'); }
+document.addEventListener('wheel', function (e) {
+  if (!e.ctrlKey || !inGantt(e.target)) return;
+  e.preventDefault(); var gg = document.querySelector('.gg'); if (!gg) return;
+  zoomSoon((ZQ ? ZQ.px : +gg.dataset.px) * Math.exp(-e.deltaY * 0.004), e.clientX);
+}, { passive: false });
+var PINCH = null;
+document.addEventListener('touchstart', function (e) {
+  if (e.touches.length !== 2 || !inGantt(e.target)) return;
+  var a = e.touches[0], b = e.touches[1], gg = document.querySelector('.gg');
+  PINCH = { d: Math.abs(a.clientX - b.clientX) || 1, px: +gg.dataset.px, cx: (a.clientX + b.clientX) / 2 };
+}, { passive: true });
+document.addEventListener('touchmove', function (e) {
+  if (!PINCH || e.touches.length !== 2) return;
+  e.preventDefault(); var a = e.touches[0], b = e.touches[1];
+  var d = Math.abs(a.clientX - b.clientX) || 1; zoomSoon(PINCH.px * d / PINCH.d, PINCH.cx);
+}, { passive: false });
+document.addEventListener('touchend', function (e) { if (e.touches.length < 2) PINCH = null; });
+var GST = null; // Safari (iOS / macOS) gesture events
+document.addEventListener('gesturestart', function (e) { if (!inGantt(e.target)) return; e.preventDefault(); var gg = document.querySelector('.gg'); GST = { px: +gg.dataset.px, cx: e.clientX }; });
+document.addEventListener('gesturechange', function (e) { if (!GST) return; e.preventDefault(); if (!PINCH) zoomSoon(GST.px * e.scale, GST.cx); });
+document.addEventListener('gestureend', function () { GST = null; });
 
 render();
 })();
