@@ -507,6 +507,10 @@ body.moving,body.moving *{cursor:grabbing !important;user-select:none}
 .mvbad{background:var(--bad)}
 .mvbad::before{background:var(--bad)}
 @media (max-width:760px){ .gl .ckph{display:none} .gl .dh{display:none} }
+
+.dguide{position:fixed;width:0;border-left:1px dashed var(--accent);pointer-events:none;z-index:40}
+.dguide span{position:absolute;top:2px;right:0;background:var(--accent);color:#fff;font-size:11px;font-weight:600;line-height:18px;padding:0 6px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dguide.end span{right:auto;left:0}
 </style>
 </head>
 <body>
@@ -1488,11 +1492,12 @@ function mvPlan(e) {
   var R = el && el.closest(mv.scope + ' [data-d]'); if (!R) return null;
   var all = Array.prototype.slice.call(document.querySelectorAll(mv.scope + ' [data-d]')), ri = all.indexOf(R);
   var D = function (x) { return +x.dataset.d; }, rect = function (x) { return x.getBoundingClientRect(); };
-  var cxOf = function (x) { var c = x.querySelector('.ct'); return c ? rect(c).left : rect(x).left + 8; };
+  var cxOf = function (x) { var c = x.querySelector('.lvb') || x.querySelector('.ct'); return c ? rect(c).left - 2 : rect(x).left + 8; };
+  var rEnd = function (x) { var g = x.querySelector('.gl'); return (g ? rect(g).right : rect(x).right) - 12; };
   var dr = D(R), par, ref = null, before = false, x, y;
   if (dr === ds - 1 && R.dataset.row) { // 親になれる行の上 → その先頭に入れる
     par = task(R.dataset.row); if (!par || within(src, par)) return null;
-    ref = kids(par)[0] || null; before = true; y = rect(R).bottom; x = cxOf(R) + 22;
+    ref = kids(par)[0] || null; before = true; y = rect(R).bottom; x = cxOf(R) + (mv.scope === '.gg' ? 18 : 22);
   } else if (dr >= ds) {
     var ai = ri; while (ai >= 0 && D(all[ai]) > ds) ai--; if (ai < 0 || D(all[ai]) < ds) return null;
     var A = all[ai];
@@ -1509,7 +1514,7 @@ function mvPlan(e) {
   if (par && within(src, par)) return null;
   if (ds === 0 && mv.scope === '.wcards') y += (ref && !before) ? 8 : -8; // カードの間のすき間に線を出す
   var ok = par ? (isAdmin() || canEdit(par)) : isAdmin();
-  return { par: par, ref: ref, before: before, y: y, x: x, ok: ok };
+  return { par: par, ref: ref, before: before, y: y, x: x, r: rEnd(R), ok: ok };
 }
 function scroller(el) { while (el && el !== document.body) { var cs = getComputedStyle(el); if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight) return el; el = el.parentElement; } return document.scrollingElement; }
 document.addEventListener('pointerdown', function (e) {
@@ -1527,7 +1532,7 @@ document.addEventListener('pointermove', function (e) {
     mv.gh = document.createElement('div'); mv.gh.className = 'mvghost'; mv.gh.textContent = ttl(mv.n); document.body.appendChild(mv.gh); }
   mv.gh.style.left = (e.clientX + 12) + 'px'; mv.gh.style.top = (e.clientY - 14) + 'px';
   var pl = mvPlan(e); mv.plan = pl;
-  if (pl) { var w = (mv.row.getBoundingClientRect().right) - pl.x; mv.line.style.display = 'block'; mv.line.style.left = pl.x + 'px'; mv.line.style.top = (pl.y - 1) + 'px'; mv.line.style.width = Math.max(40, Math.min(w, 600)) + 'px'; mv.line.classList.toggle('mvbad', !pl.ok); }
+  if (pl) { mv.line.style.display = 'block'; mv.line.style.left = pl.x + 'px'; mv.line.style.top = (pl.y - 1) + 'px'; mv.line.style.width = Math.max(40, pl.r - pl.x) + 'px'; mv.line.classList.toggle('mvbad', !pl.ok); }
   else mv.line.style.display = 'none';
   // 端に近づいたら自動スクロール
   var sc = mv.sc, r = sc === document.scrollingElement ? { top: 0, bottom: innerHeight } : sc.getBoundingClientRect();
@@ -1560,16 +1565,31 @@ document.addEventListener('pointerdown', function (e) {
   var bar = e.target.closest('[data-bar]'); if (!bar || e.button !== 0 || bar.classList.contains('lock')) return;
   drag = { el: bar, k: task(bar.dataset.bar), x0: e.clientX, left: parseFloat(bar.style.left), width: parseFloat(bar.style.width), px: +document.querySelector('.gg').dataset.px, resize: !!e.target.dataset.hd, dd: 0 };
   bar.classList.add('drag'); bar.setPointerCapture(e.pointerId); e.preventDefault();
+  drag.lo = +document.querySelector('.gg').dataset.lo; dateGuides(drag);
 });
+function dateGuides(d) {
+  if (!d.gd) { d.gd = ['s', 'e'].map(function (k) { var l = document.createElement('div'); l.className = 'dguide'; l.innerHTML = '<span></span>'; document.body.appendChild(l); return l; }); }
+  var s0 = dayOf(d.k.start) + (d.resize ? 0 : d.dd * DAY), e0 = Math.max(s0, dayOf(d.k.end) + d.dd * DAY);
+  var br = d.el.getBoundingClientRect(), hr = document.querySelector('.ghead .gt').getBoundingClientRect();
+  var WK = ['日', '月', '火', '水', '木', '金', '土'];
+  [[s0, br.left], [e0, br.right]].forEach(function (v, i) {
+    var g = d.gd[i], dt = new Date(v[0]);
+    g.style.left = Math.round(v[1]) + 'px'; g.style.top = hr.top + 'px'; g.style.height = Math.max(0, br.top - hr.top) + 'px';
+    g.className = 'dguide' + (i ? ' end' : '');
+    g.firstChild.style.top = Math.max(2, hr.height - 24) + 'px';
+    g.firstChild.textContent = (dt.getUTCMonth() + 1) + '/' + dt.getUTCDate() + '(' + WK[dt.getUTCDay()] + ')';
+  });
+}
 document.addEventListener('pointermove', function (e) {
   if (!drag) return;
   var dd = Math.round((e.clientX - drag.x0) / drag.px); drag.dd = dd;
   if (drag.resize) drag.el.style.width = Math.max(drag.px, drag.width + dd * drag.px) + 'px';
   else drag.el.style.left = (drag.left + dd * drag.px) + 'px';
+  dateGuides(drag);
 });
 document.addEventListener('pointerup', function () {
   if (!drag) return;
-  var d = drag; drag = null; d.el.classList.remove('drag');
+  var d = drag; drag = null; d.el.classList.remove('drag'); if (d.gd) d.gd.forEach(function (g) { g.remove(); });
   if (!d.dd) { var ce = document.querySelector('.cell[data-c="t"][data-id="' + d.k.id + '"]'); if (ce) { ce.focus(); ce.select(); } return; }
   if (d.resize) d.k.end = isoOf(Math.max(dayOf(d.k.start), dayOf(d.k.end) + d.dd * DAY));
   else nodesOf(d.k).forEach(function (x) { x.start = isoOf(dayOf(x.start) + d.dd * DAY); x.end = isoOf(dayOf(x.end) + d.dd * DAY); });
