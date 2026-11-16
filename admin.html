@@ -371,6 +371,44 @@ html,body{overscroll-behavior:none}
 }
 html,body{height:100%}
 body{box-sizing:border-box;padding-top:env(safe-area-inset-top)}
+
+/* 業務リスト v2: one card per event */
+.wcards{display:flex;flex-direction:column;gap:14px;max-width:1100px}
+.wcards > .wh{display:grid;grid-template-columns:minmax(0,1fr) 150px 80px 190px 40px;border:0;min-height:20px;padding:0 1px;margin-bottom:-6px}
+.wcards > .wh > div{padding:0 14px}
+.wcard{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.wcard .wr{grid-template-columns:minmax(0,1fr) 150px 80px 190px 40px;min-height:42px;border-bottom:1px solid #F0F1F3;background:#fff}
+.wcard .wr:last-child{border-bottom:0}
+.wcard .wr:hover{background:var(--side)}
+.wcard .wr > div{padding:0 14px}
+.wcard .wr.head{min-height:60px;background:#F9FAFB;border-bottom:1px solid var(--line)}
+.wcard .wr.head .wt{font-size:15px;font-weight:600}
+.wcard .wr.head .wn{padding-left:10px !important}
+.wcard .wn{padding-left:calc(10px + var(--d) * 22px) !important}
+.wcard .wr:not(.head) .wt{font-weight:400}
+.wcard .wr:not(.head):not(.ctx) .wt{color:var(--text)}
+.wm{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wm .dot{color:var(--dim)}
+.wcard .wd{font-size:12px;color:var(--muted)}
+.wcard .wp{font-size:12px}
+.wcard .wp .prog .b{width:90px}
+.wcard .wp .prog{gap:8px;color:var(--muted)}
+.ok2{color:var(--muted)}
+.wcard .wr.done{opacity:.6}
+.wcard .wr.done .wt{text-decoration:line-through}
+.wnew{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px dashed var(--line2);border-radius:8px;background:transparent;color:var(--muted);font-weight:500}
+.wnew:hover{color:var(--text);border-color:var(--muted)}
+@media (max-width:760px){
+  .wcards > .wh{display:none}
+  .wcard .wr{grid-template-columns:minmax(0,1fr) 40px;padding:8px 0}
+  .wcard .wr.head{min-height:0;padding:12px 0}
+  .wcard .wn{padding-left:calc(4px + var(--d) * 16px) !important}
+  .wcard .wr.head .wn{padding-left:4px !important}
+  .wcard .ww,.wcard .wd,.wcard .wp{display:none}
+  .wcard .wr:not(.head) .ws{display:block}
+  .wcard .wr.head .ws{display:none}
+  .wm{white-space:normal}
+}
 </style>
 </head>
 <body>
@@ -749,23 +787,28 @@ function viewWork() {
     '<label class="chk"><input type="checkbox" class="check" data-act="showEnded"' + (S.showEnded ? ' checked' : '') + '>終了したイベント</label></div>';
   var rows = rowsOf(false);
   if (S.wtab === 'gantt') return head + tbar + '<div class="body flush">' + ganttOf(rows) + '</div>';
-  var list = rows.map(function (r) {
-    var n = r.n, root = r.d === 0, sub = [];
-    if (n.who) sub.push(member(n.who) ? member(n.who).name : ''); else sub.push('担当未定');
-    sub.push(fmtDate(n.start) + '–' + fmtDate(n.end));
-    var g = (kids(n).length || n.tasks) ? progress(n) : null;
-    if (g) sub.push(g.d + '/' + g.n + (g.late ? '・遅れ ' + g.late : ''));
-    return '<div class="wr d' + Math.min(r.d, 3) + (r.ctx ? ' ctx' : '') + (isDone(n) ? ' done' : '') + '" style="--d:' + r.d + '">' +
-      '<div class="wn">' + caret(r) + '<div class="wtx"><div class="wl1"><button class="wt" data-act="' + (r.ctx ? 'fold' : 'edit') + '" data-id="' + n.id + '">' + esc(ttl(n)) + '</button>' +
-        (r.has && !r.open ? '<span class="k num">' + (nodesOf(n).length - 1) + '</span>' : '') +
-        (root ? '<span class="tag">' + esc(n.unit || '') + '</span>' + (isEvent(n) ? '<span class="hide-sm" style="display:inline-flex;gap:8px;align-items:center">' + annCell(n) + (n.announce === 'done' ? regCell(n) : '') + '</span>' : '') : '') + '</div>' +
-        '<div class="ws">' + esc(sub.join('・')) + '</div></div></div>' +
-      '<div class="ww">' + whoCell(n) + '</div><div class="wd num muted">' + fmtDate(n.start) + ' – ' + fmtDate(n.end) + '</div><div class="wp">' + statusCell(n) + '</div>' +
+  var row = function (r) {
+    var n = r.n, root = r.d === 0, w = member(n.who), parent = kids(n).length > 0 || !!n.tasks, g = parent ? progress(n) : null;
+    var title = '<button class="wt" data-act="' + (r.ctx ? 'fold' : 'edit') + '" data-id="' + n.id + '">' + esc(ttl(n)) + '</button>' + (r.has && !r.open ? '<span class="k num">' + (nodesOf(n).length - 1) + '</span>' : '');
+    var meta = root
+      ? [esc(n.unit || ''), fmtDate(n.start) + ' – ' + fmtDate(n.end)].concat(isEvent(n) ? [n.announce === 'done' ? '告知済み・参加 ' + (n.reg || 0) + '/' + S.club : '告知前'] : []).join('<span class="dot">・</span>')
+      : '';
+    var due = root ? '' : '<span class="num' + (late(n) ? ' bad' : '') + '">' + fmtDate(n.end) + '</span>';
+    var st = g ? '<span class="prog"><span class="b"><i style="width:' + (g.n ? Math.round(g.d / g.n * 100) : 0) + '%"></i></span><span class="num">' + g.d + '/' + g.n + '</span>' + (g.late ? '<span class="bad num">遅れ ' + g.late + '</span>' : '') + '</span>'
+      : n.done ? '<span class="ok2">✓ 完了</span>' : late(n) ? '<span class="bad">期限切れ</span>' : '';
+    var sub = root ? meta : [w ? w.name : '担当未定', '期限 ' + fmtDate(n.end)].concat(g ? [g.d + '/' + g.n] : []).join('・');
+    return '<div class="wr' + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) ? ' done' : '') + '" style="--d:' + Math.max(0, r.d - 1) + '">' +
+      '<div class="wn">' + caret(r) + '<div class="wtx"><div class="wl1">' + title + '</div>' + (root ? '<div class="wm">' + meta + '</div>' : '') + '<div class="ws">' + (root ? '' : esc(sub)) + '</div></div></div>' +
+      '<div class="ww">' + (w ? '<span class="whoc">' + av(n.who) + esc(w.name) + '</span>' : '<span class="dim">未定</span>') + '</div>' +
+      '<div class="wd">' + due + '</div><div class="wp">' + st + '</div>' +
       '<div class="wa">' + (canEdit(n) ? '<button class="ib" data-act="addc" data-id="' + n.id + '" aria-label="' + esc(ttl(n)) + 'の下に追加">' + ic('plus') + '</button>' : '') + '</div></div>';
-  }).join('');
-  return head + tbar + '<div class="body"><div class="wlist"><div class="wh"><div>業務</div><div>担当</div><div>期間</div><div>進捗</div><div></div></div>' +
-    (list || '<div class="empty">表示できる業務はありません</div>') +
-    (isAdmin() ? '<button class="wr wadd" data-act="addev"><div class="wn">' + ic('plus') + '<span>イベントを追加</span></div></button>' : '') + '</div></div>';
+  };
+  var groups = [], cur = null;
+  rows.forEach(function (r) { if (r.d === 0) { cur = []; groups.push(cur); } if (cur) cur.push(r); });
+  var cards = groups.map(function (gr) { return '<section class="wcard">' + gr.map(row).join('') + '</section>'; }).join('');
+  return head + tbar + '<div class="body"><div class="wcards"><div class="wh"><div>業務</div><div>担当</div><div>期限</div><div>進捗</div><div></div></div>' +
+    (cards || '<div class="empty">表示できる業務はありません</div>') +
+    (isAdmin() ? '<button class="wnew" data-act="addev">' + ic('plus') + 'イベントを追加</button>' : '') + '</div></div>';
 }
 function ganttOf(rows) {
   var narrow = window.innerWidth < 760, LW = narrow ? 170 : 320;
