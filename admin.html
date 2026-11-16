@@ -672,6 +672,52 @@ textarea.cell.ct{display:block;resize:none;overflow:hidden;height:auto;min-heigh
 .tpi .lead[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:#fff}
 .tpi .lead[hidden]{display:none}
 .mfield .tbtn{border-color:var(--line2);height:36px;background:#fff}
+
+/* ===== 業務：表示設定 ===== */
+.vbtn{display:inline-flex;align-items:center;gap:6px}
+.vbtn .vsum{color:var(--muted);font-weight:400;margin-left:2px}
+.vbtn .vdots{display:inline-flex;gap:2px;margin-left:2px}
+.vbtn .vdots i{width:6px;height:6px;border-radius:50%;display:block}
+.vbtn[aria-expanded="true"]{border-color:var(--text)}
+.vp{position:fixed;z-index:70;width:340px;max-height:calc(100vh - 140px);overflow:auto;background:#fff;border:1px solid var(--line2);border-radius:10px;box-shadow:0 12px 36px rgba(0,0,0,.14);padding:4px 0 8px}
+.vp.sheet{left:0 !important;right:0;bottom:0;top:auto !important;width:auto;max-height:78vh;border-radius:14px 14px 0 0;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.vph{display:flex;align-items:center;gap:6px;padding:8px 10px 6px 16px}
+.vph b{font-size:14px;margin-right:auto}
+.vsec{padding:6px 8px;border-top:1px solid var(--line)}
+.vt{font-size:11px;color:var(--muted);padding:6px 8px 4px;font-weight:500}
+.vopt{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;font-size:13px}
+.vopt:hover{background:var(--hover)}
+.vopt input{accent-color:var(--text);width:16px;height:16px;flex:none;margin:0}
+.vopt > span{display:flex;flex-direction:column;min-width:0;flex:1}
+.vopt b{font-weight:500}
+.vopt small{font-size:11px;color:var(--muted)}
+.vsub{padding:0 8px 6px 34px}
+.vsub .seg button{font-size:12px}
+.vdot{width:8px;height:8px;border-radius:50%;flex:none}
+.vopt > span.vdays{flex-direction:row;flex:none}
+.gl .hlcs{display:none !important}
+.vdays{display:inline-flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;flex:none}
+.vdays button{border:0;background:#fff;font-size:11px;padding:3px 7px;cursor:pointer;color:var(--sub)}
+.vdays button + button{border-left:1px solid var(--line2)}
+.vdays button[aria-pressed="true"]{background:var(--text);color:#fff}
+.vline{height:1px;background:var(--line);margin:6px 8px}
+.vsub .seg button:nth-child(1) .lvd{background:#111827}
+.vsub .seg button:nth-child(2) .lvd{background:#2563EB}
+.vsub .seg button:nth-child(3) .lvd{background:#0D9488}
+.vsub .seg button:nth-child(4) .lvd{background:#D97706}
+/* 強調 */
+.wcard .wr.hl > .wn{box-shadow:inset 3px 0 0 var(--hc)}
+.gr.hl .gl{box-shadow:inset 3px 0 0 var(--hc)}
+.hlcs{display:inline-flex;gap:4px;flex:none;align-items:center;margin-left:4px}
+.wcard .wr .wn > .hlcs{align-self:flex-start;margin-top:6px}
+.hlc{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 28%,#fff)}
+.gl .hlcs .hlc + .hlc{display:none}
+.gl .hlcs{margin-left:0}
+.bar.hlb{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--hc)}
+.hldim{opacity:.35}
+.hldim:hover{opacity:.8}
+.dndim{opacity:.45}
+@media (max-width:760px){ .gl .hlcs{display:none} .wcard .wr .wn > .hlcs{margin-top:8px} .vbtn .vsum{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} }
 </style>
 </head>
 <body>
@@ -1994,6 +2040,133 @@ document.addEventListener('input', function (e) { if (e.target.classList && e.ta
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && UI.tp) { var id = UI.tp; closeTeam(); var b = document.querySelector('.tbtn[data-id="' + id + '"]'); if (b) b.focus(); } });
 window.addEventListener('resize', function () { if (UI.tp) closeTeam(); });
 document.addEventListener('scroll', function (e) { if (UI.tp && !(e.target.closest && e.target.closest('#tp'))) { var b = document.querySelector('.tbtn[data-id="' + UI.tp + '"]'); if (!b) closeTeam(); else openTeam(UI.tp, true); } }, true);
+
+// ---------------- 業務：表示設定（展開 × 強調） ----------------
+var HLS = [
+  ['late', '期限切れ', '#DC2626'],
+  ['soon', '期限が近い', '#D97706'],
+  ['nobody', '担当未定', '#6B7280'],
+  ['active', '進行中', '#2563EB'],
+  ['mine', '自分の担当', '#111827']
+];
+function vs() { if (!S.view2) S.view2 = { exp: 'depth', hl: { late: true, soon: true }, days: 7, dimDone: false, focus: false }; return S.view2; }
+function isActiveN(n) { return !isDone(n) && dayOf(n.start) <= TODAY && TODAY <= dayOf(n.end); }
+function hlFlags(n) {
+  var v = vs(), f = [], dn = isDone(n), leaf = !kids(n).length && !n.tasks;
+  if (v.hl.late && !dn && dayOf(n.end) < TODAY && (leaf || kids(n).some(function (k) { return !isDone(k); }))) f.push('late');
+  else if (v.hl.soon && !dn && dayOf(n.end) >= TODAY && dayOf(n.end) <= TODAY + v.days * DAY) f.push('soon');
+  if (v.hl.nobody && !dn && !teamOf(n).length) f.push('nobody');
+  if (v.hl.active && isActiveN(n)) f.push('active');
+  if (v.hl.mine && inTeam(n, S.me)) f.push('mine');
+  return f;
+}
+function hasBelow(n, pred) { return kids(n).some(function (k) { return pred(k) || hasBelow(k, pred); }); }
+function isOpen(n, d) {
+  if (S.fold && S.fold[n.id] != null) return !S.fold[n.id];
+  var m = vs().exp;
+  if (m === 'active') return isActiveN(n);
+  if (m === 'mine') return hasBelow(n, function (k) { return inTeam(k, S.me); });
+  if (m === 'flag') return hasBelow(n, function (k) { return hlFlags(k).length > 0; });
+  return d + 1 < (S.depth || 2);
+}
+var EXPS = [['depth', '段ごと'], ['active', '進行中のみ', '今日が期間内の業務だけ開く'], ['mine', '自分の担当まで', '自分が入っている業務まで開く'], ['flag', '強調した業務まで', '強調に当てはまる業務まで開く']];
+function vSummary() {
+  var v = vs(), e = v.exp === 'depth' ? (LEVELS[Math.max(0, LEVELS.map(function (l) { return +l[0]; }).indexOf(S.depth || 2))] || LEVELS[1])[1] + 'まで' : EXPS.filter(function (x) { return x[0] === v.exp; })[0][1];
+  var n = HLS.filter(function (h) { return v.hl[h[0]]; }).length;
+  return e + (n ? '・強調 ' + n : '') + (v.focus ? '・絞込' : '');
+}
+function vPanelHTML() {
+  var v = vs(), dsel = S.depth || 2;
+  var exp = EXPS.map(function (x) {
+    var on = v.exp === x[0];
+    return '<label class="vopt"><input type="radio" name="vexp" data-vexp="' + x[0] + '"' + (on ? ' checked' : '') + '><span><b>' + x[1] + '</b>' + (x[2] ? '<small>' + x[2] + '</small>' : '') + '</span></label>' +
+      (x[0] === 'depth' ? '<div class="vsub"><span class="seg" role="group" aria-label="展開する段">' + LEVELS.map(function (l) { return '<button data-act="vdepth" data-v="' + l[0] + '" aria-pressed="' + (on && String(dsel) === l[0]) + '"><i class="lvd"></i>' + l[1] + '</button>'; }).join('') + '</span></div>' : '');
+  }).join('');
+  var hl = HLS.map(function (h) {
+    return '<label class="vopt"><input type="checkbox" data-vhl="' + h[0] + '"' + (v.hl[h[0]] ? ' checked' : '') + '><i class="vdot" style="background:' + h[2] + '"></i><span><b>' + h[1] + '</b></span>' +
+      (h[0] === 'soon' ? '<span class="vdays">' + [3, 7, 14].map(function (d) { return '<button data-act="vdays" data-v="' + d + '" aria-pressed="' + (v.days === d) + '">' + d + '日</button>'; }).join('') + '</span>' : '') + '</label>';
+  }).join('');
+  return '<div class="vph"><b>表示</b><button class="btn sm ghost" data-act="vreset">初期設定に戻す</button><button class="ib vclose" data-act="vclose" aria-label="閉じる">' + ic('x') + '</button></div>' +
+    '<div class="vsec"><div class="vt">展開</div>' + exp +
+      '<label class="vopt vend"><input type="checkbox" data-vend="1"' + (S.showEnded ? ' checked' : '') + '><span><b>終了したイベントも表示</b></span></label></div>' +
+    '<div class="vsec"><div class="vt">強調</div>' + hl +
+      '<div class="vline"></div>' +
+      '<label class="vopt"><input type="checkbox" data-vopt="focus"' + (v.focus ? ' checked' : '') + '><span><b>強調以外を薄く</b></span></label>' +
+      '<label class="vopt"><input type="checkbox" data-vopt="dimDone"' + (v.dimDone ? ' checked' : '') + '><span><b>完了した業務を薄く</b></span></label></div>';
+}
+function openVPanel() {
+  var b = document.querySelector('.vbtn'), p = document.getElementById('vp');
+  if (!b) { if (p) p.remove(); UI.vp = false; return; }
+  if (!p) { p = document.createElement('div'); p.id = 'vp'; p.className = 'vp'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', '表示設定'); document.body.appendChild(p); }
+  UI.vp = true; p.innerHTML = vPanelHTML();
+  if (window.innerWidth < 760) { p.classList.add('sheet'); p.style.left = p.style.top = ''; }
+  else { p.classList.remove('sheet'); var r = b.getBoundingClientRect(); p.style.left = Math.max(8, Math.min(window.innerWidth - 348, r.left)) + 'px'; p.style.top = (r.bottom + 6) + 'px'; }
+  b.setAttribute('aria-expanded', 'true');
+}
+function closeVPanel() { var p = document.getElementById('vp'); if (p) p.remove(); UI.vp = false; var b = document.querySelector('.vbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
+function vApply() { S.fold = {}; save(); render(); if (UI.vp) openVPanel(); }
+
+// ツールバーを「表示」ボタンにまとめ、行に強調をつける（描画のあとで整える）
+function decorateWork() {
+  if (S.view !== 'projects' || S.wtab === 'stats') return;
+  var tb = document.querySelector('.tbar'); if (tb && !tb.querySelector('.vbtn')) {
+    Array.prototype.slice.call(tb.children).forEach(function (c) { if (c.classList.contains('seg') || c.classList.contains('chk') || (c.classList.contains('muted') && c.textContent === '表示')) c.remove(); });
+    var on = HLS.filter(function (h) { return vs().hl[h[0]]; });
+    tb.insertAdjacentHTML('afterbegin', '<button class="btn sm vbtn" data-act="vpanel" aria-haspopup="dialog" aria-expanded="' + !!UI.vp + '"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>表示<span class="vsum">' + esc(vSummary()) + '</span>' +
+      (on.length ? '<span class="vdots">' + on.map(function (h) { return '<i style="background:' + h[2] + '"></i>'; }).join('') + '</span>' : '') + '</button>');
+  }
+  var v = vs();
+  document.querySelectorAll('.wcards .wr[data-row], .gg .gr[data-row]').forEach(function (row) {
+    var n = task(row.dataset.row); if (!n) return;
+    var f = hlFlags(n), gantt = row.classList.contains('gr');
+    if (v.focus && !f.length) row.classList.add('hldim');
+    if (v.dimDone && isDone(n)) row.classList.add('dndim');
+    if (!f.length) return;
+    var col = HLS.filter(function (h) { return h[0] === f[0]; })[0][2];
+    row.classList.add('hl'); row.style.setProperty('--hc', col);
+    var chips = f.map(function (k) {
+      var h = HLS.filter(function (x) { return x[0] === k; })[0], t = h[1];
+      if (k === 'soon') { var dd = Math.round((dayOf(n.end) - TODAY) / DAY); t = dd === 0 ? '今日まで' : 'あと' + dd + '日'; }
+      if (k === 'late') t = Math.round((TODAY - dayOf(n.end)) / DAY) + '日超過';
+      if (k === 'mine') t = '自分';
+      return '<span class="hlc" style="--c:' + h[2] + '">' + t + '</span>';
+    }).join('');
+    if (gantt) {
+      var bar = row.querySelector('.bar'); if (bar) { bar.classList.add('hlb'); bar.style.setProperty('--hc', col); }
+      var ct = row.querySelector('.gl .ct'); if (ct) ct.insertAdjacentHTML('afterend', '<span class="hlcs">' + chips + '</span>');
+    } else {
+      var wtx = row.querySelector('.wtx'); if (wtx) wtx.insertAdjacentHTML('afterend', '<span class="hlcs">' + chips + '</span>');
+    }
+  });
+}
+var _render1 = render; render = function () { _render1.apply(this, arguments); decorateWork(); if (UI.vp) { if (S.view === 'projects' && S.wtab !== 'stats') openVPanel(); else closeVPanel(); } };
+
+document.addEventListener('click', function (e) {
+  var p = document.getElementById('vp');
+  var b = e.target.closest && e.target.closest('[data-act]');
+  if (p && !p.contains(e.target) && !(b && b.dataset.act === 'vpanel')) { closeVPanel(); }
+  if (!b) return; var a = b.dataset.act, v = vs(), hit = true;
+  switch (a) {
+    case 'vpanel': if (UI.vp) closeVPanel(); else openVPanel(); break;
+    case 'vclose': closeVPanel(); var vb = document.querySelector('.vbtn'); if (vb) vb.focus(); break;
+    case 'vdepth': v.exp = 'depth'; S.depth = +b.dataset.v; vApply(); break;
+    case 'vdays': v.days = +b.dataset.v; v.hl.soon = true; vApply(); break;
+    case 'vreset': S.view2 = null; S.depth = 2; S.showEnded = false; vApply(); break;
+    default: hit = false;
+  }
+  if (hit) { e.stopImmediatePropagation(); e.preventDefault(); }
+}, true);
+document.addEventListener('change', function (e) {
+  var el = e.target, d = el.dataset; if (!d) return; var v = vs();
+  if (d.vexp) { v.exp = d.vexp; }
+  else if (d.vhl) { v.hl[d.vhl] = el.checked; }
+  else if (d.vopt) { v[d.vopt] = el.checked; }
+  else if (d.vend) { S.showEnded = el.checked; }
+  else return;
+  e.stopImmediatePropagation(); vApply();
+}, true);
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && UI.vp) { closeVPanel(); var vb = document.querySelector('.vbtn'); if (vb) vb.focus(); } });
+window.addEventListener('resize', function () { if (UI.vp) openVPanel(); });
 
 // ---------------- events ----------------
 document.addEventListener('click', function (e) {
