@@ -1482,7 +1482,7 @@ function within(a, b) { while (b) { if (b === a) return true; b = parentOf(b); }
 var mv = null;
 function mvPlan(e) {
   var src = mv.n, el = document.elementFromPoint(e.clientX, e.clientY);
-  var row = el && el.closest('.wcards [data-row], .wcards .wr.ghost, .gg [data-row], .gg .gghost');
+  var row = el && el.closest('.wcards [data-row], .gg [data-row]');
   if (!row) return null;
   var r = row.getBoundingClientRect(), top = e.clientY < r.top + r.height / 2;
   var ct = row.querySelector('.ct'), cx = ct ? ct.getBoundingClientRect().left : r.left;
@@ -1494,14 +1494,12 @@ function mvPlan(e) {
     return { par: null, ref: root, before: before, y: before ? rr.top : rr.bottom, x: rr.left + 8, ok: true };
   }
   var par, ref = null, before = false, x = cx, y;
-  if (!row.dataset.row) { // ghost slot → last child of that parent
-    par = task(row.querySelector('[data-parent]').dataset.parent); y = r.top;
-  } else {
+  {
     var t = task(row.dataset.row); if (!t) return null;
     if (within(src, t)) return null;
     var tp = parentOf(t);
     if (!tp) { par = t; ref = kids(t)[0] || null; before = true; y = r.bottom; x = cx + 22; }
-    else if (!top && kids(t).length && row.querySelector('.cx[aria-expanded="true"]')) { par = t; ref = kids(t)[0]; before = true; y = r.bottom; x = cx + 22; }
+    else if (!top && row.querySelector('.cx[aria-expanded="true"]')) { par = t; ref = kids(t)[0]; before = true; y = r.bottom; x = cx + 22; }
     else { par = tp; ref = t; before = top; y = top ? r.top : r.bottom; }
   }
   if (!par || within(src, par)) return null;
