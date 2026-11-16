@@ -373,7 +373,7 @@ html,body{height:100%}
 body{box-sizing:border-box;padding-top:env(safe-area-inset-top)}
 
 /* 業務リスト v2: one card per event */
-.wcards{display:flex;flex-direction:column;gap:14px;max-width:1100px}
+.wcards{display:flex;flex-direction:column;gap:40px;max-width:1100px}
 .wcards > .wh{display:grid;grid-template-columns:minmax(0,1fr) 150px 80px 190px 40px;border:0;min-height:20px;padding:0 1px;margin-bottom:-6px}
 .wcards > .wh > div{padding:0 14px}
 .wcard{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
@@ -643,6 +643,35 @@ textarea.cell.ct{display:block;resize:none;overflow:hidden;height:auto;min-heigh
 .seg button:nth-child(2) .lvd{background:#2563EB !important}
 .seg button:nth-child(3) .lvd{background:#0D9488 !important}
 .seg button:nth-child(4) .lvd{background:#D97706 !important}
+
+/* イベント間の空行 */
+.gr.gsp .gl{background:#fff !important}
+.gr.gsp .lwh{display:none}
+.gr.gsp:hover .gl{background:#fff}
+/* 複数人の担当 */
+.tbtn{display:flex;align-items:center;gap:4px;width:100%;height:32px;padding:0 8px;border:1px solid transparent;border-radius:4px;background:transparent;cursor:pointer;font:inherit;font-size:13px;color:var(--text);min-width:0;text-align:left}
+.tbtn:hover:not([disabled]){border-color:var(--line2);background:#fff}
+.tbtn[disabled]{cursor:default;color:var(--muted)}
+.tbtn .ld{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tbtn .ld b{font-weight:500}
+.tbtn .more{flex:none;font-size:11px;color:var(--muted);background:var(--hover);border-radius:9px;padding:0 6px;line-height:18px}
+.tbtn .none{color:var(--dim)}
+.tbtn .star{color:#111827;font-size:11px;flex:none}
+.gl .tbtn{width:110px;flex:0 0 110px;height:28px;font-size:12px;padding:0 6px}
+@media (max-width:760px){ .gl .tbtn{display:none} }
+.tp{position:fixed;z-index:70;width:320px;background:#fff;border:1px solid var(--line2);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.12);padding:8px}
+.tp .tph{font-size:11px;color:var(--muted);padding:8px 6px 4px;display:flex;justify-content:space-between}
+.tp .tpl{max-height:320px;overflow:auto;margin-top:6px}
+.tpi{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:5px}
+.tpi:hover{background:var(--hover)}
+.tpi label{display:flex;align-items:center;gap:8px;flex:1;min-width:0;cursor:pointer;font-size:13px}
+.tpi label > span{white-space:nowrap}
+.tpi label small{color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tpi .lead{flex:none;height:24px;padding:0 8px;border:1px solid var(--line2);border-radius:12px;background:#fff;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tpi .lead:hover{color:var(--text);border-color:var(--text)}
+.tpi .lead[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:#fff}
+.tpi .lead[hidden]{display:none}
+.mfield .tbtn{border-color:var(--line2);height:36px;background:#fff}
 </style>
 </head>
 <body>
@@ -967,7 +996,11 @@ function depthOf(n) { reindex(); return IX[n.id] ? IX[n.id].d : 0; }
 function leavesOf(n) { var c = kids(n); if (!c.length) return n.tasks ? [] : [n]; var r = []; c.forEach(function (x) { r = r.concat(leavesOf(x)); }); return r; }
 function nodesOf(n) { var r = [n]; kids(n).forEach(function (x) { r = r.concat(nodesOf(x)); }); return r; }
 function isDone(n) { var c = kids(n); if (!c.length) return n.tasks ? false : !!n.done; return c.every(isDone); }
-function involved(r, id) { return nodesOf(r).some(function (x) { return x.who === id; }); }
+function inTeam(x, id) { return x.who === id || (x.team || []).indexOf(id) >= 0; }
+function teamOf(n) { var t = (n.team || []).slice(); if (n.who && t.indexOf(n.who) < 0) t.unshift(n.who); return t; }
+function isGroup(d) { return d < 3; } // 個人以外は複数人
+function chainTeam(n, id) { reindex(); var x = n; while (x) { if (inTeam(x, id)) return true; x = IX[x.id] && IX[x.id].par; } return false; }
+function involved(r, id) { return nodesOf(r).some(function (x) { return inTeam(x, id); }); }
 function chainHas(n, id) { reindex(); var x = n; while (x) { if (x.who === id) return true; x = IX[x.id] && IX[x.id].par; } return false; }
 function canEdit(n) { return isAdmin() || chainHas(n, S.me); }
 function canAssign(n) { var p = parentOf(n); return isAdmin() || (p ? canEdit(p) : false); }
@@ -983,7 +1016,7 @@ function byStart(a, b) { return dayOf(a.start) - dayOf(b.start); }
 function manualRoots() { if (!S.manualOrder) { S.projects.sort(byStart); S.manualOrder = true; } } // 一度でも並べ替えたら手動順
 function visibleRoots() { var a = S.projects.filter(function (r) { return (S.showEnded || !ended(r)) && (isAdmin() || involved(r, S.me)); }); return S.manualOrder ? a : a.sort(byStart); }
 function isOpen(n, d) { if (S.fold && S.fold[n.id] != null) return !S.fold[n.id]; return d + 1 < (S.depth || 2); }
-function visNode(n) { return isAdmin() || chainHas(n, S.me) || nodesOf(n).some(function (x) { return x.who === S.me; }); }
+function visNode(n) { return isAdmin() || chainTeam(n, S.me) || nodesOf(n).some(function (x) { return inTeam(x, S.me); }); }
 var MAXD = 3; // イベント(0) / 部(1) / チーム(2) / 個人(3)
 function rowsOf(all, ghosts) {
   var out = [];
@@ -1031,14 +1064,14 @@ function viewWork() {
     var meta = root ? [esc(n.unit || '')].concat(isEvent(n) ? [n.announce === 'done' ? '告知済み・参加 ' + (n.reg || 0) + '/' + S.club : '告知前'] : []).join('<span class="dot">・</span>') : '';
     var st = g ? '<span class="prog"><span class="b"><i style="width:' + (g.n ? Math.round(g.d / g.n * 100) : 0) + '%"></i></span><span class="num">' + g.d + '/' + g.n + '</span>' + (g.late ? '<span class="bad num">遅れ ' + g.late + '</span>' : '') + '</span>'
       : n.done ? '<span class="ok2">完了</span>' : late(n) ? '<span class="bad">期限切れ</span>' : '';
-    var w = member(n.who), sub = [w ? w.name : '担当未定', fmtDate(n.start) + '–' + fmtDate(n.end)].concat(g ? [g.d + '/' + g.n] : []).join('・');
+    var w = member(n.who), tm = teamOf(n), sub = [isGroup(r.d) ? (tm.length ? (w ? '★' + w.name : 'リーダー未定') + (tm.length > (w ? 1 : 0) ? ' 他' + (tm.length - (w ? 1 : 0)) + '名' : '') : 'メンバー未定') : w ? w.name : '担当未定', fmtDate(n.start) + '–' + fmtDate(n.end)].concat(g ? [g.d + '/' + g.n] : []).join('・');
     return '<div data-d="' + r.d + '" class="wr lv' + lv(r.d) + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) && !root ? ' done' : '') + '" data-row="' + n.id + '" style="--d:' + Math.max(0, r.d - 1) + ';--lc:' + LVC[lv(r.d)] + '">' +
       '<div class="wn">' + (canMove(n) ? '<span class="dh" data-drag="' + n.id + '" title="ドラッグで移動（Alt+↑↓でも可）" aria-label="移動"><svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>' : '<span class="dh ph"></span>') + caret(r) +
         (root ? '' : !parent ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '<span class="wck ckph"></span>') +
         '<i class="lvb"></i><div class="wtx"><textarea class="cell ct" rows="1" data-c="t" data-id="' + n.id + '"' + ed + ' aria-label="業務名" spellcheck="false">' + esc(ttl(n)) + '</textarea>' +
         (root ? '<div class="wm">' + meta + '</div>' : '<div class="ws">' + esc(sub) + '</div>') + '</div>' +
         (r.has && !r.open ? '<span class="k num">' + (nodesOf(n).length - 1) + '</span>' : '') + '</div>' +
-      '<div class="ww"><select class="cell" data-c="w" data-id="' + n.id + '"' + as + ' aria-label="担当">' + opts(n.who) + '</select></div>' +
+      '<div class="ww">' + (isGroup(r.d) ? teamBtn(n, as) : '<select class="cell" data-c="w" data-id="' + n.id + '"' + as + ' aria-label="担当">' + whoOpts(n) + '</select>') + '</div>' +
       '<div class="wdd"><input type="date" class="cell num" data-c="s" data-id="' + n.id + '" value="' + n.start + '"' + ed + ' aria-label="開始"></div>' +
       '<div class="wdd"><input type="date" class="cell num' + (late(n) ? ' bad' : '') + '" data-c="e" data-id="' + n.id + '" value="' + n.end + '"' + ed + ' aria-label="期限"></div>' +
       '<div class="wp">' + st + '</div>' +
@@ -1082,6 +1115,7 @@ function ganttOf(rows) {
   var gghost = function (pid, d, ph, L) { return '<div data-d="' + (L || 0) + '" class="gr gghost" style="' + cols + ';--lc:' + LVC[lv(L || 0)] + '"><div class="gl" style="padding-left:' + (narrow ? 2 + d * 8 : 8 + d * 14) + 'px"><span class="dh ph"></span><span class="cx"></span>' + (L ? '<span class="wck ckph"></span>' : '') + '<i class="lvb ghost"></i><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
   var body = '';
   rows.forEach(function (r, idx) {
+    if (!r.ghost && r.d === 0 && idx > 0) body += '<div class="gr gsp" style="' + cols + '"><div class="gl"></div><div class="gt"></div></div>';
     if (r.ghost) { body += gghost(r.parent.id, r.d, r.d === 1 ? '＋ 業務を追加' : '＋ 追加', r.d); return; }
     var n = r.n, parent = kids(n).length > 0 || !!n.tasks, w = member(n.who), dn = isDone(n);
     var cls = parent ? ' sum' + (r.d === 0 ? ' root' : '') + (dn ? ' done' : '') : (n.done ? ' done' : (!n.who ? ' none' : ''));
@@ -1091,11 +1125,11 @@ function ganttOf(rows) {
     body += '<div data-d="' + r.d + '" class="gr lv' + lv(r.d) + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + ';--lc:' + LVC[lv(r.d)] + '"><div class="gl" style="padding-left:' + (narrow ? 2 + r.d * 8 : 8 + r.d * 14) + 'px">' + (canMove(n) ? '<span class="dh" data-drag="' + n.id + '" title="ドラッグで移動（Alt+↑↓でも可）" aria-label="移動"><svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>' : '<span class="dh ph"></span>') + caret(r) +
         (r.d === 0 ? '' : !parent ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '<span class="wck ckph"></span>') +
         '<i class="lvb"></i><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '" title="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') +
-        '<select class="cell gsel" data-c="w" data-id="' + n.id + '"' + (canAssign(n) ? '' : ' disabled') + ' aria-label="担当">' + wopts(n.who) + '</select>' +
+        (isGroup(r.d) ? teamBtn(n, canAssign(n) ? '' : ' disabled', true) : '<select class="cell gsel" data-c="w" data-id="' + n.id + '"' + (canAssign(n) ? '' : ' disabled') + ' aria-label="担当">' + whoOpts(n) + '</select>') +
         '<button class="ib ga" data-act="edit" data-id="' + n.id + '" aria-label="詳細">' + ic('more') + '</button></div>' +
       '<div class="gt">' + bar + '</div></div>';
   });
-  var addRow = isAdmin() ? gghost('', 0, '＋ イベントを追加', 0) : '';
+  var addRow = isAdmin() ? (rows.length ? '<div class="gr gsp" style="' + cols + '"><div class="gl"></div><div class="gt"></div></div>' : '') + gghost('', 0, '＋ イベントを追加', 0) : '';
   var n = Math.max(3, Math.ceil((window.innerHeight - 52 - 41 - 49 - 56 - (rows.length + 1) * 40) / 40) + 1), fill = '';
   for (var j = 0; j < n; j++) fill += '<div class="gr gfill" style="' + cols + '"><div class="gl"></div><div class="gt"></div></div>';
   var LWH = '<i class="lwh" title="ドラッグで幅を変更（ダブルクリックで元に戻す）"></i>';
@@ -1124,7 +1158,7 @@ function nodeModal(n) {
   var opts = '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (n.who === m.id ? ' selected' : '') + '>' + esc(m.name) + '（' + esc(m.unit === '—' ? (m.roles || []).join('・') || 'プレイヤー' : m.unit) + '）</option>'; }).join('');
   var body = (par ? '<div class="muted" style="font-size:12px">' + esc(ttl(rootOf(n))) + (par !== rootOf(n) ? ' ／ … ／ ' + esc(ttl(par)) : '') + '</div>' : '') +
     '<div class="fld"><label for="wT">名前</label><input id="wT" class="input" value="' + esc(ttl(n)) + '"></div>' +
-    '<div class="fld"><label for="wW">担当</label><select id="wW" class="input"' + (canAssign(n) ? '' : ' disabled') + '>' + opts + '</select></div>' +
+    (isGroup(depthOf(n)) ? '<div class="fld"><label>メンバー</label><div class="mfield">' + teamBtn(n, canAssign(n) ? '' : ' disabled') + '</div></div>' : '<div class="fld"><label for="wW">担当</label><select id="wW" class="input"' + (canAssign(n) ? '' : ' disabled') + '>' + whoOpts(n) + '</select></div>') +
     '<div class="two"><div class="fld"><label for="wS">開始</label><input id="wS" class="input num" type="date" value="' + n.start + '"></div><div class="fld"><label for="wE">期限</label><input id="wE" class="input num" type="date" value="' + n.end + '"></div></div>' +
     (root ? '<div class="two"><div class="fld"><label for="wU">担当部</label><select id="wU" class="input">' + ['教育部', '催事部', '外務部', '会計', '代表'].map(function (u) { return '<option' + (n.unit === u ? ' selected' : '') + '>' + u + '</option>'; }).join('') + '</select></div>' +
       '<div class="fld"><label for="wA">告知</label><select id="wA" class="input"><option value="">—（業務）</option><option value="before"' + (isEvent(n) && n.announce !== 'done' ? ' selected' : '') + '>告知前</option><option value="done"' + (isEvent(n) && n.announce === 'done' ? ' selected' : '') + '>告知済み</option></select></div></div>' : '') +
@@ -1306,7 +1340,7 @@ function viewBoard() {
 }
 
 // ---------------- プロジェクト ----------------
-function myTasks(id) { var r = []; S.projects.forEach(function (p) { nodesOf(p).forEach(function (k) { if (k.who === id && (!isDone(k) || k.id === S.justDone)) r.push({ k: k, p: p }); }); }); return r.sort(function (a, b) { return dayOf(a.k.end) - dayOf(b.k.end); }); }
+function myTasks(id) { var r = []; S.projects.forEach(function (p) { nodesOf(p).forEach(function (k) { if (inTeam(k, id) && (!isDone(k) || k.id === S.justDone)) r.push({ k: k, p: p }); }); }); return r.sort(function (a, b) { return dayOf(a.k.end) - dayOf(b.k.end); }); }
 window.notify = function (to, text, sub) { if (!S.notifs) S.notifs = []; S.notifs.unshift({ to: to, text: text, sub: sub, at: nowLabel() }); };
 function viewDash() {
   var m = me(), ops = S.members.filter(isOps), pl = S.members.filter(function (x) { return !isOps(x); });
@@ -1896,6 +1930,71 @@ var _render0 = render; render = function () { _render0.apply(this, arguments); a
 document.addEventListener('input', function (e) { if (e.target.matches && e.target.matches('textarea.cell.ct')) { e.target.value = e.target.value.replace(/\n/g, ''); autosize(e.target); } });
 window.addEventListener('resize', function () { autosizeAll(); });
 
+
+// ---------------- 複数人の担当（リーダー＋メンバー） ----------------
+function teamBtn(n, dis, compact) {
+  var tm = teamOf(n), w = member(n.who), rest = tm.length - (w ? 1 : 0);
+  var inner = !tm.length ? '<span class="none">' + (compact ? '未定' : 'メンバー未定') + '</span>'
+    : (w ? '<span class="star">★</span><span class="ld"><b>' + esc(w.name) + '</b></span>' : '<span class="ld none">リーダー未定</span>') + (rest > 0 ? '<span class="more num">+' + rest + '</span>' : '');
+  return '<button class="tbtn" data-act="teamPick" data-id="' + n.id + '"' + (dis || '') + ' aria-label="担当メンバー（' + tm.length + '名）" title="' + esc(tm.map(function (id) { var m = member(id); return (id === n.who ? '★' : '') + (m ? m.name : ''); }).join('、')) + '">' + inner + '</button>';
+}
+function whoOpts(n) { // 個人の業務：上の段のメンバーを先に
+  var p = parentOf(n), pt = p ? teamOf(p) : [], o = function (m) { return '<option value="' + m.id + '"' + (n.who === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; };
+  var inT = S.members.filter(function (m) { return pt.indexOf(m.id) >= 0; }), out = S.members.filter(function (m) { return pt.indexOf(m.id) < 0; });
+  return '<option value="">未定</option>' + (inT.length ? '<optgroup label="' + esc(ttl(p)) + 'のメンバー">' + inT.map(o).join('') + '</optgroup><optgroup label="その他">' + out.map(o).join('') + '</optgroup>' : out.map(o).join(''));
+}
+function openTeam(id, keep) {
+  var n = task(id), btn = document.querySelector('.tbtn[data-id="' + id + '"]'), tp = document.getElementById('tp');
+  if (!n || !btn) { if (tp) tp.remove(); UI.tp = null; return; }
+  if (!tp) { tp = document.createElement('div'); tp.id = 'tp'; tp.className = 'tp'; document.body.appendChild(tp); }
+  UI.tp = id; var q = keep ? (UI.tpq || '') : ''; if (!keep) UI.tpq = '';
+  var p = parentOf(n), pt = p ? teamOf(p) : [], tm = teamOf(n);
+  var f = function (m) { return !q || (m.name + (m.unit || '') + (m.roles || []).join('')).indexOf(q) >= 0; };
+  var row = function (m) {
+    var on = tm.indexOf(m.id) >= 0, lead = n.who === m.id;
+    return '<div class="tpi"><label><input type="checkbox" class="check" data-tm="' + m.id + '" data-id="' + id + '"' + (on ? ' checked' : '') + '>' + av(m.id) + '<span>' + esc(m.name) + '</span><small>' + esc(isOps(m) ? m.unit : (m.roles || []).join('・')) + '</small></label>' +
+      '<button class="lead" data-act="teamLead" data-id="' + id + '" data-m="' + m.id + '" aria-pressed="' + lead + '"' + (on ? '' : ' hidden') + '>' + (lead ? '★ リーダー' : 'リーダーにする') + '</button></div>';
+  };
+  var a = S.members.filter(function (m) { return pt.indexOf(m.id) >= 0 && f(m); }), b = S.members.filter(function (m) { return pt.indexOf(m.id) < 0 && f(m); });
+  tp.innerHTML = '<input class="input tpq" type="search" placeholder="名前・役職で絞り込み" value="' + esc(q) + '" aria-label="メンバーを検索">' +
+    '<div class="tpl">' + (a.length ? '<div class="tph"><span>' + esc(ttl(p)) + 'のメンバー</span></div>' + a.map(row).join('') : '') +
+      (b.length ? (a.length ? '<div class="tph"><span>その他</span></div>' : '') + b.map(row).join('') : '') + '</div>';
+  var r = btn.getBoundingClientRect(), left = Math.min(window.innerWidth - 328, Math.max(8, r.left));
+  tp.style.left = left + 'px'; var below = window.innerHeight - r.bottom > 360;
+  tp.style.top = below ? (r.bottom + 4) + 'px' : ''; tp.style.bottom = below ? '' : (window.innerHeight - r.top + 4) + 'px';
+  if (!keep) { var qi = tp.querySelector('.tpq'); if (window.innerWidth > 760) qi.focus(); }
+}
+function closeTeam() { var tp = document.getElementById('tp'); if (tp) tp.remove(); UI.tp = null; UI.tpq = ''; }
+function teamChanged(n, added) {
+  save(); var id = n.id;
+  added.forEach(function (m) { window.notify(m, '「' + ttl(n) + '」のメンバーになりました', ttl(rootOf(n))); });
+  var fq = document.activeElement && document.activeElement.classList.contains('tpq');
+  if (M) { var ob = document.querySelector('.dlg .tbtn[data-id="' + id + '"]'); if (ob) ob.outerHTML = teamBtn(n, ''); } else render();
+  openTeam(id, true); if (fq) { var qi = document.querySelector('#tp .tpq'); if (qi) { qi.focus(); qi.setSelectionRange(qi.value.length, qi.value.length); } }
+}
+document.addEventListener('change', function (e) {
+  var el = e.target; if (!el.dataset || !el.dataset.tm) return; e.stopImmediatePropagation();
+  var n = task(el.dataset.id), m = el.dataset.tm; if (!n) return;
+  var t = teamOf(n);
+  if (el.checked) { if (t.indexOf(m) < 0) t.push(m); n.team = t; if (!n.who) n.who = m; teamChanged(n, [m]); toast(member(m).name + 'に通知しました' + (n.who === m ? '（リーダー）' : '')); }
+  else { n.team = t.filter(function (x) { return x !== m; }); if (n.who === m) { n.who = ''; toast('リーダーが未定になりました'); } teamChanged(n, []); }
+}, true);
+document.addEventListener('click', function (e) {
+  var tp = document.getElementById('tp');
+  if (tp && !tp.contains(e.target) && !(e.target.closest && e.target.closest('.tbtn'))) closeTeam();
+  var b = e.target.closest && e.target.closest('[data-act="teamPick"],[data-act="teamLead"]'); if (!b) return;
+  e.stopImmediatePropagation(); e.preventDefault();
+  if (b.dataset.act === 'teamPick') { if (UI.tp === b.dataset.id) closeTeam(); else openTeam(b.dataset.id); return; }
+  var n = task(b.dataset.id); if (!n) return; var t = teamOf(n);
+  if (t.indexOf(b.dataset.m) < 0) t.push(b.dataset.m); n.team = t;
+  if (n.who !== b.dataset.m) { n.who = b.dataset.m; window.notify(n.who, '「' + ttl(n) + '」のリーダーになりました', ttl(rootOf(n))); toast(member(n.who).name + 'をリーダーにしました'); }
+  teamChanged(n, []);
+}, true);
+document.addEventListener('input', function (e) { if (e.target.classList && e.target.classList.contains('tpq')) { UI.tpq = e.target.value; openTeam(UI.tp, true); var qi = document.querySelector('#tp .tpq'); if (qi) { qi.focus(); qi.setSelectionRange(qi.value.length, qi.value.length); } } });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && UI.tp) { var id = UI.tp; closeTeam(); var b = document.querySelector('.tbtn[data-id="' + id + '"]'); if (b) b.focus(); } });
+window.addEventListener('resize', function () { if (UI.tp) closeTeam(); });
+document.addEventListener('scroll', function (e) { if (UI.tp && !(e.target.closest && e.target.closest('#tp'))) { var b = document.querySelector('.tbtn[data-id="' + UI.tp + '"]'); if (!b) closeTeam(); else openTeam(UI.tp, true); } }, true);
+
 // ---------------- events ----------------
 document.addEventListener('click', function (e) {
   var b = e.target.closest('[data-act]'), a0 = b ? b.dataset.act : '';
@@ -1974,7 +2073,7 @@ document.addEventListener('click', function (e) {
       S.projects.push({ id: uid('pj'), name: wt, kind: an ? 'event' : 'work', announce: an || 'before', reg: 0, unit: val('wU'), who: '', start: ws, end: we, tasks: [] });
       M = null; save(); render(); toast('追加しました'); break;
     case 'wSave':
-      var n0 = task(M.id), nt = val('wT'), nsd = val('wS'), ned = val('wE'), nw = document.getElementById('wW').value;
+      var n0 = task(M.id), nt = val('wT'), nsd = val('wS'), ned = val('wE'), nw = document.getElementById('wW') ? document.getElementById('wW').value : n0.who;
       if (!nt || !nsd || !ned) { toast('名前と期間は必須です'); return; }
       if (ned < nsd) { toast('期限が開始日より前です'); return; }
       if (n0.tasks) n0.name = nt; else n0.title = nt;
