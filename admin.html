@@ -843,7 +843,9 @@ function pct(p) { return Math.round((p.reg || 0) / (S.club || 150) * 100); }
 function annCell(p) { return isEvent(p) ? '<span class="stat' + (p.announce === 'done' ? '' : ' off') + '"><i></i>' + (p.announce === 'done' ? '告知済み' : '告知前') + '</span>' : ''; }
 function regCell(p) { return isEvent(p) ? (p.announce === 'done' ? '<span class="num">' + (p.reg || 0) + '<span class="muted">/' + (S.club || 150) + '</span></span>' : '<span class="dim">受付前</span>') : ''; }
 var LEVELS = [['1', 'イベント'], ['2', '部'], ['3', 'チーム'], ['9', '個人']];
-function visibleRoots() { return S.projects.filter(function (r) { return (S.showEnded || !ended(r)) && (isAdmin() || involved(r, S.me)); }).sort(function (a, b) { return dayOf(a.start) - dayOf(b.start); }); }
+function byStart(a, b) { return dayOf(a.start) - dayOf(b.start); }
+function manualRoots() { if (!S.manualOrder) { S.projects.sort(byStart); S.manualOrder = true; } } // 一度でも並べ替えたら手動順
+function visibleRoots() { var a = S.projects.filter(function (r) { return (S.showEnded || !ended(r)) && (isAdmin() || involved(r, S.me)); }); return S.manualOrder ? a : a.sort(byStart); }
 function isOpen(n, d) { if (S.fold && S.fold[n.id] != null) return !S.fold[n.id]; return d + 1 < (S.depth || 2); }
 function visNode(n) { return isAdmin() || chainHas(n, S.me) || nodesOf(n).some(function (x) { return x.who === S.me; }); }
 var MAXD = 3; // イベント(0) / 部(1) / チーム(2) / 個人(3)
@@ -894,7 +896,7 @@ function viewWork() {
     var st = g ? '<span class="prog"><span class="b"><i style="width:' + (g.n ? Math.round(g.d / g.n * 100) : 0) + '%"></i></span><span class="num">' + g.d + '/' + g.n + '</span>' + (g.late ? '<span class="bad num">遅れ ' + g.late + '</span>' : '') + '</span>'
       : n.done ? '<span class="ok2">完了</span>' : late(n) ? '<span class="bad">期限切れ</span>' : '';
     var w = member(n.who), sub = [w ? w.name : '担当未定', fmtDate(n.start) + '–' + fmtDate(n.end)].concat(g ? [g.d + '/' + g.n] : []).join('・');
-    return '<div class="wr lv' + lv(r.d) + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) && !root ? ' done' : '') + '" data-row="' + n.id + '" style="--d:' + Math.max(0, r.d - 1) + ';--lc:' + LVC[lv(r.d)] + '">' +
+    return '<div data-d="' + r.d + '" class="wr lv' + lv(r.d) + (root ? ' head' : '') + (r.ctx ? ' ctx' : '') + (isDone(n) && !root ? ' done' : '') + '" data-row="' + n.id + '" style="--d:' + Math.max(0, r.d - 1) + ';--lc:' + LVC[lv(r.d)] + '">' +
       '<div class="wn">' + (canMove(n) ? '<span class="dh" data-drag="' + n.id + '" title="ドラッグで移動（Alt+↑↓でも可）" aria-label="移動"><svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>' : '<span class="dh ph"></span>') + caret(r) +
         (root ? '' : !parent ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '<span class="wck ckph"></span>') +
         '<i class="lvb"></i><div class="wtx"><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' +
@@ -907,7 +909,7 @@ function viewWork() {
       '<div class="wa"><button class="ib medit" data-act="edit" data-id="' + n.id + '" aria-label="詳細">' + ic('more') + '</button>' +
         ((isAdmin() || (parentOf(n) && canEdit(parentOf(n)))) ? '<button class="ib wdel" data-act="rowDel" data-id="' + n.id + '" aria-label="' + esc(ttl(n)) + 'を削除"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg></button>' : '') + '</div></div>';
   };
-  var ghost = function (pid, d, ph, L) { return '<div class="wr ghost" style="--d:' + d + ';--lc:' + LVC[lv(L || 0)] + '"><div class="wn"><span class="dh ph"></span><span class="cx"></span>' + (L ? '<span class="wck ckph"></span>' : '') + '<i class="lvb ghost"></i><div class="wtx"><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div></div></div>'; };
+  var ghost = function (pid, d, ph, L) { return '<div data-d="' + (L || 0) + '" class="wr ghost" style="--d:' + d + ';--lc:' + LVC[lv(L || 0)] + '"><div class="wn"><span class="dh ph"></span><span class="cx"></span>' + (L ? '<span class="wck ckph"></span>' : '') + '<i class="lvb ghost"></i><div class="wtx"><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div></div></div>'; };
   var groups = [], cur = null;
   rows.forEach(function (r) { if (r.d === 0) { cur = []; groups.push(cur); } if (cur) cur.push(r); });
   var cards = groups.map(function (gr) { return '<section class="wcard">' + gr.map(row).join('') + '</section>'; }).join('');
@@ -941,7 +943,7 @@ function ganttOf(rows) {
   if (tx >= 0 && tx <= TW) ln += '<div class="gnow" style="left:' + tx + 'px"></div>';
   var cols = 'grid-template-columns:' + LW + 'px ' + TW + 'px';
   var wopts = function (sel) { return '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (sel === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join(''); };
-  var gghost = function (pid, d, ph, L) { return '<div class="gr gghost" style="' + cols + ';--lc:' + LVC[lv(L || 0)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + d * 8 : 8 + d * 18) + 'px"><span class="dh ph"></span><span class="cx"></span>' + (L ? '<span class="wck ckph"></span>' : '') + '<i class="lvb ghost"></i><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
+  var gghost = function (pid, d, ph, L) { return '<div data-d="' + (L || 0) + '" class="gr gghost" style="' + cols + ';--lc:' + LVC[lv(L || 0)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + d * 8 : 8 + d * 18) + 'px"><span class="dh ph"></span><span class="cx"></span>' + (L ? '<span class="wck ckph"></span>' : '') + '<i class="lvb ghost"></i><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
   var body = '';
   rows.forEach(function (r, idx) {
     if (r.ghost) { body += gghost(r.parent.id, r.d, r.d === 1 ? '＋ 業務を追加' : '＋ 追加', r.d); return; }
@@ -950,7 +952,7 @@ function ganttOf(rows) {
     var bar = '<div class="bar' + cls + (late(n) ? ' late' : '') + (canEdit(n) ? '' : ' lock') + '" data-bar="' + n.id + '" style="left:' + x(n.start) + 'px;width:' + Math.max(PX, x(n.end) - x(n.start) + PX) + 'px" title="' + esc(ttl(n) + '  ' + fmtDate(n.start) + '–' + fmtDate(n.end) + (w ? '  ' + w.name : '')) + '">' +
       (parent ? '' : '<span class="lb">' + esc(n.done ? '完了' : w ? w.name : '未定') + '</span>') + (canEdit(n) ? '<span class="hd" data-hd="1"></span>' : '') + '</div>';
     var ed = canEdit(n) ? '' : ' disabled';
-    body += '<div class="gr lv' + lv(r.d) + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + ';--lc:' + LVC[lv(r.d)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + r.d * 8 : 8 + r.d * 18) + 'px">' + (canMove(n) ? '<span class="dh" data-drag="' + n.id + '" title="ドラッグで移動（Alt+↑↓でも可）" aria-label="移動"><svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>' : '<span class="dh ph"></span>') + caret(r) +
+    body += '<div data-d="' + r.d + '" class="gr lv' + lv(r.d) + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + ';--lc:' + LVC[lv(r.d)] + '"><div class="gl" style="padding-left:' + (narrow ? 4 + r.d * 8 : 8 + r.d * 18) + 'px">' + (canMove(n) ? '<span class="dh" data-drag="' + n.id + '" title="ドラッグで移動（Alt+↑↓でも可）" aria-label="移動"><svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>' : '<span class="dh ph"></span>') + caret(r) +
         (r.d === 0 ? '' : !parent ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '<span class="wck ckph"></span>') +
         '<i class="lvb"></i><input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') +
         '<select class="cell gsel" data-c="w" data-id="' + n.id + '"' + (canAssign(n) ? '' : ' disabled') + ' aria-label="担当">' + wopts(n.who) + '</select>' +
@@ -1481,29 +1483,32 @@ function heightOf(n) { var h = 0; kids(n).forEach(function (c) { h = Math.max(h,
 function within(a, b) { while (b) { if (b === a) return true; b = parentOf(b); } return false; } // b is a or under a
 var mv = null;
 function mvPlan(e) {
-  var src = mv.n, el = document.elementFromPoint(e.clientX, e.clientY);
-  var row = el && el.closest('.wcards [data-row], .gg [data-row]');
-  if (!row) return null;
-  var r = row.getBoundingClientRect(), top = e.clientY < r.top + r.height / 2;
-  var ct = row.querySelector('.ct'), cx = ct ? ct.getBoundingClientRect().left : r.left;
-  if (!parentOf(src)) { // イベント同士の並べ替え
-    var tid = row.dataset.row ? row.dataset.row : row.querySelector('[data-parent]') && row.querySelector('[data-parent]').dataset.parent;
-    if (!tid) return null; reindex(); var root = IX[tid] && IX[tid].root; if (!root || root === src) return null;
-    var rows = Array.prototype.filter.call(document.querySelectorAll(mv.scope + ' [data-row]'), function (x) { return IX[x.dataset.row] && IX[x.dataset.row].root === root; });
-    var before = row.dataset.row === root.id && top, ref = before ? rows[0] : rows[rows.length - 1], rr = ref.getBoundingClientRect();
-    return { par: null, ref: root, before: before, y: before ? rr.top : rr.bottom, x: rr.left + 8, ok: true };
-  }
-  var par, ref = null, before = false, x = cx, y;
-  {
-    var t = task(row.dataset.row); if (!t) return null;
-    if (within(src, t)) return null;
-    var tp = parentOf(t);
-    if (!tp) { par = t; ref = kids(t)[0] || null; before = true; y = r.bottom; x = cx + 22; }
-    else if (!top && row.querySelector('.cx[aria-expanded="true"]')) { par = t; ref = kids(t)[0]; before = true; y = r.bottom; x = cx + 22; }
-    else { par = tp; ref = t; before = top; y = top ? r.top : r.bottom; }
-  }
-  if (!par || within(src, par)) return null;
-  var ok = (isAdmin() || canEdit(par)) && depthOf(par) + 1 + heightOf(src) <= MAXD;
+  // 同じ段の中でだけ動かす：イベントはイベントの間、部は部の間…
+  var src = mv.n, ds = depthOf(src), el = document.elementFromPoint(e.clientX, e.clientY);
+  var R = el && el.closest(mv.scope + ' [data-d]'); if (!R) return null;
+  var all = Array.prototype.slice.call(document.querySelectorAll(mv.scope + ' [data-d]')), ri = all.indexOf(R);
+  var D = function (x) { return +x.dataset.d; }, rect = function (x) { return x.getBoundingClientRect(); };
+  var cxOf = function (x) { var c = x.querySelector('.ct'); return c ? rect(c).left : rect(x).left + 8; };
+  var dr = D(R), par, ref = null, before = false, x, y;
+  if (dr === ds - 1 && R.dataset.row) { // 親になれる行の上 → その先頭に入れる
+    par = task(R.dataset.row); if (!par || within(src, par)) return null;
+    ref = kids(par)[0] || null; before = true; y = rect(R).bottom; x = cxOf(R) + 22;
+  } else if (dr >= ds) {
+    var ai = ri; while (ai >= 0 && D(all[ai]) > ds) ai--; if (ai < 0 || D(all[ai]) < ds) return null;
+    var A = all[ai];
+    if (!A.dataset.row) { // 同じ段の「＋ 追加」→ その並びの末尾
+      var pid = A.querySelector('[data-parent]').dataset.parent; par = pid ? task(pid) : null;
+      if (pid && !par) return null; y = rect(A).top; x = cxOf(A);
+    } else {
+      var a = task(A.dataset.row); if (!a || a === src) return null;
+      var bi = ai; while (bi + 1 < all.length && D(all[bi + 1]) > ds) bi++;
+      var top = rect(A).top, bot = rect(all[bi]).bottom;
+      before = e.clientY < (top + bot) / 2; par = parentOf(a); ref = a; y = before ? top : bot; x = cxOf(A);
+    }
+  } else return null;
+  if (par && within(src, par)) return null;
+  if (ds === 0 && mv.scope === '.wcards') y += (ref && !before) ? 8 : -8; // カードの間のすき間に線を出す
+  var ok = par ? (isAdmin() || canEdit(par)) : isAdmin();
   return { par: par, ref: ref, before: before, y: y, x: x, ok: ok };
 }
 function scroller(el) { while (el && el !== document.body) { var cs = getComputedStyle(el); if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight) return el; el = el.parentElement; } return document.scrollingElement; }
@@ -1538,7 +1543,7 @@ function mvEnd(e, cancel) {
   if (!pl.ok) { toast(depthOf(pl.par || m.n) + 1 + heightOf(m.n) > MAXD ? 'これ以上深い段には移動できません' : 'ここには移動できません'); return; }
   snap();
   var n = m.n, arr;
-  if (!pl.par) { S.projects.splice(S.projects.indexOf(n), 1); arr = S.projects; }
+  if (!pl.par) { manualRoots(); S.projects.splice(S.projects.indexOf(n), 1); arr = S.projects; }
   else { removeNode(n); if (!pl.par.tasks) { if (!pl.par.kids) pl.par.kids = []; delete pl.par.done; } arr = kids(pl.par); }
   var i = pl.ref ? arr.indexOf(pl.ref) : -1;
   if (i < 0) arr.push(n); else arr.splice(pl.before ? i : i + 1, 0, n);
@@ -1628,6 +1633,7 @@ document.addEventListener('keydown', function (e) {
   var c = el.dataset.c;
   if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.altKey && el.dataset.id) {
     e.preventDefault(); var mn = task(el.dataset.id); if (!mn || !canMove(mn)) return;
+    if (!parentOf(mn)) manualRoots();
     var ar = sibs(mn), mi = ar.indexOf(mn), mj = mi + (e.key === 'ArrowDown' ? 1 : -1);
     if (mj < 0 || mj >= ar.length) return;
     snap(); ar.splice(mi, 1); ar.splice(mj, 0, mn); rerender({ id: mn.id, c: el.dataset.c }); return;
