@@ -633,6 +633,16 @@ textarea.cell.ct{display:block;resize:none;overflow:hidden;height:auto;min-heigh
 .wcard .wr .wn > .lvb{margin-top:7px}
 .wcard .wr.ghost .wn > .lvb{margin-top:7px}
 @media (max-width:760px){ .wcard .wn{padding-left:calc(2px + var(--d) * 10px) !important} .wcard .wr .wn > .cx{width:30px !important} .wcard .wr .wn > .dh{width:18px} }
+
+/* 段の縦線だけ色付き */
+[data-d="0"] .lvb{background:#111827}
+[data-d="1"] .lvb{background:#2563EB}
+[data-d="2"] .lvb{background:#0D9488}
+[data-d="3"] .lvb{background:#D97706}
+.seg button:nth-child(1) .lvd{background:#111827 !important}
+.seg button:nth-child(2) .lvd{background:#2563EB !important}
+.seg button:nth-child(3) .lvd{background:#0D9488 !important}
+.seg button:nth-child(4) .lvd{background:#D97706 !important}
 </style>
 </head>
 <body>
