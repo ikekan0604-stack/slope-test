@@ -488,6 +488,7 @@ button.cx:hover{background:#E5E7EB;color:var(--text)}
 .gd.day.sun,.gd.day.sun small{color:#DC2626}
 .gd.day.sat,.gd.day.sat small{color:#2563EB}
 .gwe{position:absolute;top:0;bottom:0;background:#F9FAFB}
+.gw.wk{border-left-color:#E5E7EB}
 </style>
 </head>
 <body>
@@ -906,18 +907,23 @@ function ganttOf(rows) {
   var days = Math.round((hi - lo) / DAY) + 1;
   var avail = Math.max(320, window.innerWidth - (narrow ? 0 : 220) - LW - 4);
   var PX = Math.max(2, Math.min(48, S.zoom || (narrow ? 8 : 12))), TW = Math.max(days * PX, avail), DAYS = PX >= 30, WK = ['日', '月', '火', '水', '木', '金', '土'];
-  var x = function (iso) { return Math.round((dayOf(iso) - lo) / DAY) * PX; };
+  var x = function (iso) { return Math.round(Math.round((dayOf(iso) - lo) / DAY) * PX); };
   var hd = '', ln = '';
+  // grid density follows the zoom: months only when far out, + weeks in the middle, + every day when close
+  var GX = function (i) { return Math.round(i * PX); }, WEEKS = PX * 7 >= 28;
   for (var i = 0; i < days; i++) {
-    var d = new Date(lo + i * DAY);
-    if (d.getUTCDate() === 1 || i === 0) { hd += '<div class="gm" style="left:' + (i * PX) + 'px">' + (d.getUTCMonth() === 0 || i === 0 ? d.getUTCFullYear() + '年' : '') + (d.getUTCMonth() + 1) + '月</div>'; if (i) ln += '<div class="gmo" style="left:' + (i * PX) + 'px"></div>'; }
+    var d = new Date(lo + i * DAY), wd = d.getUTCDay(), first = d.getUTCDate() === 1;
+    if (first || i === 0) { hd += '<div class="gm" style="left:' + GX(i) + 'px">' + (d.getUTCMonth() === 0 || i === 0 ? d.getUTCFullYear() + '年' : '') + (d.getUTCMonth() + 1) + '月</div>'; if (i) ln += '<div class="gmo" style="left:' + GX(i) + 'px"></div>'; }
     if (DAYS) {
-      var wd = d.getUTCDay();
-      hd += '<div class="gd day' + (wd === 0 ? ' sun' : wd === 6 ? ' sat' : '') + '" style="left:' + (i * PX) + 'px;width:' + PX + 'px">' + d.getUTCDate() + '<small>' + WK[wd] + '</small></div>';
-      ln += (wd === 0 || wd === 6 ? '<div class="gwe" style="left:' + (i * PX) + 'px;width:' + PX + 'px"></div>' : '') + '<div class="gw" style="left:' + (i * PX) + 'px"></div>';
-    } else if (d.getUTCDay() === 1) { if (PX * 7 >= 30) hd += '<div class="gd" style="left:' + (i * PX) + 'px">' + d.getUTCDate() + '</div>'; ln += '<div class="gw" style="left:' + (i * PX) + 'px"></div>'; }
+      hd += '<div class="gd day' + (wd === 0 ? ' sun' : wd === 6 ? ' sat' : '') + '" style="left:' + GX(i) + 'px;width:' + Math.round(PX) + 'px">' + d.getUTCDate() + '<small>' + WK[wd] + '</small></div>';
+      if (wd === 0 || wd === 6) ln += '<div class="gwe" style="left:' + GX(i) + 'px;width:' + (GX(i + 1) - GX(i)) + 'px"></div>';
+      if (!first) ln += '<div class="gw' + (wd === 1 ? ' wk' : '') + '" style="left:' + GX(i) + 'px"></div>';
+    } else if (WEEKS && wd === 1) {
+      hd += '<div class="gd" style="left:' + GX(i) + 'px">' + d.getUTCDate() + '</div>';
+      if (!first) ln += '<div class="gw" style="left:' + GX(i) + 'px"></div>';
+    }
   }
-  var tx = Math.round((TODAY - lo) / DAY) * PX;
+  var tx = Math.round((TODAY - lo) / DAY * PX);
   if (tx >= 0 && tx <= TW) ln += '<div class="gnow" style="left:' + tx + 'px"></div>';
   var cols = 'grid-template-columns:' + LW + 'px ' + TW + 'px';
   var wopts = function (sel) { return '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (sel === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join(''); };
