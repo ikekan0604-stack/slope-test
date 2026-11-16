@@ -339,6 +339,15 @@ button.cx:hover{background:var(--hover);color:var(--text)}
 }
 .menu a.mlink{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:4px;color:var(--text);text-decoration:none}
 .menu a.mlink:hover{background:var(--hover)}
+
+/* mode switch (same control as the member app) */
+html,body{overscroll-behavior:none}
+.msw{position:relative;width:44px;height:26px;border-radius:13px;border:0;padding:0;background:#D1D5DB;cursor:pointer;flex:none;transition:background .16s}
+.msw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .16s}
+.msw.on{background:var(--accent)}
+.msw.on i{transform:translateX(18px)}
+.acct .mode{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 8px 8px;font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+@media (max-width:760px){ .side{overflow:visible !important} .nav{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none} .nav::-webkit-scrollbar{display:none} .acct{flex:none;display:flex;align-items:center;gap:4px;margin-left:0 !important;padding-left:4px;border-left:1px solid var(--line)} .acct .mode{padding:0 2px 0 4px} }
 </style>
 </head>
 <body>
@@ -860,9 +869,9 @@ function renderChrome() {
   document.getElementById('nav').innerHTML = navItems().map(function (v) {
     return '<button data-act="go" data-view="' + v.id + '"' + (S.view === v.id ? ' aria-current="page"' : '') + '>' + ic(v.id) + '<span>' + v.name + '</span>' + (c[v.id] ? '<span class="n">' + c[v.id] + '</span>' : '') + '</button>';
   }).join('');
-  document.getElementById('acct').innerHTML = '<button data-act="acct" aria-haspopup="true" aria-expanded="' + UI.acct + '">' + av(m.id, 'lg') + '<span class="who"><b>' + esc(m.name) + '</b><span>' + esc(m.unit === '—' ? '部員' : m.unit) + '</span></span>' + ic('chev') + '</button>' +
+  document.getElementById('acct').innerHTML = '<div class="mode"><span>運営</span><button class="msw on" data-to="./" role="switch" aria-checked="true" aria-label="部員画面に切り替える"><i></i></button></div>' + '<button data-act="acct" aria-haspopup="true" aria-expanded="' + UI.acct + '">' + av(m.id, 'lg') + '<span class="who"><b>' + esc(m.name) + '</b><span>' + esc(m.unit === '—' ? '部員' : m.unit) + '</span></span>' + ic('chev') + '</button>' +
     (UI.acct ? '<div class="menu" role="menu"><div class="mh">アカウントを切り替え（モック）</div>' + S.members.map(function (x) {
-      return '<button role="menuitem" data-act="switch" data-id="' + x.id + '">' + av(x.id) + '<span>' + esc(x.name) + '</span><span class="r">' + permLabel(x) + '</span></button>'; }).join('') + '<div style="border-top:1px solid var(--line);margin:4px -4px 0;padding:4px 4px 0"><a class="mlink" role="menuitem" href="./">' + ic('back') + '部員アプリに戻る</a></div></div>' : '');
+      return '<button role="menuitem" data-act="switch" data-id="' + x.id + '">' + av(x.id) + '<span>' + esc(x.name) + '</span><span class="r">' + permLabel(x) + '</span></button>'; }).join('') + '</div>' : '');
 }
 
 // ---------------- 教材 ----------------
@@ -1305,6 +1314,13 @@ document.addEventListener('pointerup', function () {
 
 render();
 })();
+</script>
+<script>
+document.addEventListener('click',function(e){
+  var sw=e.target.closest&&e.target.closest('.msw'); if(!sw)return;
+  e.preventDefault(); e.stopPropagation(); sw.classList.toggle('on');
+  setTimeout(function(){ location.replace(sw.dataset.to); },170);
+},true);
 </script>
 </body>
 </html>
