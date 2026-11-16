@@ -447,6 +447,19 @@ kbd{font-family:var(--font);font-size:10px;border:1px solid var(--line2);border-
   .wa .wdel{display:none}
   .cell{font-size:16px}
 }
+
+/* gantt: editable label column */
+.gl{cursor:default}
+.gl .ct{flex:1 1 auto;width:auto;min-width:0;height:30px;font-size:13px}
+.gr.g0 .gl .ct{font-weight:600}
+.gr.gdone .gl .ct{text-decoration:line-through;color:var(--dim)}
+.gl .gsel{width:92px;min-width:92px;flex:0 0 92px;height:28px;font-size:12px;color:var(--sub);padding:0 6px}
+.gl .ga{opacity:0;width:24px;height:24px;flex:none}
+.gr:hover .gl .ga{opacity:1}
+.gghost .gl{background:#fff}
+.gghost .ct::placeholder{color:var(--dim)}
+.gghost .ct:focus::placeholder{color:transparent}
+@media (max-width:760px){ .gl .gsel{display:none} .gl .ga{display:flex !important;opacity:1} }
 </style>
 </head>
 <body>
@@ -852,7 +865,7 @@ function viewWork() {
     (isAdmin() ? '<section class="wcard wnewc">' + ghost('', 0, '＋ イベントを追加') + '</section>' : '') + '</div></div>';
 }
 function ganttOf(rows) {
-  var narrow = window.innerWidth < 760, LW = narrow ? 170 : 320;
+  var narrow = window.innerWidth < 760, LW = narrow ? 170 : 380;
   var lo = Infinity, hi = -Infinity;
   rows.forEach(function (r) { lo = Math.min(lo, dayOf(r.n.start)); hi = Math.max(hi, dayOf(r.n.end)); });
   if (!rows.length) { lo = TODAY; hi = TODAY; }
@@ -871,17 +884,25 @@ function ganttOf(rows) {
   var tx = Math.round((TODAY - lo) / DAY) * PX;
   if (tx >= 0 && tx <= TW) ln += '<div class="gnow" style="left:' + tx + 'px"></div>';
   var cols = 'grid-template-columns:' + LW + 'px ' + TW + 'px';
-  var body = rows.map(function (r) {
+  var wopts = function (sel) { return '<option value="">未定</option>' + S.members.map(function (m) { return '<option value="' + m.id + '"' + (sel === m.id ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join(''); };
+  var gghost = function (pid, d, ph) { return '<div class="gr gghost" style="' + cols + '"><div class="gl" style="padding-left:' + (8 + d * 18) + 'px"><span class="cx"></span><input class="cell ct" data-c="new" data-parent="' + pid + '" placeholder="' + ph + '" aria-label="' + ph + '" autocomplete="off"></div><div class="gt"></div></div>'; };
+  var body = '';
+  rows.forEach(function (r, idx) {
     var n = r.n, parent = kids(n).length > 0 || !!n.tasks, w = member(n.who), dn = isDone(n);
     var cls = parent ? ' sum' + (r.d === 0 ? ' root' : '') + (dn ? ' done' : '') : (n.done ? ' done' : (!n.who ? ' none' : ''));
     var bar = '<div class="bar' + cls + (late(n) ? ' late' : '') + (canEdit(n) ? '' : ' lock') + '" data-bar="' + n.id + '" style="left:' + x(n.start) + 'px;width:' + Math.max(PX, x(n.end) - x(n.start) + PX) + 'px" title="' + esc(ttl(n) + '  ' + fmtDate(n.start) + '–' + fmtDate(n.end) + (w ? '  ' + w.name : '')) + '">' +
       (parent ? '' : '<span class="lb">' + esc(n.done ? '完了' : w ? w.name : '未定') + '</span>') + (canEdit(n) ? '<span class="hd" data-hd="1"></span>' : '') + '</div>';
-    return '<div class="gr' + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + '" style="' + cols + '"><div class="gl" style="padding-left:' + (8 + r.d * 18) + 'px"' + (r.ctx ? '' : ' data-act="edit" data-id="' + n.id + '" role="button" tabindex="0"') + '>' + caret(r) +
-        '<span class="nm' + (dn && !parent ? ' done' : '') + '">' + esc(ttl(n)) + '</span>' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') + (n.who ? av(n.who) : '') +
-        (canEdit(n) ? '<button class="ib ga" data-act="addc" data-id="' + n.id + '" aria-label="' + esc(ttl(n)) + 'の下に追加">' + ic('plus') + '</button>' : '') + '</div>' +
+    var ed = canEdit(n) ? '' : ' disabled';
+    body += '<div class="gr' + (r.d === 0 ? ' g0' : '') + (r.ctx ? ' gctx' : '') + (dn && !parent ? ' gdone' : '') + '" data-row="' + n.id + '" style="' + cols + '"><div class="gl" style="padding-left:' + (8 + r.d * 18) + 'px">' + caret(r) +
+        (!parent && r.d > 0 ? '<input type="checkbox" class="check wck" data-c="done" data-id="' + n.id + '"' + (n.done ? ' checked' : '') + ed + ' aria-label="完了">' : '') +
+        '<input class="cell ct" data-c="t" data-id="' + n.id + '" value="' + esc(ttl(n)) + '"' + ed + ' aria-label="業務名" autocomplete="off">' + (late(n) ? '<span class="lt" title="期限切れ"></span>' : '') +
+        '<select class="cell gsel" data-c="w" data-id="' + n.id + '"' + (canAssign(n) ? '' : ' disabled') + ' aria-label="担当">' + wopts(n.who) + '</select>' +
+        '<button class="ib ga" data-act="edit" data-id="' + n.id + '" aria-label="詳細">' + ic('more') + '</button></div>' +
       '<div class="gt">' + bar + '</div></div>';
-  }).join('');
-  var addRow = isAdmin() ? '<div class="gr gadd" style="' + cols + '"><div class="gl" data-act="addev" role="button" tabindex="0">' + ic('plus') + '<span>イベントを追加</span></div><div class="gt"></div></div>' : '';
+    var next = rows[idx + 1];
+    if (r.d >= 0 && (!next || next.d === 0)) { var root = rootOf(n); if (canEdit(root) && isOpen(root, 0)) body += gghost(root.id, 1, '＋ 業務を追加'); }
+  });
+  var addRow = isAdmin() ? gghost('', 0, '＋ イベントを追加') : '';
   var n = Math.max(3, Math.ceil((window.innerHeight - 52 - 41 - 49 - 56 - (rows.length + 1) * 40) / 40) + 1), fill = '';
   for (var j = 0; j < n; j++) fill += '<div class="gr gfill" style="' + cols + '"><div class="gl"></div><div class="gt"></div></div>';
   return '<div class="gs" id="gs"><div class="gg" data-px="' + PX + '" style="width:' + (LW + TW) + 'px">' +
@@ -1413,7 +1434,7 @@ document.addEventListener('pointermove', function (e) {
 document.addEventListener('pointerup', function () {
   if (!drag) return;
   var d = drag; drag = null; d.el.classList.remove('drag');
-  if (!d.dd) { M = { m: 'edit', id: d.k.id }; renderModal(); return; }
+  if (!d.dd) { var ce = document.querySelector('.cell[data-c="t"][data-id="' + d.k.id + '"]'); if (ce) { ce.focus(); ce.select(); } return; }
   if (d.resize) d.k.end = isoOf(Math.max(dayOf(d.k.start), dayOf(d.k.end) + d.dd * DAY));
   else nodesOf(d.k).forEach(function (x) { x.start = isoOf(dayOf(x.start) + d.dd * DAY); x.end = isoOf(dayOf(x.end) + d.dd * DAY); });
   save(); render();
@@ -1467,12 +1488,12 @@ function outdent(n) {
 }
 function moveFocus(el, dir) {
   var c = el.dataset.c === 'new' ? 't' : el.dataset.c;
-  var all = Array.prototype.slice.call(document.querySelectorAll('.wcards .cell[data-c="' + c + '"]:not([disabled]), .wcards .cell[data-c="new"]'));
-  if (c !== 't') all = Array.prototype.slice.call(document.querySelectorAll('.wcards .cell[data-c="' + c + '"]:not([disabled])'));
+  var all = Array.prototype.slice.call(document.querySelectorAll('.cell[data-c="' + c + '"]:not([disabled]), .cell[data-c="new"]'));
+  if (c !== 't') all = Array.prototype.slice.call(document.querySelectorAll('.cell[data-c="' + c + '"]:not([disabled])'));
   var i = all.indexOf(el); var t = all[i + dir]; if (t) { t.focus(); if (t.select && t.type === 'text') t.select(); }
 }
 document.addEventListener('keydown', function (e) {
-  var el = e.target; if (!el.classList || !el.classList.contains('cell') || !el.closest('.wcards')) return;
+  var el = e.target; if (!el.classList || !el.classList.contains('cell') || !el.closest('.wcards, .gg')) return;
   var c = el.dataset.c;
   if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { if (el.tagName === 'SELECT') return; e.preventDefault(); moveFocus(el, e.key === 'ArrowDown' ? 1 : -1); return; }
   if (e.isComposing || e.keyCode === 229) return; // IME変換中のEnterは無視
@@ -1500,7 +1521,7 @@ document.addEventListener('keydown', function (e) {
     return;
   }
   if (e.key === 'Backspace' && el.value === '' && parentOf(n) && !kids(n).length) {
-    e.preventDefault(); var all = Array.prototype.slice.call(document.querySelectorAll('.wcards .cell[data-c="t"]')); var prev = all[all.indexOf(el) - 1];
+    e.preventDefault(); var all = Array.prototype.slice.call(document.querySelectorAll('.cell[data-c="t"]')); var prev = all[all.indexOf(el) - 1];
     snap(); removeNode(n); rerender(prev ? { id: prev.dataset.id, c: 't' } : null); return;
   }
   if (e.key === 'Escape') { el.value = ttl(n); el.blur(); }
@@ -1513,7 +1534,7 @@ document.addEventListener('focusout', function (e) {
   if (v !== ttl(n)) { setTitle(n, v); delete n.fresh; save(); } else delete n.fresh;
 }, true);
 document.addEventListener('change', function (e) {
-  var el = e.target; if (!el.classList || !el.closest || !el.closest('.wcards')) return;
+  var el = e.target; if (!el.classList || !el.closest || !el.closest('.wcards, .gg')) return;
   var c = el.dataset.c; if (!c || c === 't' || c === 'new') return;
   var n = task(el.dataset.id); if (!n) return;
   if (c === 'w') { var prev = n.who; n.who = el.value; if (el.value && el.value !== prev) { window.notify(el.value, '「' + ttl(n) + '」の担当になりました', ttl(rootOf(n))); toast(member(el.value).name + 'に通知しました'); } rerender({ id: n.id, c: 'w' }); return; }
