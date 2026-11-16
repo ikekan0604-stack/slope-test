@@ -598,6 +598,26 @@ body.moving,body.moving *{cursor:grabbing !important;user-select:none}
 .mname{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;cursor:pointer;text-align:left;color:inherit;font:inherit}
 .mname:hover .cell2 > span:first-child{text-decoration:underline}
 .mpost{max-width:200px;font-size:13px}
+
+/* 段ごとの色分け（行の背景） */
+:root{--t0:#F3F4F6;--t1:#EEF4FF;--t2:#EAF8F5;--t3:#FEF6E7}
+.wcard .wr[data-d="0"],.wcard .wr.head{background:var(--t0)}
+.wcard .wr[data-d="1"]{background:var(--t1)}
+.wcard .wr[data-d="2"]{background:var(--t2)}
+.wcard .wr[data-d="3"]{background:var(--t3)}
+.wcard .wr[data-d]:hover{background-image:linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025))}
+.wcard .wr.ghost{background-image:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45))}
+.wcard .wr[data-d]{border-bottom-color:rgba(17,24,39,.06)}
+.gr[data-d="0"] .gl,.gr.g0 .gl{background:var(--t0)}
+.gr[data-d="1"] .gl{background:var(--t1)}
+.gr[data-d="2"] .gl{background:var(--t2)}
+.gr[data-d="3"] .gl{background:var(--t3)}
+.gr[data-d]:hover .gl{background-image:linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025))}
+.gghost .gl{background-image:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45))}
+.gr[data-d="0"] .gt{background:rgba(17,24,39,.025)}
+.gr[data-d="1"] .gt{background:rgba(37,99,235,.035)}
+.gr[data-d="2"] .gt{background:rgba(13,148,136,.04)}
+.gr[data-d="3"] .gt{background:rgba(217,119,6,.045)}
 </style>
 </head>
 <body>
